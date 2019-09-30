@@ -252,11 +252,11 @@ typedef struct {
 
 static thread_t threads[4];
 
-void launch(int cpu, f_t *f, void *a) ;
+void schedule(int cpu, f_t *f, void *a) ;
 
 void *join(int cpu) ;
 
-void go(void);
+void go(void* vtable);
 
 /* Detached lauch and join */
 

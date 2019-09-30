@@ -187,6 +187,44 @@ static void check_globals(ctx_t *_a) {
 /* Litmus code */
 /***************/
 
+void e1_sync_sp_el1(void) {
+  ctx_t *_a;
+  int i;
+  asm volatile (
+    "mov %[a], X30\n"
+    "mov %[i], X29\n"
+  : [a] "=r" (_a), [i] "=r" (i)
+  :
+  : "x29", "x30", "memory"
+  );
+
+  asm volatile (
+    "ldr w2, [%[x3]]\n"
+    :
+    : [x3] "r" (&_a->x[i])
+    : "x2", "memory"
+  );
+}
+
+void __vtable(void) {
+  asm volatile (
+    ".balign 0x800\n"
+    ".global new_vector_table\n"
+    "new_vector_table:\n\t"
+    ".balign 0x200\n"
+    "eret\n\t"
+    ".balign 0x200\n");
+    e1_sync_sp_el1();
+  asm volatile (
+    "eret\n\t"
+    ".balign 0x200\n\t"
+    "eret\n\t"
+    ".balign 0x200\n\t"
+    "eret\n\t"
+  );
+}
+
+
 typedef struct {
   int th_id; /* I am running on this thread */
   int *cpu; /* On this cpu */
@@ -207,10 +245,13 @@ static void *P0(void *_vb) {
   for (int _j = _stride ; _j > 0 ; _j--) {
     for (int _i = _size_of_test-_j ; _i >= 0 ; _i -= _stride) {
       barrier_wait(_th_id,_i,&barrier[_i]);
+      uint64_t ctxp = (uint64_t)_a;
       int trashed_x0;
       int trashed_x2;
 asm __volatile__ (
 "\n"
+"mov x30, %[ctx]\n\t"
+"mov x29, %[i]\n\t"
 "#START _litmus_P0\n"
 "#_litmus_P0_0\n\t"
 "mov %w[x0],#1\n"
@@ -222,8 +263,8 @@ asm __volatile__ (
 "str %w[x2],[%[x3]]\n"
 "#END _litmus_P0\n\t"
 :[x2] "=&r" (trashed_x2),[x0] "=&r" (trashed_x0)
-:[x1] "r" (&_a->x[_i]),[x3] "r" (&_a->y[_i])
-:"cc","memory"
+:[x1] "r" (&_a->x[_i]),[x3] "r" (&_a->y[_i]),[ctx] "r" (ctxp),[i] "r" (_i)
+:"cc","memory","x29","x30"
 );
     }
   }
@@ -247,17 +288,22 @@ static void *P1(void *_vb) {
   for (int _j = _stride ; _j > 0 ; _j--) {
     for (int _i = _size_of_test-_j ; _i >= 0 ; _i -= _stride) {
       barrier_wait(_th_id,_i,&barrier[_i]);
+      uint64_t ctxp = (uint64_t)_a;
 asm __volatile__ (
 "\n"
+"mov x30, %[ctx]\n\t"
+"mov x29, %[i]\n\t"
 "#START _litmus_P1\n"
 "#_litmus_P1_0\n\t"
 "ldr %w[x0],[%[x1]]\n"
 "#_litmus_P1_1\n\t"
-"ldr %w[x2],[%[x3]]\n"
+/* "ldr %w[x2],[%[x3]]\n" */
+"svc #0\n"
+"mov %w[x2], w2\n"
 "#END _litmus_P1\n\t"
 :[x2] "=&r" (out_1_x2[_i]),[x0] "=&r" (out_1_x0[_i])
-:[x1] "r" (&_a->y[_i]),[x3] "r" (&_a->x[_i])
-:"cc","memory"
+:[x1] "r" (&_a->y[_i]),[x3] "r" (&_a->x[_i]),[ctx] "r" (ctxp),[i] "r" (_i)
+:"cc","memory","x29","x30","x0","x1","x2","x10"
 );
     }
   }
@@ -616,10 +662,18 @@ static void run(cmd_t *cmd,cpus_t *def_all_cpus) {
   }
 
   tsc_t start = timeofday();
-  launch(1, funs[0], &parg[0]);
-  launch(2, funs[1], &parg[1]);
+  schedule(1, funs[0], &parg[0]);
+  schedule(2, funs[1], &parg[1]);
 
-  go();
+  void* new_table;
+  asm (
+    "adrp %[new_table], new_vector_table\n\t"
+    "add %[new_table], %[new_table], :lo12:new_vector_table\n\t"
+    : [new_table] "=r" (new_table)
+    :
+    : "memory"
+  );
+  go(new_table);
 
   join(1);
   join(2);

@@ -1036,7 +1036,7 @@ void pb_wait(pb_t *p) {
 
 /* Thread launch and join */
 
-void launch(int cpu, f_t *f, void *a) {
+void schedule(int cpu, f_t *f, void *a) {
   threads[cpu].cpu = cpu;
   threads[cpu].f = f;
   threads[cpu].start_arg = a;
@@ -1053,20 +1053,35 @@ void *join(int cpu) {
   /* return r ; */
 }
 
-void go_cpus(void) {
+void go_cpus(void* vtable) {
   int cpu = smp_processor_id();
+
   printf("CPU%d: on\n", cpu);
+
+  /* setup exceptions */
+  uint64_t old_table;
+  asm volatile ("mrs %[p], vbar_el1\n" : [p] "=r" (old_table) : : "memory");
+  asm volatile ("msr vbar_el1, %[p]\n" : : [p] "r" (vtable) : "memory");
+  asm volatile ("isb" ::: "memory");
+
   f_t* f = threads[cpu].f;
   void* r = NULL;
   if (f != NULL) {
     r = f(threads[cpu].start_arg);
   }
+
+  /* restore old vtable now tests are over */
+  asm volatile ("msr vbar_el1, %[p]\n" : : [p] "r" (old_table) : "memory");
+
   threads[cpu].return_arg = r;
   threads[cpu].returned = 1;
+  /* if (f != NULL) { */
+  /*   asm ("b halt"); */
+  /* } */
 }
 
-void go(void) {
-    on_cpus(go_cpus, NULL);
+void go(void* vtable) {
+    on_cpus(go_cpus, vtable);
 }
 
 /* static void do_launch_detached(f_t *f, void *a) { */
