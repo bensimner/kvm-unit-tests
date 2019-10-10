@@ -1054,14 +1054,18 @@ void *join(int cpu) {
 }
 
 void go_cpus(void* vtable) {
+  uint64_t old_table;
   int cpu = smp_processor_id();
 
   printf("CPU%d: on\n", cpu);
 
   /* setup exceptions */
-  uint64_t old_table;
   asm volatile ("mrs %[p], vbar_el1\n" : [p] "=r" (old_table) : : "memory");
-  asm volatile ("msr vbar_el1, %[p]\n" : : [p] "r" (vtable) : "memory");
+
+  if (vtable != NULL) {
+      asm volatile ("msr vbar_el1, %[p]\n" : : [p] "r" (vtable) : "memory");
+  }
+
   asm volatile ("isb" ::: "memory");
 
   f_t* f = threads[cpu].f;

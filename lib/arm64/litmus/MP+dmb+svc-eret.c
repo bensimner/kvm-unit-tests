@@ -188,11 +188,33 @@ static void check_globals(ctx_t *_a) {
 /***************/
 
 static void e1_sync_sp_el1(void) {
-    /* no handler */
+  ctx_t *_a;
+  int i;
+  asm volatile (
+    "mov %[a], X30\n"
+    "mov %[i], X29\n"
+  : [a] "=r" (_a), [i] "=r" (i)
+  :
+  : "x29", "x30", "memory"
+  );
+
+  /* INTENTIONALLY BLANK */
 }
 
 static void __vtable(void) {
-    /* no handler */
+  asm volatile (
+    ".balign 0x800\n"
+    ".balign 0x200\n"
+    "eret\n\t"
+    ".balign 0x200\n");
+    e1_sync_sp_el1();
+  asm volatile (
+    "eret\n\t"
+    ".balign 0x200\n\t"
+    "eret\n\t"
+    ".balign 0x200\n\t"
+    "eret\n\t"
+  );
 }
 
 
@@ -268,6 +290,7 @@ asm __volatile__ (
 "#_litmus_P1_0\n\t"
 "ldr %w[x0],[%[x1]]\n"
 "#_litmus_P1_1\n\t"
+"svc #0\n"
 "ldr %w[x2],[%[x3]]\n"
 "mov %w[x2], w2\n"
 "#END _litmus_P1\n\t"
@@ -333,10 +356,10 @@ static void ass(void) { }
 #endif
 
 static void prelude(void) {
-  printf("%s\n","%%%%%%%%%%%%%%%%%%%%%%%%%");
-  printf("%s\n","% Results for MP.litmus %");
-  printf("%s\n","%%%%%%%%%%%%%%%%%%%%%%%%%");
-  printf("%s\n","AArch64 MP");
+  printf("%s\n","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+  printf("%s\n","% Results for MP+dmb+svc-eret.litmus %");
+  printf("%s\n","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+  printf("%s\n","AArch64 MP+dmb+svc");
   printf("%s\n","\"PodWW Rfe PodRR Fre\"");
   printf("%s\n","{0:X1=x; 0:X3=y; 1:X1=y; 1:X3=x;}");
   printf("%s\n"," P0          | P1          ;");
@@ -635,7 +658,10 @@ static void run(cmd_t *cmd,cpus_t *def_all_cpus) {
   schedule(1, funs[0], &parg[0]);
   schedule(2, funs[1], &parg[1]);
 
-  go(NULL);  /* no exception handlers */
+  uint64_t new_table = (uint64_t)((void*)__vtable);
+  new_table += 0x400;
+  new_table &= ~(0x800 - 1);
+  go(new_table);
 
   join(1);
   join(2);
@@ -662,8 +688,8 @@ static void run(cmd_t *cmd,cpus_t *def_all_cpus) {
 }
 
 
-int MP(int argc, char** argv);
-int MP(int argc, char **argv) {
+int MP_dmb_svc_eret(int argc, char** argv);
+int MP_dmb_svc_eret(int argc, char **argv) {
   cpus_t *def_all_cpus = read_force_affinity(AVAIL,0);
   if (def_all_cpus->sz < N) {
     cpus_free(def_all_cpus);

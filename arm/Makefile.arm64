@@ -30,6 +30,8 @@ cflatobjs += lib/arm64/litmus/litmus_rand.o
 cflatobjs += lib/arm64/litmus/affinity.o
 cflatobjs += lib/arm64/litmus/run.o
 cflatobjs += lib/arm64/litmus/MP.o
+cflatobjs += lib/arm64/litmus/MP+dmb+svc.o
+cflatobjs += lib/arm64/litmus/MP+dmb+svc-eret.o
 
 OBJDIRS += lib/arm64
 
@@ -37,7 +39,7 @@ OBJDIRS += lib/arm64
 tests = $(TEST_DIR)/timer.flat
 tests += $(TEST_DIR)/micro-bench.flat
 tests += $(TEST_DIR)/exceptions_test.flat
-tests += $(TEST_DIR)/litmus_mp.flat
+tests += $(TEST_DIR)/litmus.flat
 
 include $(SRCDIR)/$(TEST_DIR)/Makefile.common
 
