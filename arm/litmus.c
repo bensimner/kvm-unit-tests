@@ -1,14 +1,18 @@
 #include <libcflat.h>
 
+extern int MyMP(void);
 extern int MP(int argc, char** argv);
 extern int MP_dmb_svc(int argc, char** argv);
 extern int MP_dmb_svc_eret(int argc, char** argv);
+extern int MP_dmbs(int argc, char** argv);
 
 int main(int argc, char **argv)
 {
-    MP(argc, argv);
-    MP_dmb_svc(argc, argv);
-    MP_dmb_svc_eret(argc, argv);
+    /* MP(argc, argv); */
+    /* MP_dmbs(argc, argv); */
+    /* MP_dmb_svc(argc, argv); */
+    /* MP_dmb_svc_eret(argc, argv); */
+    MyMP();
     return report_summary();
 }
 

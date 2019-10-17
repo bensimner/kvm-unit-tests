@@ -30,8 +30,10 @@ cflatobjs += lib/arm64/litmus/litmus_rand.o
 cflatobjs += lib/arm64/litmus/affinity.o
 cflatobjs += lib/arm64/litmus/run.o
 cflatobjs += lib/arm64/litmus/MP.o
+cflatobjs += lib/arm64/litmus/MyMP.o
 cflatobjs += lib/arm64/litmus/MP+dmb+svc.o
 cflatobjs += lib/arm64/litmus/MP+dmb+svc-eret.o
+cflatobjs += lib/arm64/litmus/MP+dmbs.o
 
 OBJDIRS += lib/arm64
 
