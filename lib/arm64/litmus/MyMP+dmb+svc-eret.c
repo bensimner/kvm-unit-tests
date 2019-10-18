@@ -3,8 +3,8 @@
 #include <libcflat.h>
 #include <asm/smp.h>
 
-#define T 10000            /* number of runs */
-#define NAME "MP+dmb+svc"  /* litmus test name */
+#define T 10000                 /* number of runs */
+#define NAME "MP+dmb+svc-eret"  /* litmus test name */
 
 #define eret() asm volatile ("eret" ::: "memory")
 #define dsb() asm volatile  ("dsb sy" ::: "memory")
@@ -29,27 +29,6 @@ typedef struct {
   uint64_t volatile* final_barrier;
 } test_ctx_t;
 
-__attribute__((noinline))
-static void e1_sync_sp_el1(uint64_t esr_el1, void* a, uint64_t i) {
-  switch (esr_el1 >> 26) {
-    case 0x15:  /* EC=0x15 => SVC */
-      break;
-    default:
-      return;
-  }
-
-  test_ctx_t *ctx = a;
-
-  uint64_t volatile* x2 = ctx->out_p1_x2;
-  uint64_t volatile* x = ctx->x;
-  asm volatile (
-    "ldr %[x2], [%[x3]]\n"
-    : [x2] "=r" (x2[i])
-    : [x3] "r" (&x[i])
-    : "memory"
-  );
-}
-
 static void __vtable(void) {
   asm volatile (
     ".balign 0x800\n"
@@ -65,8 +44,6 @@ static void __vtable(void) {
 
     ".balign 0x200\n"  /* current EL, with SP_ELx */
     ".balign 0x80\n"
-    "mrs x0, ESR_EL1\n"
-    "bl e1_sync_sp_el1\n"
     "eret\n"
     ".balign 0x80\n"
     "eret\n" /* irq */
@@ -119,23 +96,20 @@ static void P1(void* a) {
   test_ctx_t* ctx = (test_ctx_t* )a;
   uint64_t* bars = ctx->barriers;
 
+  uint64_t* x = ctx->x;
   uint64_t* y = ctx->y;
   uint64_t* x0 = ctx->out_p1_x0;
+  uint64_t* x2 = ctx->out_p1_x2;
 
   for (uint64_t i = 0; i < T; i++) {
     bwait(1, i % 2, &bars[i]);
-    uint64_t iout;
     asm volatile (
       "ldr %[x0], [%[x1]]\n\t"
-      /* arguments passed to SVC through x0,x1,x2 */
-                            /* x0=ESR_EL1 set in vector table */
-      "mov x1, %[ctx]\n\t"  /* pointer to test_ctx_t object */
-      "mov x2, %[i]\n\t"    /* which iteration */
       "svc #0\n\t"
-    : [x0] "=r" (x0[i]), [iout] "=r" (iout)
-    : [x1] "r" (&y[i]), [i] "r" (i), [ctx] "r" (ctx),
-      [_] "r" (e1_sync_sp_el1) /* make sure e1_sync_sp_el1 is in same compilation unit */
-    : "cc", "memory", 
+      "ldr %[x2], [%[x3]]\n\t"
+    : [x0] "=r" (x0[i]), [x2] "=r" (x2[i])
+    : [x1] "r" (&y[i]), [x3] "r" (&x[i])
+    : "cc", "memory",
       "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7",  /* dont touch parameter registers */
       "x8",  /* dont touch location register */
       "x9", "x10", "x11", "x12", "x13", "x14", "x15" /* dont touch temp registers */
@@ -180,7 +154,7 @@ static void go_cpus(void* a) {
   bwait(cpu, 0, ctx->final_barrier);
 }
 
-void MyMP_dmb_svc(void) {
+void MyMP_dmb_svc_eret(void) {
   uint64_t* x = malloc(sizeof(uint64_t)*T);
   uint64_t* y = malloc(sizeof(uint64_t)*T);
   uint64_t* x0 = malloc(sizeof(uint64_t)*T);

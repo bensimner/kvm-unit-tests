@@ -36,6 +36,7 @@ cflatobjs += lib/arm64/litmus/MP+dmbs.o
 cflatobjs += lib/arm64/litmus/MyMP+pos.o
 cflatobjs += lib/arm64/litmus/MyMP+dmbs.o
 cflatobjs += lib/arm64/litmus/MyMP+dmb+svc.o
+cflatobjs += lib/arm64/litmus/MyMP+dmb+svc-eret.o
 
 OBJDIRS += lib/arm64
 
