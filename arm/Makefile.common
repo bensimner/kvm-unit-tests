@@ -61,7 +61,7 @@ libgcc := $(shell $(CC) $(machine) --print-libgcc-file-name)
 
 FLATLIBS = $(libcflat) $(LIBFDT_archive) $(libgcc) $(libeabi)
 %.elf: LDFLAGS = -nostdlib $(arch_LDFLAGS)
-%.elf: %.o $(FLATLIBS) $(SRCDIR)/arm/flat.lds $(cstart.o)
+%.elf: %.o $(FLATLIBS) $(SRCDIR)/arm/flat.lds $(cstart.o) $(cflatobjs)
 	$(CC) $(CFLAGS) -c -o $(@:.elf=.aux.o) $(SRCDIR)/lib/auxinfo.c \
 		-DPROGNAME=\"$(@:.elf=.flat)\" -DAUXFLAGS=$(AUXFLAGS)
 	$(LD) $(LDFLAGS) -o $@ -T $(SRCDIR)/arm/flat.lds \

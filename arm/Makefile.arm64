@@ -8,7 +8,8 @@ ldarch = elf64-littleaarch64
 
 arch_LDFLAGS = -pie -n
 
-CFLAGS += -I $(SRCDIR)/lib/arm64/litmus/
+CFLAGS += -I $(SRCDIR)/lib/arm64/litmus/herd/
+CFLAGS += -I $(SRCDIR)/lib/arm64/litmus/hand/
 CFLAGS += -DFORCE_AFFINITY
 CFLAGS += -DASS
 CFLAGS += -D_GNU_SOURCE
@@ -24,21 +25,26 @@ endef
 cstart.o = $(TEST_DIR)/cstart64.o
 cflatobjs += lib/arm64/processor.o
 cflatobjs += lib/arm64/spinlock.o
-cflatobjs += lib/arm64/litmus/outs.o
-cflatobjs += lib/arm64/litmus/utils.o
-cflatobjs += lib/arm64/litmus/litmus_rand.o
-cflatobjs += lib/arm64/litmus/affinity.o
-cflatobjs += lib/arm64/litmus/run.o
-cflatobjs += lib/arm64/litmus/MP.o
-cflatobjs += lib/arm64/litmus/MP+dmb+svc.o
-cflatobjs += lib/arm64/litmus/MP+dmb+svc-eret.o
-cflatobjs += lib/arm64/litmus/MP+dmbs.o
-cflatobjs += lib/arm64/litmus/MyMP+pos.o
-cflatobjs += lib/arm64/litmus/MyMP+dmbs.o
-cflatobjs += lib/arm64/litmus/MyMP+dmb+svc.o
-cflatobjs += lib/arm64/litmus/MyMP+dmb+svc-eret.o
+cflatobjs += lib/arm64/litmus/herd/outs.o
+cflatobjs += lib/arm64/litmus/herd/utils.o
+cflatobjs += lib/arm64/litmus/herd/litmus_rand.o
+cflatobjs += lib/arm64/litmus/herd/affinity.o
+cflatobjs += lib/arm64/litmus/herd/run.o
+cflatobjs += lib/arm64/litmus/herd/MP.o
+cflatobjs += lib/arm64/litmus/herd/MP+dmb+svc.o
+cflatobjs += lib/arm64/litmus/herd/MP+dmb+svc-eret.o
+cflatobjs += lib/arm64/litmus/herd/MP+dmbs.o
+cflatobjs += lib/arm64/litmus/hand/MyMP+pos.o
+cflatobjs += lib/arm64/litmus/hand/MyMP+dmbs.o
+cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+svc.o
+cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+svc0.o
+cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+svc-eret.o
+cflatobjs += lib/arm64/litmus/hand/MyCommon.o
+cflatobjs += lib/arm64/litmus/hand/MyVectorTable.o
 
 OBJDIRS += lib/arm64
+OBJDIRS += lib/arm64/litmus/herd/
+OBJDIRS += lib/arm64/litmus/hand/
 
 # arm64 specific tests
 tests = $(TEST_DIR)/timer.flat

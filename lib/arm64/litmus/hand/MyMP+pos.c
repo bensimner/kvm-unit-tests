@@ -3,25 +3,15 @@
 #include <libcflat.h>
 #include <asm/smp.h>
 
+#include "MyCommon.h"
+
 #define T 10000           /* number of runs */
 #define NAME "MP+pos"     /* litmus test name */
-
-#define dsb() asm volatile  ("dsb sy" ::: "memory")
-
-static void bwait(int cpu, int i, uint64_t volatile* barrier) {
-  if (i == cpu) {
-    *barrier = 1;
-    dsb();
-  } else {
-    while (*barrier == 0);
-  }
-}
 
 typedef struct {
   uint64_t* x;
   uint64_t* y;
   uint64_t volatile* barriers;
-  void* vtable;
   uint64_t* out_p1_x0;
   uint64_t* out_p1_x2;
   uint64_t volatile* final_barrier;
@@ -78,7 +68,6 @@ static void go_cpus(void* a) {
   int cpu = smp_processor_id();
   printf("CPU%d: on\n", cpu);
 
-  void* r = NULL;
   switch (cpu) {
     case 1:
       P0(a);
@@ -114,12 +103,11 @@ void MyMP_pos(void) {
   ctx.x = x;
   ctx.y = y;
   ctx.barriers = bars;
-  ctx.vtable = NULL;
   ctx.out_p1_x0 = x0;
   ctx.out_p1_x2 = x2;
   ctx.final_barrier = &final_barrier;
 
-  asm ("dsb sy");
+  dsb();
 
   /* run test */
   printf("%s\n", "Running Tests ...");

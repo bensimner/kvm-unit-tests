@@ -3,25 +3,15 @@
 #include <libcflat.h>
 #include <asm/smp.h>
 
-#define T 10000           /* number of runs */
-#define NAME "MP+dmbs"    /* litmus test name */
+#include "MyCommon.h"
 
-#define dsb() asm volatile  ("dsb sy" ::: "memory")
-
-static void bwait(int cpu, int i, uint64_t volatile* barrier) {
-  if (i == cpu) {
-    *barrier = 1;
-    dsb();
-  } else {
-    while (*barrier == 0);
-  }
-}
+#define T 10000                 /* number of runs */
+#define NAME "MP+dmb+svc-eret"  /* litmus test name */
 
 typedef struct {
   uint64_t* x;
   uint64_t* y;
   uint64_t volatile* barriers;
-  void* vtable;
   uint64_t* out_p1_x0;
   uint64_t* out_p1_x2;
   uint64_t volatile* final_barrier;
@@ -58,14 +48,14 @@ static void P1(void* a) {
 
   for (uint64_t i = 0; i < T; i++) {
     bwait(1, i % 2, &bars[i]);
-    uint64_t iout;
     asm volatile (
       "ldr %[x0], [%[x1]]\n\t"
-      "dmb sy\n\t"
+      "svc #0\n\t"
       "ldr %[x2], [%[x3]]\n\t"
     : [x0] "=r" (x0[i]), [x2] "=r" (x2[i])
     : [x1] "r" (&y[i]), [x3] "r" (&x[i])
-    : "cc", "memory"
+    : "cc", "memory",
+      "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
     );
 
     if (i % T/10 == 0) {
@@ -74,13 +64,21 @@ static void P1(void* a) {
   }
 }
 
+static void* svc_handler(uint64_t esr, regvals_t* regs) {
+    dsb();
+    /* intentionally empty */
+}
+
 static void go_cpus(void* a) {
   test_ctx_t* ctx = (test_ctx_t* )a;
 
   int cpu = smp_processor_id();
   printf("CPU%d: on\n", cpu);
 
-  void* r = NULL;
+  /* setup exceptions */
+  uint64_t* old_table = set_vector_table(&el1_exception_vector_table);
+  set_handler(VEC_EL1H_SYNC, EC_SVC64, svc_handler);
+
   switch (cpu) {
     case 1:
       P0(a);
@@ -90,10 +88,13 @@ static void go_cpus(void* a) {
       break;
   }
 
+  /* restore old vtable now tests are over */
+  set_vector_table(old_table);
+
   bwait(cpu, 0, ctx->final_barrier);
 }
 
-void MyMP_dmbs(void) {
+void MyMP_dmb_svc_eret(void) {
   uint64_t* x = malloc(sizeof(uint64_t)*T);
   uint64_t* y = malloc(sizeof(uint64_t)*T);
   uint64_t* x0 = malloc(sizeof(uint64_t)*T);
@@ -116,12 +117,11 @@ void MyMP_dmbs(void) {
   ctx.x = x;
   ctx.y = y;
   ctx.barriers = bars;
-  ctx.vtable = NULL;
   ctx.out_p1_x0 = x0;
   ctx.out_p1_x2 = x2;
   ctx.final_barrier = &final_barrier;
 
-  asm ("dsb sy");
+  dsb();
 
   /* run test */
   printf("%s\n", "Running Tests ...");

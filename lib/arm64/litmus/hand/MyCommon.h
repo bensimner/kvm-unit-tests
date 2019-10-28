@@ -1,0 +1,100 @@
+/* Common types and declarations 
+ */
+
+#ifndef _MYCOMMON_H
+#define _MYCOMMON_H
+
+#define N_CPUS 4
+
+#include <stdint.h>
+
+#include <libcflat.h>
+
+#define isb()  asm volatile("isb")
+#define dsb()  asm volatile("dsb sy")
+#define eret()  asm volatile("eret")
+
+/* defined in MyVectorTable.S */
+extern uint64_t el1_exception_vector_table;
+
+/* Enum of vector table entries
+ * Stored in order, aligned at 0x20 boundries
+ */
+enum vec_entries {
+  VEC_EL1T_SYNC,
+  VEC_EL1T_IRQ,
+  VEC_EL1T_FIQ,
+  VEC_EL1T_ERROR,
+  VEC_EL1H_SYNC,
+  VEC_EL1H_IRQ,
+  VEC_EL1H_FIQ,
+  VEC_EL1H_ERROR,
+  VEC_EL0_SYNC_64,
+  VEC_EL0_IRQ_64,
+  VEC_EL0_FIQ_64,
+  VEC_EL0_ERROR_64,
+  VEC_EL0_SYNC_32,
+  VEC_EL0_IRQ_32,
+  VEC_EL0_FIQ_32,
+  VEC_EL0_ERROR_32,
+};
+
+static const char* vec_names[16] = {
+  "VEC_EL1T_SYNC",
+  "VEC_EL1T_IRQ",
+  "VEC_EL1T_FIQ",
+  "VEC_EL1T_ERROR",
+  "VEC_EL1H_SYNC",
+  "VEC_EL1H_IRQ",
+  "VEC_EL1H_FIQ",
+  "VEC_EL1H_ERROR",
+  "VEC_EL0_SYNC_64",
+  "VEC_EL0_IRQ_64",
+  "VEC_EL0_FIQ_64",
+  "VEC_EL0_ERROR_64",
+  "VEC_EL0_SYNC_32",
+  "VEC_EL0_IRQ_32",
+  "VEC_EL0_FIQ_32",
+  "VEC_EL0_ERROR_32",
+};
+
+/* useful ECs */
+#define EC_SVC64     0x15  /* SVC from AArch64 */
+#define EC_IABT_EL0  0x20  /* Instruction Abort */
+#define EC_IABT_EL1  0x21  /* Instruction Abort */
+#define EC_PC_ALIGN  0x22  /* PC Alignment Fault */
+#define EC_DABT_EL0  0x24  /* Data Abort */
+#define EC_DABT_EL1  0x25  /* Data Abort */
+
+static const char* ec_names[0x26] = {
+  [0x15] = "EC_SVC64",
+  [0x20] = "EC_IABT_EL0",
+  [0x21] = "EC_IABT_EL1",
+  [0x22] = "EC_PC_ALIGN",
+  [0x24] = "EC_DABT_EL0",
+  [0x25] = "EC_DABT_EL1",
+};
+
+typedef struct {
+    uint64_t x0, x1, x2, x3, x4, x5, x6, x7;
+} regvals_t;
+
+/* Exception Vectors */
+
+void* default_handler(uint64_t vec, uint64_t esr);
+
+typedef void* exception_vector_fn(uint64_t esr, regvals_t* regs);
+
+exception_vector_fn* table[N_CPUS][4][64];
+
+void set_handler(uint64_t vec, uint64_t ec,  exception_vector_fn* fn);
+void reset_handler(uint64_t vec, uint64_t ec);
+void* handle_exception(uint64_t vec, uint64_t esr, regvals_t* regs);
+
+extern uint64_t set_vector_table(uint64_t);
+extern void tnop(void);
+
+/* Synchronisation */
+
+void bwait(int cpu, int i, uint64_t volatile* barrier);
+#endif

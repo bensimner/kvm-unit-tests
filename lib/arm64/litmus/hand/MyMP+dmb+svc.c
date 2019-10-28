@@ -3,97 +3,19 @@
 #include <libcflat.h>
 #include <asm/smp.h>
 
+#include "MyCommon.h"
+
 #define T 10000            /* number of runs */
 #define NAME "MP+dmb+svc"  /* litmus test name */
-
-#define eret() asm volatile ("eret" ::: "memory")
-#define dsb() asm volatile  ("dsb sy" ::: "memory")
-#define isb() asm volatile  ("isb" ::: "memory")
-
-static void bwait(int cpu, int i, uint64_t volatile* barrier) {
-  if (i == cpu) {
-    *barrier = 1;
-    dsb();
-  } else {
-    while (*barrier == 0);
-  }
-}
 
 typedef struct {
   uint64_t* x;
   uint64_t* y;
   uint64_t volatile* barriers;
-  void* vtable;
   uint64_t* out_p1_x0;
   uint64_t* out_p1_x2;
   uint64_t volatile* final_barrier;
 } test_ctx_t;
-
-__attribute__((noinline))
-static void e1_sync_sp_el1(uint64_t esr_el1, void* a, uint64_t i) {
-  switch (esr_el1 >> 26) {
-    case 0x15:  /* EC=0x15 => SVC */
-      break;
-    default:
-      return;
-  }
-
-  test_ctx_t *ctx = a;
-
-  uint64_t volatile* x2 = ctx->out_p1_x2;
-  uint64_t volatile* x = ctx->x;
-  asm volatile (
-    "ldr %[x2], [%[x3]]\n"
-    : [x2] "=r" (x2[i])
-    : [x3] "r" (&x[i])
-    : "memory"
-  );
-}
-
-static void __vtable(void) {
-  asm volatile (
-    ".balign 0x800\n"
-
-    ".balign 0x200\n"  /* current EL, with SP_EL0 */
-    "eret\n" /* sync */
-    ".balign 0x80\n"
-    "eret\n" /* irq */
-    ".balign 0x80\n"
-    "eret\n" /* fiq */
-    ".balign 0x80\n"
-    "eret\n" /* serror */
-
-    ".balign 0x200\n"  /* current EL, with SP_ELx */
-    ".balign 0x80\n"
-    "mrs x0, ESR_EL1\n"
-    "bl e1_sync_sp_el1\n"
-    "eret\n"
-    ".balign 0x80\n"
-    "eret\n" /* irq */
-    ".balign 0x80\n"
-    "eret\n" /* fiq */
-    ".balign 0x80\n"
-    "eret\n" /* serror */
-
-    ".balign 0x200\n"  /* lower EL, with SP_EL0 */
-    "eret\n" /* sync */
-    ".balign 0x80\n"
-    "eret\n" /* irq */
-    ".balign 0x80\n"
-    "eret\n" /* fiq */
-    ".balign 0x80\n"
-    "eret\n" /* serror */
-
-    ".balign 0x200\n"  /* lower EL, with SP_ELx */
-    "eret\n" /* sync */
-    ".balign 0x80\n"
-    "eret\n" /* irq */
-    ".balign 0x80\n"
-    "eret\n" /* fiq */
-    ".balign 0x80\n"
-    "eret\n" /* serror */
-  );
-}
 
 static void P0(void* a) {
   test_ctx_t* ctx = (test_ctx_t* )a;
@@ -127,18 +49,15 @@ static void P1(void* a) {
     uint64_t iout;
     asm volatile (
       "ldr %[x0], [%[x1]]\n\t"
+
       /* arguments passed to SVC through x0,x1,x2 */
-                            /* x0=ESR_EL1 set in vector table */
+      "mov x0, %[i]\n\t"    /* which iteration */
       "mov x1, %[ctx]\n\t"  /* pointer to test_ctx_t object */
-      "mov x2, %[i]\n\t"    /* which iteration */
       "svc #0\n\t"
-    : [x0] "=r" (x0[i]), [iout] "=r" (iout)
-    : [x1] "r" (&y[i]), [i] "r" (i), [ctx] "r" (ctx),
-      [_] "r" (e1_sync_sp_el1) /* make sure e1_sync_sp_el1 is in same compilation unit */
-    : "cc", "memory", 
-      "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7",  /* dont touch parameter registers */
-      "x8",  /* dont touch location register */
-      "x9", "x10", "x11", "x12", "x13", "x14", "x15" /* dont touch temp registers */
+    : [x0] "=&r" (x0[i]), [iout] "=&r" (iout)
+    : [x1] "r" (&y[i]), [i] "r" (i), [ctx] "r" (ctx)
+    : "cc", "memory",
+      "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
     );
 
     if (i % T/10 == 0) {
@@ -147,24 +66,30 @@ static void P1(void* a) {
   }
 }
 
+static void svc_handler(uint64_t esr, regvals_t* regs) {
+  /* invariant: only called within an SVC */
+  uint64_t i = regs->x0;
+  test_ctx_t *ctx = regs->x1;
+  uint64_t* x2 = ctx->out_p1_x2;
+  uint64_t* x = ctx->x;
+  asm volatile (
+    "ldr %[x2], [%[x3]]\n"
+    : [x2] "=&r" (x2[i])
+    : [x3] "r" (&x[i])
+    : "memory"
+  );
+}
+
 static void go_cpus(void* a) {
   test_ctx_t* ctx = (test_ctx_t* )a;
-  void* vtable = ctx->vtable;
 
-  uint64_t old_table;
   int cpu = smp_processor_id();
   printf("CPU%d: on\n", cpu);
 
   /* setup exceptions */
-  asm volatile ("mrs %[p], vbar_el1\n" : [p] "=r" (old_table) : : "memory");
+  uint64_t* old_table = set_vector_table(&el1_exception_vector_table);
+  set_handler(VEC_EL1H_SYNC, EC_SVC64, svc_handler);
 
-  if (vtable != NULL) {
-    asm volatile ("msr vbar_el1, %[p]\n" : : [p] "r" (vtable) : "memory");
-  }
-
-  isb();
-
-  void* r = NULL;
   switch (cpu) {
     case 1:
       P0(a);
@@ -175,7 +100,7 @@ static void go_cpus(void* a) {
   }
 
   /* restore old vtable now tests are over */
-  asm volatile ("msr vbar_el1, %[p]\n" : : [p] "r" (old_table) : "memory");
+  set_vector_table(old_table);
 
   bwait(cpu, 0, ctx->final_barrier);
 }
@@ -199,22 +124,17 @@ void MyMP_dmb_svc(void) {
     bars[i] = 0;
   }
 
-  uint64_t new_table = (uint64_t)((void*)__vtable);
-  /* get pointer to start of aligned section */
-  new_table += 0x800 - 1;
-  new_table &= ~0x7ff;
-  printf("New EL1 Exception Vector @ %p\n", new_table);
+  printf("New EL1 Exception Vector @ %p\n", &el1_exception_vector_table);
 
   test_ctx_t ctx;
   ctx.x = x;
   ctx.y = y;
   ctx.barriers = bars;
-  ctx.vtable = new_table;
   ctx.out_p1_x0 = x0;
   ctx.out_p1_x2 = x2;
   ctx.final_barrier = &final_barrier;
 
-  asm ("dsb sy");
+  dsb();
 
   /* run test */
   printf("%s\n", "Running Tests ...");
@@ -227,6 +147,7 @@ void MyMP_dmb_svc(void) {
 
   for (int i = 0; i < T; i++) {
     if (x0[i] > 2 || x2[i] > 2) {
+      printf("skipping x0=%d, x2=%d\n", x0[i], x2[i]);
       skipped_results++;
       continue;
     }
