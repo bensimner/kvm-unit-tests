@@ -70,7 +70,6 @@ static void go_cpus(void* a) {
   int cpu = smp_processor_id();
   printf("CPU%d: on\n", cpu);
 
-  void* r = NULL;
   switch (cpu) {
     case 1:
       P0(a);

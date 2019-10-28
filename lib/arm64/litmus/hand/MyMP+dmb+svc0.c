@@ -67,7 +67,7 @@ static void P1(void* a) {
   }
 }
 
-static void svc_handler(uint64_t esr, regvals_t* regs) {
+static void* svc_handler(uint64_t esr, regvals_t* regs) {
   /* invariant: only called within an SVC */
   uint64_t iss = esr & 0xffffff;
 
@@ -102,7 +102,7 @@ static void svc_handler(uint64_t esr, regvals_t* regs) {
         "mov x18, sp\n"
         "msr sp_el0, x18\n"
 
-        "msr vbar_el1, x0\n"
+        /* "msr vbar_el1, x0\n" */
         "isb\n"
       :
       : [v] "r" (old_table)
@@ -129,7 +129,19 @@ static void svc_handler(uint64_t esr, regvals_t* regs) {
       );
       break;
     }
+    /* read CurrentEL via SPSR */
+    case 3: {
+      uint64_t cel;
+      asm volatile (
+        "mrs %[cel], SPSR_EL1\n"
+        "and %[cel], %[cel], #12\n"
+      : [cel] "=r" (cel)
+      );
+      return cel;
+    }
   }
+
+  return NULL;
 }
 
 
@@ -142,29 +154,34 @@ static void go_cpus(void* a) {
   /* setup exceptions */
   uint64_t* old_table = set_vector_table(&el1_exception_vector_table);
   set_handler(VEC_EL1H_SYNC, EC_SVC64, svc_handler);
+  set_handler(VEC_EL0_SYNC_64, EC_SVC64, svc_handler);
 
   /* drop to EL0 */
   asm volatile (
-    "mov x0, %[v]\n"
     "svc #1\n\t"
   :
-  : [v] "r" (old_table)
+  :
   : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
   );
 
   uint64_t cel;
+  asm volatile (
+      "svc #3\n" /* read CurrentEL */
+      "mov %[el], x0\n" 
+  : [el] "=r" (cel)
+  :
+  : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
+  );
+  printf("CPU%d, CurrentEL = %d\n", cpu, cel >> 2);
 
-  asm volatile ("mrs %[el], CurrentEL\n" : [el] "=r" (cel));
-  printf("cel = %d\n", cel >> 2);
-
-  /* switch (cpu) { */
-  /*   case 1: */
-  /*     P0(a); */
-  /*     break; */
-  /*   case 2: */
-  /*     P1(a); */
-  /*     break; */
-  /* } */
+  switch (cpu) {
+    case 1:
+      P0(a);
+      break;
+    case 2:
+      P1(a);
+      break;
+  }
 
   /* restore EL1 */
   asm volatile (
