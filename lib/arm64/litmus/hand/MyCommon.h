@@ -12,7 +12,19 @@
 
 #define isb()  asm volatile("isb")
 #define dsb()  asm volatile("dsb sy")
+#define dmb()  asm volatile("dmb sy")
 #define eret()  asm volatile("eret")
+
+
+/* random numbers */
+uint64_t SEED;
+
+uint64_t read_clk(void);
+void rand_seed(uint64_t seed);
+uint64_t randn(void);
+void shuffle(uint64_t* arr, int n);
+
+/* Exception Vectors */
 
 /* defined in MyVectorTable.S */
 extern uint64_t el1_exception_vector_table;

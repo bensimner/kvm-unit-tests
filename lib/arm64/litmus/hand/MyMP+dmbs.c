@@ -15,14 +15,29 @@ typedef struct {
   uint64_t* out_p1_x0;
   uint64_t* out_p1_x2;
   uint64_t volatile* final_barrier;
+  uint64_t* shuffled;
 } test_ctx_t;
+
+static void prefetch(test_ctx_t* ctx) {
+  for (int j = 0; j < T; j++) {
+    int i = ctx->shuffled[j];
+    if (randn() % 2 && ctx->x[i] != 0) {
+      printf("Fail!  initial state wasn't 0\n");
+    }
+    if (randn() % 2 && ctx->y[i] != 0) {
+      printf("Fail!  initial state wasn't 0\n");
+    }
+  }
+}
 
 static void P0(void* a) {
   test_ctx_t* ctx = (test_ctx_t* )a;
   uint64_t volatile* x = ctx->x;
   uint64_t volatile* y = ctx->y;
   uint64_t volatile* bars = ctx->barriers;
-  for (int i = 0; i < T; i++) {
+  prefetch(ctx);
+  for (int j = 0; j < T; j++) {
+    int i = ctx->shuffled[j];
     bwait(0, i % 2, &bars[i]);
     asm volatile (
       "mov x0, #1\n\t"
@@ -46,7 +61,9 @@ static void P1(void* a) {
   uint64_t* x0 = ctx->out_p1_x0;
   uint64_t* x2 = ctx->out_p1_x2;
 
-  for (uint64_t i = 0; i < T; i++) {
+  prefetch(ctx);
+  for (int j = 0; j < T; j++) {
+    int i = ctx->shuffled[j];
     bwait(1, i % 2, &bars[i]);
     uint64_t iout;
     asm volatile (
@@ -88,6 +105,7 @@ void MyMP_dmbs(void) {
   uint64_t* x0 = malloc(sizeof(uint64_t)*T);
   uint64_t* x2 = malloc(sizeof(uint64_t)*T);
   uint64_t* bars = malloc(sizeof(uint64_t)*T);
+  uint64_t* shuffled = malloc(sizeof(uint64_t)*T);
   uint64_t final_barrier = 0;
 
   printf("====== %s ======\n", NAME);
@@ -99,6 +117,7 @@ void MyMP_dmbs(void) {
     x0[i] = 0;
     x2[i] = 0;
     bars[i] = 0;
+    shuffled[i] = i;
   }
 
   test_ctx_t ctx;
@@ -108,8 +127,13 @@ void MyMP_dmbs(void) {
   ctx.out_p1_x0 = x0;
   ctx.out_p1_x2 = x2;
   ctx.final_barrier = &final_barrier;
+  ctx.shuffled = shuffled;
 
-  asm ("dsb sy");
+  /* shuffle shuffled */
+  rand_seed(read_clk());
+  shuffle(shuffled, T);
+
+  dsb();
 
   /* run test */
   printf("%s\n", "Running Tests ...");

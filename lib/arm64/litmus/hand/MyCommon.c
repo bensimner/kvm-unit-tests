@@ -5,6 +5,38 @@
 
 #include <MyCommon.h>
 
+void rand_seed(uint64_t seed) {
+  SEED = seed;
+}
+
+uint64_t read_clk(void) {
+  return 42;  /* TODO: read from some actual randomish source */
+}
+
+uint64_t randn(void) {
+  uint64_t st = SEED;
+  for (int i = 1; i < 64; i++) {
+    int x = (st >> (i-1)) & 0x1;
+    int y = (st >> (i+1)) & 0x1;
+    int z = x ^ y;
+    int mask = z << i;
+    SEED = SEED | mask;
+  }
+  return SEED;
+}
+
+void shuffle(uint64_t* arr, int n) {
+  for (int i = 0; i < n; i++) {
+    int x = randn() % n;
+    int y = randn() % n;
+    uint64_t temp = arr[x];
+    arr[x] = arr[y];
+    arr[y] = temp;
+  }
+}
+
+
+
 /* Exception Vectors */
 
 void* default_handler(uint64_t vec, uint64_t esr) {
@@ -45,7 +77,7 @@ void* handle_exception(uint64_t vec, uint64_t esr, regvals_t* regs) {
 void bwait(int cpu, int i, uint64_t volatile* barrier) {
   if (i == cpu) {
     *barrier = 1;
-    dsb();
+    dmb();
   } else {
     while (*barrier == 0);
   }
