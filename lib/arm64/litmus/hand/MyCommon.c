@@ -16,17 +16,18 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_heap_vars, int no_ou
   uint64_t* shuffled = malloc(sizeof(uint64_t)*no_runs);
 
   for (int v = 0; v < no_heap_vars; v++) {
-      uint64_t* heap_var = malloc(sizeof(uint64_t*)*no_runs);
+      uint64_t* heap_var = malloc(sizeof(uint64_t)*no_runs);
       heap_vars[v] = heap_var;
   }
 
   for (int r = 0; r < no_out_regs; r++) {
-      uint64_t* out_reg = malloc(sizeof(uint64_t*)*no_runs);
+      uint64_t* out_reg = malloc(sizeof(uint64_t)*no_runs);
       out_regs[r] = out_reg;
   }
 
 
   for (int i = 0; i < no_runs; i++) {
+    /* one time init so column major doesnt matter */
     for (int v = 0; v < no_heap_vars; v++)
         heap_vars[v][i] = 0;
 
@@ -44,6 +45,7 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_heap_vars, int no_ou
   shuffle(shuffled, no_runs);
 
   test_hist_t* hist = malloc(sizeof(test_hist_t)+sizeof(test_result_t)*100);
+  hist->allocated = 0;
   hist->limit = 100;
   test_result_t** lut = malloc(sizeof(test_result_t*)*100);
   hist->lut = lut;
@@ -105,7 +107,7 @@ static int matches(test_result_t* result, test_ctx_t* ctx, int run)  {
 }
 
 static int ix_from_values(test_ctx_t* ctx, int run) {
-  uint64_t val = 0;
+  int val = 0;
   for (int reg = 0; reg < ctx->no_out_regs; reg++) {
     uint64_t v = ctx->out_regs[reg][run];
     if (v < 4) {
@@ -116,9 +118,6 @@ static int ix_from_values(test_ctx_t* ctx, int run) {
     }
   }
   return val;
-}
-
-static test_result_t* lookup(test_hist_t* res, test_ctx_t* ctx, int run)  {
 }
 
 static void add_results(test_hist_t* res, test_ctx_t* ctx, int run) {
@@ -163,10 +162,11 @@ static void add_results(test_hist_t* res, test_ctx_t* ctx, int run) {
   }
 }
 
-static void prefetch(test_ctx_t* ctx, int i) {
+void prefetch(test_ctx_t* ctx, int i) {
   for (int v = 0; v < ctx->no_heap_vars; v++) {
     if (randn() % 2 && ctx->heap_vars[v][i] != 0) {
-      printf("%s\n", "Fail!  initial state wasn't 0");
+      printf("! fatal initial state for heap var %d on run %d was %d not 0\n", v, i, ctx->heap_vars[v][i]);
+      abort();
     }
   }
 }
