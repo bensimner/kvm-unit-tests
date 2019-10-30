@@ -75,7 +75,7 @@ static void P1(void* a) {
 
     bwait(1, i % 2, &end_bars[i], 2);
     if (i % T/10 == 0) {
-      printf("%s", ".\n");
+      trace("%s", ".\n");
     }
   }
 }
@@ -163,7 +163,7 @@ static void go_cpus(void* a) {
   test_ctx_t* ctx = (test_ctx_t* )a;
 
   int cpu = smp_processor_id();
-  printf("CPU%d: on\n", cpu);
+  trace("CPU%d: on\n", cpu);
 
   /* setup exceptions */
   uint64_t* old_table = set_vector_table(&el1_exception_vector_table);
@@ -200,7 +200,7 @@ static void go_cpus(void* a) {
   : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7",  /* dont touch parameter registers */
     "memory"
   );
-  printf("CPU%d, CurrentEL = %d\n", cpu, cel >> 2);
+  trace("CPU%d, CurrentEL = %d\n", cpu, cel >> 2);
 
   switch (cpu) {
     case 1:
@@ -211,7 +211,7 @@ static void go_cpus(void* a) {
       break;
   }
 
-  printf("CPU%d, Finished, Restoring to EL1\n", cpu);
+  trace("CPU%d, Finished, Restoring to EL1\n", cpu);
 
   /* restore EL1 */
   asm volatile (
@@ -232,16 +232,16 @@ void MyMP_dmb_eret0(void) {
   test_ctx_t ctx;
   init_test_ctx(&ctx, NAME, 2, 2, T);
 
-  printf("====== %s ======\n", NAME);
+  trace("====== %s ======\n", NAME);
 
-  printf("New EL1 Exception Vector @ %p\n", &el1_exception_vector_table);
+  trace("New EL1 Exception Vector @ %p\n", &el1_exception_vector_table);
 
   /* run test */
-  printf("%s\n", "Running Tests ...");
+  trace("%s\n", "Running Tests ...");
   on_cpus(go_cpus, &ctx);
 
   /* collect results */
-  printf("%s\n", "Ran Tests.");
+  trace("%s\n", "Ran Tests.");
 
   /* collect results */
   const char* reg_names[] = {
@@ -253,7 +253,7 @@ void MyMP_dmb_eret0(void) {
     /* p1:x2 =*/ 0,
   };
 
-  printf("%s\n", "Printing Results...");
+  trace("%s\n", "Printing Results...");
   print_results(ctx.hist, &ctx, reg_names, relaxed_result);
   free_test_ctx(&ctx);
 }

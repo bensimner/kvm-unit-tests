@@ -148,4 +148,8 @@ extern void tnop(void);
 /* Synchronisation */
 
 void bwait(int cpu, int i, uint64_t volatile* barrier, int sz);
+
+/* Tracing */
+#define TRACE 1
+void trace(char* fmt, ...);
 #endif

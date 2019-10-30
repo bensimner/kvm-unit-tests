@@ -181,7 +181,7 @@ void end_of_run(test_ctx_t* ctx, int i) {
 }
 
 void print_results(test_hist_t* res, test_ctx_t* ctx, char** out_reg_names, int* interesting_results) {
-  printf("Results:\n");
+  printf("Test %s:\n", ctx->test_name);
   int marked = 0;
   for (int r = 0; r < res->allocated; r++) {
     int was_interesting = 1;
@@ -304,4 +304,17 @@ void bwait(int cpu, int i, uint64_t volatile* barrier, int sz) {
   } else {
     while (*barrier != 0);
   }
+}
+
+
+/* Tracing */
+void trace(char* fmt, ...) {
+#if TRACE
+  char out[1000];
+  va_list args;
+  va_start(args, fmt);
+  vsnprintf(out, 1000, fmt, args);
+  va_end(args);
+  printf("[trace] %s", out);
+#endif
 }
