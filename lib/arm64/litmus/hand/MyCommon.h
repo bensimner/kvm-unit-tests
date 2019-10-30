@@ -147,5 +147,5 @@ extern void tnop(void);
 
 /* Synchronisation */
 
-void bwait(int cpu, int i, uint64_t volatile* barrier);
+void bwait(int cpu, int i, uint64_t volatile* barrier, int sz);
 #endif

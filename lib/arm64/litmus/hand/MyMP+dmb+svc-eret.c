@@ -26,7 +26,7 @@ static void P0(void* a) {
     int i = ctx->shuffled_ixs[j];
 
     start_of_run(ctx, i);
-    bwait(0, i % 2, &start_bars[i]);
+    bwait(0, i % 2, &start_bars[i], 2);
     asm volatile (
       "mov x0, #1\n\t"
       "str x0, [%[x1]]\n\t"
@@ -38,7 +38,7 @@ static void P0(void* a) {
     : "cc", "memory", "x0", "x2"
     );
 
-    bwait(0, i % 2, &end_bars[i]);
+    bwait(0, i % 2, &end_bars[i], 2);
     end_of_run(ctx, i);
   }
 }
@@ -56,7 +56,7 @@ static void P1(void* a) {
   for (int j = 0; j < T; j++) {
     int i = ctx->shuffled_ixs[j];
     start_of_run(ctx, i);
-    bwait(1, i % 2, &start_bars[i]);
+    bwait(1, i % 2, &start_bars[i], 2);
     asm volatile (
       "ldr %[x0], [%[x1]]\n\t"
       "svc #0\n\t"
@@ -67,7 +67,7 @@ static void P1(void* a) {
       "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
     );
 
-    bwait(1, i % 2, &end_bars[i]);
+    bwait(1, i % 2, &end_bars[i], 2);
     if (i % T/10 == 0) {
       printf("%s", ".\n");
     }
@@ -99,7 +99,7 @@ static void go_cpus(void* a) {
   /* restore old vtable now tests are over */
   set_vector_table(old_table);
 
-  bwait(cpu, 0, ctx->final_barrier);
+  bwait(cpu, 0, ctx->final_barrier, N_CPUS);
 }
 
 void MyMP_dmb_svc_eret(void) {

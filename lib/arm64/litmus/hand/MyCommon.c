@@ -279,11 +279,23 @@ void* handle_exception(uint64_t vec, uint64_t esr, regvals_t* regs) {
 
 /* Synchronisation */
 
-void bwait(int cpu, int i, uint64_t volatile* barrier) {
+void bwait(int cpu, int i, uint64_t volatile* barrier, int sz) {
+  asm volatile (
+    "0:\n"
+    "ldxr x0, [%[bar]]\n"
+    "add x0, x0, #1\n"
+    "stxr w1, x0, [%[bar]]\n"
+    "cbnz w1, 0b\n"
+  :
+  : [bar] "r" (barrier)
+  : "x0", "x1", "memory"
+  );
+
   if (i == cpu) {
-    *barrier = 1;
+    while (*barrier != sz);
+    *barrier = 0;
     dmb();
   } else {
-    while (*barrier == 0);
+    while (*barrier != 0);
   }
 }
