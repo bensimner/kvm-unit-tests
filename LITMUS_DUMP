@@ -1,0 +1,3699 @@
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5000
+ p1:x0=1  p1:x2=0  : 6 *
+ p1:x0=1  p1:x2=1  : 4950
+ p1:x0=0  p1:x2=1  : 44
+Observation MP+pos: 6 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3902
+ p1:x0=0  p1:x2=1  : 1106
+ p1:x0=0  p1:x2=0  : 4992
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58619
+ p1:x0=1  p1:x2=1  : 36041
+ p1:x0=0  p1:x2=0  : 5340
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 661216
+ p1:x0=1  p1:x2=1  : 300911
+ p1:x0=0  p1:x2=0  : 37873
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 510559
+ p1:x0=0  p1:x2=1  : 381761
+ p1:x0=0  p1:x2=0  : 107680
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3359
+ p1:x0=0  p1:x2=1  : 6635
+ p1:x0=0  p1:x2=0  : 6
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4890
+ p1:x0=0  p1:x2=0  : 5006
+ p1:x0=0  p1:x2=1  : 98
+ p1:x0=1  p1:x2=0  : 6 *
+Observation MP+pos: 6 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1823
+ p1:x0=1  p1:x2=1  : 3186
+ p1:x0=0  p1:x2=0  : 4991
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 60283
+ p1:x0=1  p1:x2=1  : 32971
+ p1:x0=0  p1:x2=0  : 6746
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 693632
+ p1:x0=0  p1:x2=0  : 39482
+ p1:x0=1  p1:x2=1  : 266886
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 503581
+ p1:x0=0  p1:x2=1  : 397318
+ p1:x0=0  p1:x2=0  : 99101
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2937
+ p1:x0=0  p1:x2=1  : 7049
+ p1:x0=0  p1:x2=0  : 14
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4864
+ p1:x0=0  p1:x2=0  : 5003
+ p1:x0=1  p1:x2=0  : 2 *
+ p1:x0=0  p1:x2=1  : 131
+Observation MP+pos: 2 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1051
+ p1:x0=1  p1:x2=1  : 3951
+ p1:x0=0  p1:x2=0  : 4998
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35588
+ p1:x0=0  p1:x2=1  : 57718
+ p1:x0=0  p1:x2=0  : 6694
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 657241
+ p1:x0=0  p1:x2=0  : 45260
+ p1:x0=1  p1:x2=1  : 297499
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 502998
+ p1:x0=0  p1:x2=1  : 392704
+ p1:x0=0  p1:x2=0  : 104298
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2406
+ p1:x0=0  p1:x2=1  : 7588
+ p1:x0=0  p1:x2=0  : 6
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5019
+ p1:x0=1  p1:x2=1  : 4929
+ p1:x0=0  p1:x2=1  : 43
+ p1:x0=1  p1:x2=0  : 9 *
+Observation MP+pos: 9 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3710
+ p1:x0=0  p1:x2=1  : 1292
+ p1:x0=0  p1:x2=0  : 4998
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58775
+ p1:x0=1  p1:x2=1  : 35614
+ p1:x0=0  p1:x2=0  : 5611
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 648838
+ p1:x0=1  p1:x2=1  : 288877
+ p1:x0=0  p1:x2=0  : 62285
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 505911
+ p1:x0=0  p1:x2=0  : 129898
+ p1:x0=0  p1:x2=1  : 364191
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3081
+ p1:x0=0  p1:x2=1  : 6907
+ p1:x0=0  p1:x2=0  : 12
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5013
+ p1:x0=1  p1:x2=0  : 9 *
+ p1:x0=1  p1:x2=1  : 4975
+ p1:x0=0  p1:x2=1  : 3
+Observation MP+pos: 9 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 4251
+ p1:x0=0  p1:x2=1  : 751
+ p1:x0=0  p1:x2=0  : 4998
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 39231
+ p1:x0=0  p1:x2=1  : 55139
+ p1:x0=0  p1:x2=0  : 5630
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 640654
+ p1:x0=0  p1:x2=0  : 47618
+ p1:x0=1  p1:x2=1  : 311728
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 515107
+ p1:x0=0  p1:x2=0  : 121868
+ p1:x0=0  p1:x2=1  : 363025
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2982
+ p1:x0=0  p1:x2=1  : 7011
+ p1:x0=0  p1:x2=0  : 7
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4989
+ p1:x0=0  p1:x2=0  : 5001
+ p1:x0=1  p1:x2=0  : 9 *
+ p1:x0=0  p1:x2=1  : 1
+Observation MP+pos: 9 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1274
+ p1:x0=1  p1:x2=1  : 3734
+ p1:x0=0  p1:x2=0  : 4992
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 36090
+ p1:x0=0  p1:x2=1  : 58259
+ p1:x0=0  p1:x2=0  : 5651
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 648561
+ p1:x0=0  p1:x2=0  : 54905
+ p1:x0=1  p1:x2=1  : 296534
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 503684
+ p1:x0=0  p1:x2=1  : 371625
+ p1:x0=0  p1:x2=0  : 124691
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7069
+ p1:x0=1  p1:x2=1  : 2921
+ p1:x0=0  p1:x2=0  : 10
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5008
+ p1:x0=1  p1:x2=1  : 4982
+ p1:x0=0  p1:x2=1  : 7
+ p1:x0=1  p1:x2=0  : 3 *
+Observation MP+pos: 3 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3675
+ p1:x0=0  p1:x2=0  : 4996
+ p1:x0=0  p1:x2=1  : 1329
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35804
+ p1:x0=0  p1:x2=1  : 58491
+ p1:x0=0  p1:x2=0  : 5705
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 669889
+ p1:x0=0  p1:x2=0  : 41391
+ p1:x0=1  p1:x2=1  : 288720
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 507332
+ p1:x0=0  p1:x2=1  : 375689
+ p1:x0=0  p1:x2=0  : 116979
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2743
+ p1:x0=0  p1:x2=1  : 7248
+ p1:x0=0  p1:x2=0  : 9
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5003
+ p1:x0=1  p1:x2=1  : 4935
+ p1:x0=1  p1:x2=0  : 8 *
+ p1:x0=0  p1:x2=1  : 54
+Observation MP+pos: 8 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3792
+ p1:x0=0  p1:x2=1  : 1210
+ p1:x0=0  p1:x2=0  : 4998
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 54695
+ p1:x0=1  p1:x2=1  : 38829
+ p1:x0=0  p1:x2=0  : 6476
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 623624
+ p1:x0=1  p1:x2=1  : 321992
+ p1:x0=0  p1:x2=0  : 54384
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 502957
+ p1:x0=0  p1:x2=1  : 355054
+ p1:x0=0  p1:x2=0  : 141989
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3014
+ p1:x0=0  p1:x2=1  : 6981
+ p1:x0=0  p1:x2=0  : 5
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5013
+ p1:x0=1  p1:x2=1  : 4934
+ p1:x0=1  p1:x2=0  : 12 *
+ p1:x0=0  p1:x2=1  : 41
+Observation MP+pos: 12 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3664
+ p1:x0=0  p1:x2=0  : 4997
+ p1:x0=0  p1:x2=1  : 1339
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35628
+ p1:x0=0  p1:x2=1  : 59110
+ p1:x0=0  p1:x2=0  : 5262
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 656811
+ p1:x0=1  p1:x2=1  : 297748
+ p1:x0=0  p1:x2=0  : 45441
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 507680
+ p1:x0=0  p1:x2=1  : 392521
+ p1:x0=0  p1:x2=0  : 99799
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3103
+ p1:x0=0  p1:x2=1  : 6891
+ p1:x0=0  p1:x2=0  : 6
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5012
+ p1:x0=1  p1:x2=1  : 4977
+ p1:x0=1  p1:x2=0  : 6 *
+ p1:x0=0  p1:x2=1  : 5
+Observation MP+pos: 6 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1272
+ p1:x0=1  p1:x2=1  : 3727
+ p1:x0=0  p1:x2=0  : 5001
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58147
+ p1:x0=1  p1:x2=1  : 36363
+ p1:x0=0  p1:x2=0  : 5490
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 665662
+ p1:x0=0  p1:x2=0  : 41434
+ p1:x0=1  p1:x2=1  : 292904
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=0  p1:x2=0  : 119199
+ p1:x0=0  p1:x2=1  : 375590
+ p1:x0=1  p1:x2=1  : 505211
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7013
+ p1:x0=1  p1:x2=1  : 2976
+ p1:x0=0  p1:x2=0  : 11
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5036
+ p1:x0=1  p1:x2=1  : 4809
+ p1:x0=0  p1:x2=1  : 141
+ p1:x0=1  p1:x2=0  : 14 *
+Observation MP+pos: 14 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3785
+ p1:x0=0  p1:x2=1  : 1218
+ p1:x0=0  p1:x2=0  : 4997
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58932
+ p1:x0=1  p1:x2=1  : 36293
+ p1:x0=0  p1:x2=0  : 4775
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 646725
+ p1:x0=1  p1:x2=1  : 302532
+ p1:x0=0  p1:x2=0  : 50743
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 383808
+ p1:x0=1  p1:x2=1  : 495266
+ p1:x0=0  p1:x2=0  : 120926
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7361
+ p1:x0=1  p1:x2=1  : 2626
+ p1:x0=0  p1:x2=0  : 13
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4913
+ p1:x0=1  p1:x2=0  : 8 *
+ p1:x0=0  p1:x2=0  : 5014
+ p1:x0=0  p1:x2=1  : 65
+Observation MP+pos: 8 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1383
+ p1:x0=1  p1:x2=1  : 3621
+ p1:x0=0  p1:x2=0  : 4996
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 31441
+ p1:x0=0  p1:x2=1  : 63508
+ p1:x0=0  p1:x2=0  : 5051
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 674028
+ p1:x0=1  p1:x2=1  : 277655
+ p1:x0=0  p1:x2=0  : 48317
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 495792
+ p1:x0=0  p1:x2=0  : 120199
+ p1:x0=0  p1:x2=1  : 384009
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3039
+ p1:x0=0  p1:x2=1  : 6959
+ p1:x0=0  p1:x2=0  : 2
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5005
+ p1:x0=1  p1:x2=0  : 7 *
+ p1:x0=1  p1:x2=1  : 4983
+ p1:x0=0  p1:x2=1  : 5
+Observation MP+pos: 7 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 4996
+ p1:x0=1  p1:x2=1  : 3624
+ p1:x0=0  p1:x2=1  : 1380
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 36093
+ p1:x0=0  p1:x2=1  : 58650
+ p1:x0=0  p1:x2=0  : 5257
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 660699
+ p1:x0=0  p1:x2=0  : 55005
+ p1:x0=1  p1:x2=1  : 284296
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 502460
+ p1:x0=0  p1:x2=0  : 119512
+ p1:x0=0  p1:x2=1  : 378028
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2348
+ p1:x0=0  p1:x2=1  : 7638
+ p1:x0=0  p1:x2=0  : 14
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4896
+ p1:x0=0  p1:x2=0  : 5034
+ p1:x0=1  p1:x2=0  : 8 *
+ p1:x0=0  p1:x2=1  : 62
+Observation MP+pos: 8 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3510
+ p1:x0=0  p1:x2=0  : 5002
+ p1:x0=0  p1:x2=1  : 1488
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 62744
+ p1:x0=1  p1:x2=1  : 30898
+ p1:x0=0  p1:x2=0  : 6358
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 684470
+ p1:x0=0  p1:x2=0  : 43824
+ p1:x0=1  p1:x2=1  : 271706
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 500944
+ p1:x0=0  p1:x2=1  : 395532
+ p1:x0=0  p1:x2=0  : 103524
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3023
+ p1:x0=0  p1:x2=1  : 6971
+ p1:x0=0  p1:x2=0  : 6
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5010
+ p1:x0=1  p1:x2=1  : 4972
+ p1:x0=1  p1:x2=0  : 8 *
+ p1:x0=0  p1:x2=1  : 10
+Observation MP+pos: 8 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 4999
+ p1:x0=1  p1:x2=1  : 3677
+ p1:x0=0  p1:x2=1  : 1324
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35890
+ p1:x0=0  p1:x2=1  : 58928
+ p1:x0=0  p1:x2=0  : 5182
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 675208
+ p1:x0=0  p1:x2=0  : 43246
+ p1:x0=1  p1:x2=1  : 281546
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 494263
+ p1:x0=0  p1:x2=1  : 395632
+ p1:x0=0  p1:x2=0  : 110105
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2743
+ p1:x0=0  p1:x2=1  : 7251
+ p1:x0=0  p1:x2=0  : 6
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 4993
+ p1:x0=1  p1:x2=1  : 4983
+ p1:x0=0  p1:x2=1  : 9
+ p1:x0=1  p1:x2=0  : 15 *
+Observation MP+pos: 15 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3860
+ p1:x0=0  p1:x2=0  : 4993
+ p1:x0=0  p1:x2=1  : 1147
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 34112
+ p1:x0=0  p1:x2=1  : 58903
+ p1:x0=0  p1:x2=0  : 6985
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 663491
+ p1:x0=1  p1:x2=1  : 275661
+ p1:x0=0  p1:x2=0  : 60848
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 504211
+ p1:x0=0  p1:x2=1  : 358102
+ p1:x0=0  p1:x2=0  : 137687
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2722
+ p1:x0=0  p1:x2=1  : 7272
+ p1:x0=0  p1:x2=0  : 6
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5011
+ p1:x0=1  p1:x2=1  : 4966
+ p1:x0=1  p1:x2=0  : 4 *
+ p1:x0=0  p1:x2=1  : 19
+Observation MP+pos: 4 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3535
+ p1:x0=0  p1:x2=1  : 1478
+ p1:x0=0  p1:x2=0  : 4987
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35893
+ p1:x0=0  p1:x2=1  : 58893
+ p1:x0=0  p1:x2=0  : 5214
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 660021
+ p1:x0=0  p1:x2=0  : 47415
+ p1:x0=1  p1:x2=1  : 292564
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 504777
+ p1:x0=0  p1:x2=0  : 114540
+ p1:x0=0  p1:x2=1  : 380683
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 6933
+ p1:x0=1  p1:x2=1  : 3055
+ p1:x0=0  p1:x2=0  : 12
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4904
+ p1:x0=0  p1:x2=0  : 5018
+ p1:x0=0  p1:x2=1  : 74
+ p1:x0=1  p1:x2=0  : 4 *
+Observation MP+pos: 4 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1229
+ p1:x0=1  p1:x2=1  : 3769
+ p1:x0=0  p1:x2=0  : 5002
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35391
+ p1:x0=0  p1:x2=1  : 58466
+ p1:x0=0  p1:x2=0  : 6143
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 281311
+ p1:x0=0  p1:x2=0  : 44039
+ p1:x0=0  p1:x2=1  : 674650
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 496509
+ p1:x0=0  p1:x2=0  : 126783
+ p1:x0=0  p1:x2=1  : 376708
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 6823
+ p1:x0=1  p1:x2=1  : 3162
+ p1:x0=0  p1:x2=0  : 15
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5007
+ p1:x0=1  p1:x2=1  : 4980
+ p1:x0=0  p1:x2=1  : 13
+Observation MP+pos: 0 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3263
+ p1:x0=0  p1:x2=1  : 1747
+ p1:x0=0  p1:x2=0  : 4990
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 34463
+ p1:x0=0  p1:x2=1  : 60254
+ p1:x0=0  p1:x2=0  : 5283
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 291389
+ p1:x0=0  p1:x2=0  : 48921
+ p1:x0=0  p1:x2=1  : 659690
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 502712
+ p1:x0=0  p1:x2=1  : 380713
+ p1:x0=0  p1:x2=0  : 116575
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3162
+ p1:x0=0  p1:x2=1  : 6835
+ p1:x0=0  p1:x2=0  : 3
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5021
+ p1:x0=1  p1:x2=1  : 4859
+ p1:x0=0  p1:x2=1  : 113
+ p1:x0=1  p1:x2=0  : 7 *
+Observation MP+pos: 7 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1042
+ p1:x0=1  p1:x2=1  : 3961
+ p1:x0=0  p1:x2=0  : 4997
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58173
+ p1:x0=0  p1:x2=0  : 5986
+ p1:x0=1  p1:x2=1  : 35841
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 664184
+ p1:x0=0  p1:x2=0  : 53593
+ p1:x0=1  p1:x2=1  : 282223
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 506497
+ p1:x0=0  p1:x2=1  : 370514
+ p1:x0=0  p1:x2=0  : 122989
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3055
+ p1:x0=0  p1:x2=1  : 6935
+ p1:x0=0  p1:x2=0  : 10
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5016
+ p1:x0=1  p1:x2=1  : 4826
+ p1:x0=0  p1:x2=1  : 141
+ p1:x0=1  p1:x2=0  : 17 *
+Observation MP+pos: 17 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 5006
+ p1:x0=0  p1:x2=1  : 1579
+ p1:x0=1  p1:x2=1  : 3415
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 61391
+ p1:x0=0  p1:x2=0  : 6554
+ p1:x0=1  p1:x2=1  : 32055
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 680214
+ p1:x0=0  p1:x2=0  : 50534
+ p1:x0=1  p1:x2=1  : 269252
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 497365
+ p1:x0=0  p1:x2=0  : 114235
+ p1:x0=0  p1:x2=1  : 388400
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7051
+ p1:x0=1  p1:x2=1  : 2937
+ p1:x0=0  p1:x2=0  : 12
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5007
+ p1:x0=1  p1:x2=1  : 4955
+ p1:x0=0  p1:x2=1  : 12
+ p1:x0=1  p1:x2=0  : 26 *
+Observation MP+pos: 26 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3753
+ p1:x0=0  p1:x2=1  : 1249
+ p1:x0=0  p1:x2=0  : 4998
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35198
+ p1:x0=0  p1:x2=1  : 59025
+ p1:x0=0  p1:x2=0  : 5777
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 651369
+ p1:x0=1  p1:x2=1  : 304193
+ p1:x0=0  p1:x2=0  : 44438
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 500843
+ p1:x0=0  p1:x2=0  : 113289
+ p1:x0=0  p1:x2=1  : 385868
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3143
+ p1:x0=0  p1:x2=1  : 6843
+ p1:x0=0  p1:x2=0  : 14
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5017
+ p1:x0=1  p1:x2=1  : 4952
+ p1:x0=0  p1:x2=1  : 29
+ p1:x0=1  p1:x2=0  : 2 *
+Observation MP+pos: 2 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1192
+ p1:x0=1  p1:x2=1  : 3813
+ p1:x0=0  p1:x2=0  : 4995
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58694
+ p1:x0=0  p1:x2=0  : 5042
+ p1:x0=1  p1:x2=1  : 36264
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 655877
+ p1:x0=0  p1:x2=0  : 58542
+ p1:x0=1  p1:x2=1  : 285581
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 494123
+ p1:x0=0  p1:x2=1  : 383068
+ p1:x0=0  p1:x2=0  : 122809
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2827
+ p1:x0=0  p1:x2=1  : 7169
+ p1:x0=0  p1:x2=0  : 4
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4968
+ p1:x0=0  p1:x2=0  : 5013
+ p1:x0=1  p1:x2=0  : 8 *
+ p1:x0=0  p1:x2=1  : 11
+Observation MP+pos: 8 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3623
+ p1:x0=0  p1:x2=0  : 5001
+ p1:x0=0  p1:x2=1  : 1376
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35351
+ p1:x0=0  p1:x2=1  : 59609
+ p1:x0=0  p1:x2=0  : 5040
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 657501
+ p1:x0=0  p1:x2=0  : 55083
+ p1:x0=1  p1:x2=1  : 287416
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 520835
+ p1:x0=0  p1:x2=1  : 356526
+ p1:x0=0  p1:x2=0  : 122639
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3090
+ p1:x0=0  p1:x2=1  : 6900
+ p1:x0=0  p1:x2=0  : 10
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5002
+ p1:x0=1  p1:x2=1  : 4947
+ p1:x0=0  p1:x2=1  : 44
+ p1:x0=1  p1:x2=0  : 7 *
+Observation MP+pos: 7 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3764
+ p1:x0=0  p1:x2=1  : 1241
+ p1:x0=0  p1:x2=0  : 4995
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58511
+ p1:x0=1  p1:x2=1  : 35637
+ p1:x0=0  p1:x2=0  : 5852
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 640264
+ p1:x0=1  p1:x2=1  : 283496
+ p1:x0=0  p1:x2=0  : 76240
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 513362
+ p1:x0=0  p1:x2=1  : 359321
+ p1:x0=0  p1:x2=0  : 127317
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2891
+ p1:x0=0  p1:x2=1  : 7103
+ p1:x0=0  p1:x2=0  : 6
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4912
+ p1:x0=0  p1:x2=0  : 5010
+ p1:x0=0  p1:x2=1  : 73
+ p1:x0=1  p1:x2=0  : 5 *
+Observation MP+pos: 5 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 4057
+ p1:x0=0  p1:x2=0  : 4999
+ p1:x0=0  p1:x2=1  : 944
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 55902
+ p1:x0=1  p1:x2=1  : 38364
+ p1:x0=0  p1:x2=0  : 5734
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 626607
+ p1:x0=1  p1:x2=1  : 314196
+ p1:x0=0  p1:x2=0  : 59197
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 525046
+ p1:x0=0  p1:x2=1  : 358639
+ p1:x0=0  p1:x2=0  : 116315
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 6935
+ p1:x0=1  p1:x2=1  : 3057
+ p1:x0=0  p1:x2=0  : 8
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5007
+ p1:x0=1  p1:x2=1  : 4933
+ p1:x0=1  p1:x2=0  : 9 *
+ p1:x0=0  p1:x2=1  : 51
+Observation MP+pos: 9 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3398
+ p1:x0=0  p1:x2=1  : 1602
+ p1:x0=0  p1:x2=0  : 5000
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35719
+ p1:x0=0  p1:x2=1  : 58488
+ p1:x0=0  p1:x2=0  : 5793
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 668451
+ p1:x0=1  p1:x2=1  : 277596
+ p1:x0=0  p1:x2=0  : 53953
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 502493
+ p1:x0=0  p1:x2=1  : 378878
+ p1:x0=0  p1:x2=0  : 118629
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2964
+ p1:x0=0  p1:x2=1  : 7026
+ p1:x0=0  p1:x2=0  : 10
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5009
+ p1:x0=1  p1:x2=1  : 4980
+ p1:x0=0  p1:x2=1  : 5
+ p1:x0=1  p1:x2=0  : 6 *
+Observation MP+pos: 6 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1495
+ p1:x0=1  p1:x2=1  : 3507
+ p1:x0=0  p1:x2=0  : 4998
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 60153
+ p1:x0=1  p1:x2=1  : 35850
+ p1:x0=0  p1:x2=0  : 3997
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 293980
+ p1:x0=0  p1:x2=0  : 52981
+ p1:x0=0  p1:x2=1  : 653039
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 512446
+ p1:x0=0  p1:x2=1  : 368300
+ p1:x0=0  p1:x2=0  : 119254
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7217
+ p1:x0=1  p1:x2=1  : 2779
+ p1:x0=0  p1:x2=0  : 4
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5013
+ p1:x0=1  p1:x2=1  : 4968
+ p1:x0=0  p1:x2=1  : 11
+ p1:x0=1  p1:x2=0  : 8 *
+Observation MP+pos: 8 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 4997
+ p1:x0=1  p1:x2=1  : 3965
+ p1:x0=0  p1:x2=1  : 1038
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 59284
+ p1:x0=1  p1:x2=1  : 35846
+ p1:x0=0  p1:x2=0  : 4870
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 661903
+ p1:x0=0  p1:x2=0  : 55549
+ p1:x0=1  p1:x2=1  : 282548
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 511287
+ p1:x0=0  p1:x2=1  : 362477
+ p1:x0=0  p1:x2=0  : 126236
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2998
+ p1:x0=0  p1:x2=1  : 6994
+ p1:x0=0  p1:x2=0  : 8
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4979
+ p1:x0=1  p1:x2=0  : 6 *
+ p1:x0=0  p1:x2=0  : 5010
+ p1:x0=0  p1:x2=1  : 5
+Observation MP+pos: 6 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3813
+ p1:x0=0  p1:x2=1  : 1187
+ p1:x0=0  p1:x2=0  : 5000
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35262
+ p1:x0=0  p1:x2=0  : 3930
+ p1:x0=0  p1:x2=1  : 60808
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 294080
+ p1:x0=0  p1:x2=0  : 41773
+ p1:x0=0  p1:x2=1  : 664147
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 506504
+ p1:x0=0  p1:x2=1  : 382739
+ p1:x0=0  p1:x2=0  : 110757
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2967
+ p1:x0=0  p1:x2=1  : 7022
+ p1:x0=0  p1:x2=0  : 11
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5004
+ p1:x0=1  p1:x2=0  : 7 *
+ p1:x0=1  p1:x2=1  : 4955
+ p1:x0=0  p1:x2=1  : 34
+Observation MP+pos: 7 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3230
+ p1:x0=0  p1:x2=0  : 5000
+ p1:x0=0  p1:x2=1  : 1770
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 32219
+ p1:x0=0  p1:x2=1  : 61893
+ p1:x0=0  p1:x2=0  : 5888
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 660180
+ p1:x0=1  p1:x2=1  : 268537
+ p1:x0=0  p1:x2=0  : 71283
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 515761
+ p1:x0=0  p1:x2=1  : 358063
+ p1:x0=0  p1:x2=0  : 126176
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3213
+ p1:x0=0  p1:x2=1  : 6783
+ p1:x0=0  p1:x2=0  : 4
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5005
+ p1:x0=1  p1:x2=0  : 5 *
+ p1:x0=1  p1:x2=1  : 4889
+ p1:x0=0  p1:x2=1  : 101
+Observation MP+pos: 5 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3615
+ p1:x0=0  p1:x2=1  : 1390
+ p1:x0=0  p1:x2=0  : 4995
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35674
+ p1:x0=0  p1:x2=1  : 58983
+ p1:x0=0  p1:x2=0  : 5343
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 679683
+ p1:x0=1  p1:x2=1  : 280044
+ p1:x0=0  p1:x2=0  : 40273
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 497132
+ p1:x0=0  p1:x2=1  : 383048
+ p1:x0=0  p1:x2=0  : 119820
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2869
+ p1:x0=0  p1:x2=1  : 7127
+ p1:x0=0  p1:x2=0  : 4
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5024
+ p1:x0=1  p1:x2=0  : 6 *
+ p1:x0=1  p1:x2=1  : 4903
+ p1:x0=0  p1:x2=1  : 67
+Observation MP+pos: 6 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3502
+ p1:x0=0  p1:x2=1  : 1504
+ p1:x0=0  p1:x2=0  : 4994
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35444
+ p1:x0=0  p1:x2=1  : 58570
+ p1:x0=0  p1:x2=0  : 5986
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 653565
+ p1:x0=0  p1:x2=0  : 51143
+ p1:x0=1  p1:x2=1  : 295292
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 512581
+ p1:x0=0  p1:x2=1  : 372702
+ p1:x0=0  p1:x2=0  : 114717
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 6626
+ p1:x0=1  p1:x2=1  : 3364
+ p1:x0=0  p1:x2=0  : 10
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5032
+ p1:x0=1  p1:x2=1  : 4909
+ p1:x0=1  p1:x2=0  : 12 *
+ p1:x0=0  p1:x2=1  : 47
+Observation MP+pos: 12 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1145
+ p1:x0=1  p1:x2=1  : 3859
+ p1:x0=0  p1:x2=0  : 4996
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35395
+ p1:x0=0  p1:x2=1  : 58903
+ p1:x0=0  p1:x2=0  : 5702
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 664625
+ p1:x0=0  p1:x2=0  : 49622
+ p1:x0=1  p1:x2=1  : 285753
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 512717
+ p1:x0=0  p1:x2=1  : 363844
+ p1:x0=0  p1:x2=0  : 123439
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7475
+ p1:x0=1  p1:x2=1  : 2512
+ p1:x0=0  p1:x2=0  : 13
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5013
+ p1:x0=1  p1:x2=1  : 4897
+ p1:x0=0  p1:x2=1  : 80
+ p1:x0=1  p1:x2=0  : 10 *
+Observation MP+pos: 10 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3863
+ p1:x0=0  p1:x2=1  : 1141
+ p1:x0=0  p1:x2=0  : 4996
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 36040
+ p1:x0=0  p1:x2=1  : 58390
+ p1:x0=0  p1:x2=0  : 5570
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 639411
+ p1:x0=0  p1:x2=0  : 42889
+ p1:x0=1  p1:x2=1  : 317700
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 369593
+ p1:x0=0  p1:x2=0  : 122291
+ p1:x0=1  p1:x2=1  : 508116
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 6703
+ p1:x0=1  p1:x2=1  : 3288
+ p1:x0=0  p1:x2=0  : 9
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5003
+ p1:x0=1  p1:x2=1  : 4973
+ p1:x0=0  p1:x2=1  : 10
+ p1:x0=1  p1:x2=0  : 14 *
+Observation MP+pos: 14 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1470
+ p1:x0=1  p1:x2=1  : 3526
+ p1:x0=0  p1:x2=0  : 5004
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 61230
+ p1:x0=1  p1:x2=1  : 32878
+ p1:x0=0  p1:x2=0  : 5892
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 690112
+ p1:x0=0  p1:x2=0  : 40897
+ p1:x0=1  p1:x2=1  : 268991
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 489571
+ p1:x0=0  p1:x2=0  : 118456
+ p1:x0=0  p1:x2=1  : 391973
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 6873
+ p1:x0=1  p1:x2=1  : 3117
+ p1:x0=0  p1:x2=0  : 10
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5047
+ p1:x0=1  p1:x2=1  : 4800
+ p1:x0=0  p1:x2=1  : 138
+ p1:x0=1  p1:x2=0  : 15 *
+Observation MP+pos: 15 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1612
+ p1:x0=1  p1:x2=1  : 3392
+ p1:x0=0  p1:x2=0  : 4996
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 62101
+ p1:x0=1  p1:x2=1  : 32390
+ p1:x0=0  p1:x2=0  : 5509
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 683222
+ p1:x0=0  p1:x2=0  : 50456
+ p1:x0=1  p1:x2=1  : 266322
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 375948
+ p1:x0=0  p1:x2=0  : 112124
+ p1:x0=1  p1:x2=1  : 511928
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7078
+ p1:x0=1  p1:x2=1  : 2900
+ p1:x0=0  p1:x2=0  : 22
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5009
+ p1:x0=1  p1:x2=1  : 4928
+ p1:x0=0  p1:x2=1  : 58
+ p1:x0=1  p1:x2=0  : 5 *
+Observation MP+pos: 5 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3492
+ p1:x0=0  p1:x2=0  : 4995
+ p1:x0=0  p1:x2=1  : 1513
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 31826
+ p1:x0=0  p1:x2=1  : 62197
+ p1:x0=0  p1:x2=0  : 5977
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 255964
+ p1:x0=0  p1:x2=1  : 702101
+ p1:x0=0  p1:x2=0  : 41935
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 497499
+ p1:x0=0  p1:x2=1  : 411683
+ p1:x0=0  p1:x2=0  : 90818
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3038
+ p1:x0=0  p1:x2=1  : 6954
+ p1:x0=0  p1:x2=0  : 8
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5006
+ p1:x0=1  p1:x2=1  : 4887
+ p1:x0=0  p1:x2=1  : 96
+ p1:x0=1  p1:x2=0  : 11 *
+Observation MP+pos: 11 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3189
+ p1:x0=0  p1:x2=1  : 1824
+ p1:x0=0  p1:x2=0  : 4987
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 29125
+ p1:x0=0  p1:x2=1  : 65125
+ p1:x0=0  p1:x2=0  : 5750
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 671374
+ p1:x0=0  p1:x2=0  : 58263
+ p1:x0=1  p1:x2=1  : 270363
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 503857
+ p1:x0=0  p1:x2=0  : 100062
+ p1:x0=0  p1:x2=1  : 396081
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2892
+ p1:x0=0  p1:x2=1  : 7101
+ p1:x0=0  p1:x2=0  : 7
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4956
+ p1:x0=0  p1:x2=0  : 5015
+ p1:x0=0  p1:x2=1  : 23
+ p1:x0=1  p1:x2=0  : 6 *
+Observation MP+pos: 6 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3143
+ p1:x0=0  p1:x2=1  : 1860
+ p1:x0=0  p1:x2=0  : 4997
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 32131
+ p1:x0=0  p1:x2=0  : 4547
+ p1:x0=0  p1:x2=1  : 63322
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 266633
+ p1:x0=0  p1:x2=1  : 680617
+ p1:x0=0  p1:x2=0  : 52750
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 501864
+ p1:x0=0  p1:x2=0  : 117685
+ p1:x0=0  p1:x2=1  : 380451
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3240
+ p1:x0=0  p1:x2=1  : 6751
+ p1:x0=0  p1:x2=0  : 9
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5008
+ p1:x0=1  p1:x2=1  : 4941
+ p1:x0=0  p1:x2=1  : 37
+ p1:x0=1  p1:x2=0  : 14 *
+Observation MP+pos: 14 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3881
+ p1:x0=0  p1:x2=0  : 4999
+ p1:x0=0  p1:x2=1  : 1120
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35615
+ p1:x0=0  p1:x2=1  : 58580
+ p1:x0=0  p1:x2=0  : 5805
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 647457
+ p1:x0=1  p1:x2=1  : 283862
+ p1:x0=0  p1:x2=0  : 68681
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 490289
+ p1:x0=0  p1:x2=1  : 378316
+ p1:x0=0  p1:x2=0  : 131395
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7091
+ p1:x0=1  p1:x2=1  : 2903
+ p1:x0=0  p1:x2=0  : 6
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4850
+ p1:x0=1  p1:x2=0  : 11 *
+ p1:x0=0  p1:x2=0  : 5012
+ p1:x0=0  p1:x2=1  : 127
+Observation MP+pos: 11 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3806
+ p1:x0=0  p1:x2=1  : 1207
+ p1:x0=0  p1:x2=0  : 4987
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 59408
+ p1:x0=1  p1:x2=1  : 34800
+ p1:x0=0  p1:x2=0  : 5792
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 669002
+ p1:x0=0  p1:x2=0  : 46402
+ p1:x0=1  p1:x2=1  : 284596
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 506876
+ p1:x0=0  p1:x2=1  : 398872
+ p1:x0=0  p1:x2=0  : 94252
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2885
+ p1:x0=0  p1:x2=1  : 7104
+ p1:x0=0  p1:x2=0  : 11
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4901
+ p1:x0=0  p1:x2=0  : 5014
+ p1:x0=1  p1:x2=0  : 4 *
+ p1:x0=0  p1:x2=1  : 81
+Observation MP+pos: 4 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 4990
+ p1:x0=1  p1:x2=1  : 3760
+ p1:x0=0  p1:x2=1  : 1250
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58691
+ p1:x0=1  p1:x2=1  : 34762
+ p1:x0=0  p1:x2=0  : 6547
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 651617
+ p1:x0=0  p1:x2=0  : 67168
+ p1:x0=1  p1:x2=1  : 281215
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 520909
+ p1:x0=0  p1:x2=1  : 391282
+ p1:x0=0  p1:x2=0  : 87809
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2899
+ p1:x0=0  p1:x2=1  : 7092
+ p1:x0=0  p1:x2=0  : 9
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5013
+ p1:x0=1  p1:x2=1  : 4868
+ p1:x0=1  p1:x2=0  : 6 *
+ p1:x0=0  p1:x2=1  : 113
+Observation MP+pos: 6 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3464
+ p1:x0=0  p1:x2=1  : 1542
+ p1:x0=0  p1:x2=0  : 4994
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 62126
+ p1:x0=1  p1:x2=1  : 33189
+ p1:x0=0  p1:x2=0  : 4685
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 697349
+ p1:x0=0  p1:x2=0  : 42115
+ p1:x0=1  p1:x2=1  : 260536
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 494800
+ p1:x0=0  p1:x2=1  : 388842
+ p1:x0=0  p1:x2=0  : 116358
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3318
+ p1:x0=0  p1:x2=1  : 6678
+ p1:x0=0  p1:x2=0  : 4
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5006
+ p1:x0=1  p1:x2=0  : 6 *
+ p1:x0=1  p1:x2=1  : 4973
+ p1:x0=0  p1:x2=1  : 15
+Observation MP+pos: 6 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1078
+ p1:x0=0  p1:x2=0  : 4997
+ p1:x0=1  p1:x2=1  : 3925
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 59691
+ p1:x0=0  p1:x2=0  : 4866
+ p1:x0=1  p1:x2=1  : 35443
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 659620
+ p1:x0=0  p1:x2=0  : 49903
+ p1:x0=1  p1:x2=1  : 290477
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 498512
+ p1:x0=0  p1:x2=0  : 119228
+ p1:x0=0  p1:x2=1  : 382260
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3079
+ p1:x0=0  p1:x2=1  : 6912
+ p1:x0=0  p1:x2=0  : 9
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5014
+ p1:x0=1  p1:x2=1  : 4953
+ p1:x0=0  p1:x2=1  : 28
+ p1:x0=1  p1:x2=0  : 5 *
+Observation MP+pos: 5 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 5000
+ p1:x0=1  p1:x2=1  : 3867
+ p1:x0=0  p1:x2=1  : 1133
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58786
+ p1:x0=1  p1:x2=1  : 35651
+ p1:x0=0  p1:x2=0  : 5563
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 659121
+ p1:x0=0  p1:x2=0  : 44914
+ p1:x0=1  p1:x2=1  : 295965
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 371046
+ p1:x0=0  p1:x2=0  : 122385
+ p1:x0=1  p1:x2=1  : 506569
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7266
+ p1:x0=1  p1:x2=1  : 2726
+ p1:x0=0  p1:x2=0  : 8
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5005
+ p1:x0=1  p1:x2=0  : 10 *
+ p1:x0=1  p1:x2=1  : 4932
+ p1:x0=0  p1:x2=1  : 53
+Observation MP+pos: 10 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3631
+ p1:x0=0  p1:x2=0  : 4996
+ p1:x0=0  p1:x2=1  : 1373
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 34756
+ p1:x0=0  p1:x2=1  : 59290
+ p1:x0=0  p1:x2=0  : 5954
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 658400
+ p1:x0=0  p1:x2=0  : 62508
+ p1:x0=1  p1:x2=1  : 279092
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 498956
+ p1:x0=0  p1:x2=1  : 362594
+ p1:x0=0  p1:x2=0  : 138450
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7177
+ p1:x0=1  p1:x2=1  : 2818
+ p1:x0=0  p1:x2=0  : 5
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5010
+ p1:x0=1  p1:x2=0  : 4 *
+ p1:x0=1  p1:x2=1  : 4800
+ p1:x0=0  p1:x2=1  : 186
+Observation MP+pos: 4 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1754
+ p1:x0=1  p1:x2=1  : 3250
+ p1:x0=0  p1:x2=0  : 4996
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 32064
+ p1:x0=0  p1:x2=1  : 62685
+ p1:x0=0  p1:x2=0  : 5251
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 699728
+ p1:x0=0  p1:x2=0  : 38032
+ p1:x0=1  p1:x2=1  : 262240
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 493363
+ p1:x0=0  p1:x2=1  : 392268
+ p1:x0=0  p1:x2=0  : 114369
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3272
+ p1:x0=0  p1:x2=1  : 6723
+ p1:x0=0  p1:x2=0  : 5
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5009
+ p1:x0=1  p1:x2=1  : 4948
+ p1:x0=0  p1:x2=1  : 19
+ p1:x0=1  p1:x2=0  : 24 *
+Observation MP+pos: 24 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1210
+ p1:x0=1  p1:x2=1  : 3795
+ p1:x0=0  p1:x2=0  : 4995
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35675
+ p1:x0=0  p1:x2=1  : 60385
+ p1:x0=0  p1:x2=0  : 3940
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 654991
+ p1:x0=0  p1:x2=0  : 51296
+ p1:x0=1  p1:x2=1  : 293713
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 509735
+ p1:x0=0  p1:x2=1  : 368559
+ p1:x0=0  p1:x2=0  : 121706
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3399
+ p1:x0=0  p1:x2=1  : 6599
+ p1:x0=0  p1:x2=0  : 2
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4952
+ p1:x0=0  p1:x2=0  : 5009
+ p1:x0=1  p1:x2=0  : 8 *
+ p1:x0=0  p1:x2=1  : 31
+Observation MP+pos: 8 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1162
+ p1:x0=1  p1:x2=1  : 3838
+ p1:x0=0  p1:x2=0  : 5000
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 59948
+ p1:x0=1  p1:x2=1  : 35374
+ p1:x0=0  p1:x2=0  : 4678
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 660250
+ p1:x0=0  p1:x2=0  : 46692
+ p1:x0=1  p1:x2=1  : 293058
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 499616
+ p1:x0=0  p1:x2=0  : 124544
+ p1:x0=0  p1:x2=1  : 375840
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7202
+ p1:x0=1  p1:x2=1  : 2781
+ p1:x0=0  p1:x2=0  : 17
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5014
+ p1:x0=1  p1:x2=1  : 4974
+ p1:x0=0  p1:x2=1  : 5
+ p1:x0=1  p1:x2=0  : 7 *
+Observation MP+pos: 7 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3043
+ p1:x0=0  p1:x2=1  : 1958
+ p1:x0=0  p1:x2=0  : 4999
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 31335
+ p1:x0=0  p1:x2=0  : 5446
+ p1:x0=0  p1:x2=1  : 63219
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 257141
+ p1:x0=0  p1:x2=0  : 52708
+ p1:x0=0  p1:x2=1  : 690151
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 494765
+ p1:x0=0  p1:x2=0  : 110381
+ p1:x0=0  p1:x2=1  : 394854
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2576
+ p1:x0=0  p1:x2=1  : 7415
+ p1:x0=0  p1:x2=0  : 9
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4952
+ p1:x0=0  p1:x2=0  : 5008
+ p1:x0=0  p1:x2=1  : 36
+ p1:x0=1  p1:x2=0  : 4 *
+Observation MP+pos: 4 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 5001
+ p1:x0=1  p1:x2=1  : 4005
+ p1:x0=0  p1:x2=1  : 994
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58714
+ p1:x0=0  p1:x2=0  : 5365
+ p1:x0=1  p1:x2=1  : 35921
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 282021
+ p1:x0=0  p1:x2=0  : 55616
+ p1:x0=0  p1:x2=1  : 662363
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 502451
+ p1:x0=0  p1:x2=1  : 372556
+ p1:x0=0  p1:x2=0  : 124993
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3091
+ p1:x0=0  p1:x2=1  : 6902
+ p1:x0=0  p1:x2=0  : 7
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5015
+ p1:x0=1  p1:x2=0  : 10 *
+ p1:x0=1  p1:x2=1  : 4931
+ p1:x0=0  p1:x2=1  : 44
+Observation MP+pos: 10 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1616
+ p1:x0=0  p1:x2=0  : 5004
+ p1:x0=1  p1:x2=1  : 3380
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 59988
+ p1:x0=0  p1:x2=0  : 4485
+ p1:x0=1  p1:x2=1  : 35527
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 663959
+ p1:x0=1  p1:x2=1  : 289267
+ p1:x0=0  p1:x2=0  : 46774
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 371914
+ p1:x0=0  p1:x2=0  : 118322
+ p1:x0=1  p1:x2=1  : 509764
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3075
+ p1:x0=0  p1:x2=1  : 6915
+ p1:x0=0  p1:x2=0  : 10
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5004
+ p1:x0=1  p1:x2=1  : 4987
+ p1:x0=1  p1:x2=0  : 5 *
+ p1:x0=0  p1:x2=1  : 4
+Observation MP+pos: 5 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 4124
+ p1:x0=0  p1:x2=1  : 879
+ p1:x0=0  p1:x2=0  : 4997
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 56384
+ p1:x0=1  p1:x2=1  : 38677
+ p1:x0=0  p1:x2=0  : 4939
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 624670
+ p1:x0=1  p1:x2=1  : 327811
+ p1:x0=0  p1:x2=0  : 47519
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 517907
+ p1:x0=0  p1:x2=0  : 112051
+ p1:x0=0  p1:x2=1  : 370042
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2843
+ p1:x0=0  p1:x2=1  : 7150
+ p1:x0=0  p1:x2=0  : 7
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4960
+ p1:x0=1  p1:x2=0  : 3 *
+ p1:x0=0  p1:x2=0  : 5004
+ p1:x0=0  p1:x2=1  : 33
+Observation MP+pos: 3 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3933
+ p1:x0=0  p1:x2=0  : 5003
+ p1:x0=0  p1:x2=1  : 1064
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 59265
+ p1:x0=1  p1:x2=1  : 36029
+ p1:x0=0  p1:x2=0  : 4706
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 686345
+ p1:x0=1  p1:x2=1  : 270228
+ p1:x0=0  p1:x2=0  : 43427
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 502242
+ p1:x0=0  p1:x2=1  : 381966
+ p1:x0=0  p1:x2=0  : 115792
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2830
+ p1:x0=0  p1:x2=0  : 7
+ p1:x0=0  p1:x2=1  : 7163
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5017
+ p1:x0=1  p1:x2=1  : 4867
+ p1:x0=0  p1:x2=1  : 111
+ p1:x0=1  p1:x2=0  : 5 *
+Observation MP+pos: 5 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1263
+ p1:x0=1  p1:x2=1  : 3741
+ p1:x0=0  p1:x2=0  : 4996
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 37792
+ p1:x0=0  p1:x2=1  : 57025
+ p1:x0=0  p1:x2=0  : 5183
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 633548
+ p1:x0=0  p1:x2=0  : 57508
+ p1:x0=1  p1:x2=1  : 308944
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 509738
+ p1:x0=0  p1:x2=0  : 114616
+ p1:x0=0  p1:x2=1  : 375646
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2716
+ p1:x0=0  p1:x2=1  : 7267
+ p1:x0=0  p1:x2=0  : 17
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5032
+ p1:x0=1  p1:x2=1  : 4837
+ p1:x0=1  p1:x2=0  : 7 *
+ p1:x0=0  p1:x2=1  : 124
+Observation MP+pos: 7 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1365
+ p1:x0=1  p1:x2=1  : 3634
+ p1:x0=0  p1:x2=0  : 5001
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 61321
+ p1:x0=0  p1:x2=0  : 5809
+ p1:x0=1  p1:x2=1  : 32870
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 674005
+ p1:x0=0  p1:x2=0  : 59508
+ p1:x0=1  p1:x2=1  : 266487
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 498211
+ p1:x0=0  p1:x2=0  : 117642
+ p1:x0=0  p1:x2=1  : 384147
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3065
+ p1:x0=0  p1:x2=1  : 6923
+ p1:x0=0  p1:x2=0  : 12
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5004
+ p1:x0=1  p1:x2=1  : 4904
+ p1:x0=0  p1:x2=1  : 83
+ p1:x0=1  p1:x2=0  : 9 *
+Observation MP+pos: 9 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 4996
+ p1:x0=0  p1:x2=1  : 1137
+ p1:x0=1  p1:x2=1  : 3867
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 59772
+ p1:x0=1  p1:x2=1  : 35323
+ p1:x0=0  p1:x2=0  : 4905
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 661270
+ p1:x0=0  p1:x2=0  : 55928
+ p1:x0=1  p1:x2=1  : 282802
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 509183
+ p1:x0=0  p1:x2=1  : 377284
+ p1:x0=0  p1:x2=0  : 113533
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3015
+ p1:x0=0  p1:x2=1  : 6979
+ p1:x0=0  p1:x2=0  : 6
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5023
+ p1:x0=1  p1:x2=1  : 4924
+ p1:x0=0  p1:x2=1  : 52
+ p1:x0=1  p1:x2=0  : 1 *
+Observation MP+pos: 1 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 5000
+ p1:x0=0  p1:x2=1  : 1525
+ p1:x0=1  p1:x2=1  : 3475
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 63084
+ p1:x0=1  p1:x2=1  : 31988
+ p1:x0=0  p1:x2=0  : 4928
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 666821
+ p1:x0=0  p1:x2=0  : 65785
+ p1:x0=1  p1:x2=1  : 267394
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 497339
+ p1:x0=0  p1:x2=1  : 370904
+ p1:x0=0  p1:x2=0  : 131757
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2945
+ p1:x0=0  p1:x2=1  : 7052
+ p1:x0=0  p1:x2=0  : 3
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5016
+ p1:x0=1  p1:x2=1  : 4967
+ p1:x0=0  p1:x2=1  : 7
+ p1:x0=1  p1:x2=0  : 10 *
+Observation MP+pos: 10 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 5003
+ p1:x0=1  p1:x2=1  : 3850
+ p1:x0=0  p1:x2=1  : 1147
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 59432
+ p1:x0=1  p1:x2=1  : 36400
+ p1:x0=0  p1:x2=0  : 4168
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 287954
+ p1:x0=0  p1:x2=0  : 38694
+ p1:x0=0  p1:x2=1  : 673352
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 494728
+ p1:x0=0  p1:x2=1  : 390898
+ p1:x0=0  p1:x2=0  : 114374
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 6868
+ p1:x0=1  p1:x2=1  : 3121
+ p1:x0=0  p1:x2=0  : 11
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5002
+ p1:x0=1  p1:x2=1  : 4971
+ p1:x0=0  p1:x2=1  : 8
+ p1:x0=1  p1:x2=0  : 19 *
+Observation MP+pos: 19 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1083
+ p1:x0=0  p1:x2=0  : 4999
+ p1:x0=1  p1:x2=1  : 3918
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 36039
+ p1:x0=0  p1:x2=1  : 59392
+ p1:x0=0  p1:x2=0  : 4569
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 294712
+ p1:x0=0  p1:x2=0  : 48507
+ p1:x0=0  p1:x2=1  : 656781
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 499650
+ p1:x0=0  p1:x2=0  : 115954
+ p1:x0=0  p1:x2=1  : 384396
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2964
+ p1:x0=0  p1:x2=1  : 7026
+ p1:x0=0  p1:x2=0  : 10
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4894
+ p1:x0=1  p1:x2=0  : 9 *
+ p1:x0=0  p1:x2=0  : 5009
+ p1:x0=0  p1:x2=1  : 88
+Observation MP+pos: 9 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3763
+ p1:x0=0  p1:x2=1  : 1240
+ p1:x0=0  p1:x2=0  : 4997
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35714
+ p1:x0=0  p1:x2=1  : 58584
+ p1:x0=0  p1:x2=0  : 5702
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 657338
+ p1:x0=0  p1:x2=0  : 58174
+ p1:x0=1  p1:x2=1  : 284488
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 505463
+ p1:x0=0  p1:x2=0  : 123783
+ p1:x0=0  p1:x2=1  : 370754
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3028
+ p1:x0=0  p1:x2=1  : 6960
+ p1:x0=0  p1:x2=0  : 12
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4967
+ p1:x0=1  p1:x2=0  : 7 *
+ p1:x0=0  p1:x2=0  : 5012
+ p1:x0=0  p1:x2=1  : 14
+Observation MP+pos: 7 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1338
+ p1:x0=0  p1:x2=0  : 4998
+ p1:x0=1  p1:x2=1  : 3664
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 60176
+ p1:x0=1  p1:x2=1  : 32924
+ p1:x0=0  p1:x2=0  : 6900
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 264040
+ p1:x0=0  p1:x2=0  : 55603
+ p1:x0=0  p1:x2=1  : 680357
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 505290
+ p1:x0=0  p1:x2=1  : 361770
+ p1:x0=0  p1:x2=0  : 132940
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7259
+ p1:x0=1  p1:x2=1  : 2732
+ p1:x0=0  p1:x2=0  : 9
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5019
+ p1:x0=1  p1:x2=1  : 4891
+ p1:x0=0  p1:x2=1  : 80
+ p1:x0=1  p1:x2=0  : 10 *
+Observation MP+pos: 10 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1611
+ p1:x0=1  p1:x2=1  : 3396
+ p1:x0=0  p1:x2=0  : 4993
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58383
+ p1:x0=0  p1:x2=0  : 6382
+ p1:x0=1  p1:x2=1  : 35235
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 648618
+ p1:x0=0  p1:x2=0  : 43545
+ p1:x0=1  p1:x2=1  : 307837
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 501943
+ p1:x0=0  p1:x2=0  : 122797
+ p1:x0=0  p1:x2=1  : 375260
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2784
+ p1:x0=0  p1:x2=1  : 7209
+ p1:x0=0  p1:x2=0  : 7
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5013
+ p1:x0=1  p1:x2=1  : 4892
+ p1:x0=0  p1:x2=1  : 84
+ p1:x0=1  p1:x2=0  : 11 *
+Observation MP+pos: 11 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1485
+ p1:x0=1  p1:x2=1  : 3510
+ p1:x0=0  p1:x2=0  : 5005
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 31655
+ p1:x0=0  p1:x2=1  : 62959
+ p1:x0=0  p1:x2=0  : 5386
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 698543
+ p1:x0=0  p1:x2=0  : 46678
+ p1:x0=1  p1:x2=1  : 254779
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 488881
+ p1:x0=0  p1:x2=1  : 396644
+ p1:x0=0  p1:x2=0  : 114475
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2528
+ p1:x0=0  p1:x2=1  : 7454
+ p1:x0=0  p1:x2=0  : 18
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5022
+ p1:x0=1  p1:x2=1  : 4939
+ p1:x0=1  p1:x2=0  : 10 *
+ p1:x0=0  p1:x2=1  : 29
+Observation MP+pos: 10 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3792
+ p1:x0=0  p1:x2=0  : 5000
+ p1:x0=0  p1:x2=1  : 1208
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35860
+ p1:x0=0  p1:x2=1  : 59137
+ p1:x0=0  p1:x2=0  : 5003
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 647241
+ p1:x0=1  p1:x2=1  : 301961
+ p1:x0=0  p1:x2=0  : 50798
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 506756
+ p1:x0=0  p1:x2=1  : 375703
+ p1:x0=0  p1:x2=0  : 117541
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2930
+ p1:x0=0  p1:x2=1  : 7064
+ p1:x0=0  p1:x2=0  : 6
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4958
+ p1:x0=1  p1:x2=0  : 4 *
+ p1:x0=0  p1:x2=0  : 5016
+ p1:x0=0  p1:x2=1  : 22
+Observation MP+pos: 4 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3760
+ p1:x0=0  p1:x2=0  : 4995
+ p1:x0=0  p1:x2=1  : 1245
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35752
+ p1:x0=0  p1:x2=1  : 57146
+ p1:x0=0  p1:x2=0  : 7102
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 653655
+ p1:x0=1  p1:x2=1  : 279693
+ p1:x0=0  p1:x2=0  : 66652
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 502118
+ p1:x0=0  p1:x2=1  : 363339
+ p1:x0=0  p1:x2=0  : 134543
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3205
+ p1:x0=0  p1:x2=0  : 14
+ p1:x0=0  p1:x2=1  : 6781
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5017
+ p1:x0=1  p1:x2=1  : 4969
+ p1:x0=1  p1:x2=0  : 7 *
+ p1:x0=0  p1:x2=1  : 7
+Observation MP+pos: 7 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 4998
+ p1:x0=1  p1:x2=1  : 3542
+ p1:x0=0  p1:x2=1  : 1460
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58479
+ p1:x0=0  p1:x2=0  : 5814
+ p1:x0=1  p1:x2=1  : 35707
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 661357
+ p1:x0=0  p1:x2=0  : 47278
+ p1:x0=1  p1:x2=1  : 291365
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 509151
+ p1:x0=0  p1:x2=1  : 370875
+ p1:x0=0  p1:x2=0  : 119974
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7124
+ p1:x0=1  p1:x2=1  : 2871
+ p1:x0=0  p1:x2=0  : 5
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5009
+ p1:x0=1  p1:x2=1  : 4906
+ p1:x0=0  p1:x2=1  : 78
+ p1:x0=1  p1:x2=0  : 7 *
+Observation MP+pos: 7 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 4998
+ p1:x0=1  p1:x2=1  : 3844
+ p1:x0=0  p1:x2=1  : 1158
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58419
+ p1:x0=1  p1:x2=1  : 35501
+ p1:x0=0  p1:x2=0  : 6080
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 663478
+ p1:x0=0  p1:x2=0  : 49139
+ p1:x0=1  p1:x2=1  : 287383
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 503189
+ p1:x0=0  p1:x2=0  : 125555
+ p1:x0=0  p1:x2=1  : 371256
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2880
+ p1:x0=0  p1:x2=1  : 7114
+ p1:x0=0  p1:x2=0  : 6
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5010
+ p1:x0=1  p1:x2=0  : 6 *
+ p1:x0=1  p1:x2=1  : 4806
+ p1:x0=0  p1:x2=1  : 178
+Observation MP+pos: 6 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1635
+ p1:x0=1  p1:x2=1  : 3370
+ p1:x0=0  p1:x2=0  : 4995
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 32425
+ p1:x0=0  p1:x2=1  : 62303
+ p1:x0=0  p1:x2=0  : 5272
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 265392
+ p1:x0=0  p1:x2=1  : 677708
+ p1:x0=0  p1:x2=0  : 56900
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 506165
+ p1:x0=0  p1:x2=1  : 376103
+ p1:x0=0  p1:x2=0  : 117732
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2929
+ p1:x0=0  p1:x2=1  : 7054
+ p1:x0=0  p1:x2=0  : 17
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5012
+ p1:x0=1  p1:x2=0  : 14 *
+ p1:x0=1  p1:x2=1  : 4967
+ p1:x0=0  p1:x2=1  : 7
+Observation MP+pos: 14 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1530
+ p1:x0=1  p1:x2=1  : 3482
+ p1:x0=0  p1:x2=0  : 4988
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 61753
+ p1:x0=1  p1:x2=1  : 33400
+ p1:x0=0  p1:x2=0  : 4847
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 254776
+ p1:x0=0  p1:x2=1  : 702023
+ p1:x0=0  p1:x2=0  : 43201
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 501027
+ p1:x0=0  p1:x2=1  : 380672
+ p1:x0=0  p1:x2=0  : 118301
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3266
+ p1:x0=0  p1:x2=0  : 7
+ p1:x0=0  p1:x2=1  : 6727
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5010
+ p1:x0=1  p1:x2=0  : 5 *
+ p1:x0=1  p1:x2=1  : 4969
+ p1:x0=0  p1:x2=1  : 16
+Observation MP+pos: 5 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1406
+ p1:x0=1  p1:x2=1  : 3596
+ p1:x0=0  p1:x2=0  : 4998
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 36209
+ p1:x0=0  p1:x2=1  : 58596
+ p1:x0=0  p1:x2=0  : 5195
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 662330
+ p1:x0=0  p1:x2=0  : 45447
+ p1:x0=1  p1:x2=1  : 292223
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 503573
+ p1:x0=0  p1:x2=1  : 385317
+ p1:x0=0  p1:x2=0  : 111110
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3324
+ p1:x0=0  p1:x2=1  : 6666
+ p1:x0=0  p1:x2=0  : 10
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5010
+ p1:x0=1  p1:x2=1  : 4877
+ p1:x0=1  p1:x2=0  : 7 *
+ p1:x0=0  p1:x2=1  : 106
+Observation MP+pos: 7 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 5000
+ p1:x0=1  p1:x2=1  : 3732
+ p1:x0=0  p1:x2=1  : 1268
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58857
+ p1:x0=0  p1:x2=0  : 5919
+ p1:x0=1  p1:x2=1  : 35224
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 677489
+ p1:x0=1  p1:x2=1  : 273193
+ p1:x0=0  p1:x2=0  : 49318
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 503922
+ p1:x0=0  p1:x2=0  : 130270
+ p1:x0=0  p1:x2=1  : 365808
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3108
+ p1:x0=0  p1:x2=1  : 6879
+ p1:x0=0  p1:x2=0  : 13
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4951
+ p1:x0=0  p1:x2=0  : 5016
+ p1:x0=0  p1:x2=1  : 30
+ p1:x0=1  p1:x2=0  : 3 *
+Observation MP+pos: 3 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1369
+ p1:x0=1  p1:x2=1  : 3633
+ p1:x0=0  p1:x2=0  : 4998
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 60893
+ p1:x0=1  p1:x2=1  : 33711
+ p1:x0=0  p1:x2=0  : 5396
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 707446
+ p1:x0=0  p1:x2=0  : 48466
+ p1:x0=1  p1:x2=1  : 244088
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 503088
+ p1:x0=0  p1:x2=1  : 380878
+ p1:x0=0  p1:x2=0  : 116034
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3213
+ p1:x0=0  p1:x2=1  : 6779
+ p1:x0=0  p1:x2=0  : 8
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5012
+ p1:x0=1  p1:x2=0  : 8 *
+ p1:x0=1  p1:x2=1  : 4956
+ p1:x0=0  p1:x2=1  : 24
+Observation MP+pos: 8 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3936
+ p1:x0=0  p1:x2=0  : 4995
+ p1:x0=0  p1:x2=1  : 1069
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 38837
+ p1:x0=0  p1:x2=1  : 54982
+ p1:x0=0  p1:x2=0  : 6181
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 314557
+ p1:x0=0  p1:x2=1  : 625627
+ p1:x0=0  p1:x2=0  : 59816
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 513934
+ p1:x0=0  p1:x2=1  : 366831
+ p1:x0=0  p1:x2=0  : 119235
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2699
+ p1:x0=0  p1:x2=1  : 7290
+ p1:x0=0  p1:x2=0  : 11
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5011
+ p1:x0=1  p1:x2=0  : 5 *
+ p1:x0=1  p1:x2=1  : 4974
+ p1:x0=0  p1:x2=1  : 10
+Observation MP+pos: 5 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3483
+ p1:x0=0  p1:x2=0  : 4993
+ p1:x0=0  p1:x2=1  : 1524
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 33243
+ p1:x0=0  p1:x2=1  : 60867
+ p1:x0=0  p1:x2=0  : 5890
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 667608
+ p1:x0=0  p1:x2=0  : 49127
+ p1:x0=1  p1:x2=1  : 283265
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 516189
+ p1:x0=0  p1:x2=1  : 371767
+ p1:x0=0  p1:x2=0  : 112044
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2702
+ p1:x0=0  p1:x2=1  : 7286
+ p1:x0=0  p1:x2=0  : 12
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5005
+ p1:x0=1  p1:x2=0  : 10 *
+ p1:x0=1  p1:x2=1  : 4982
+ p1:x0=0  p1:x2=1  : 3
+Observation MP+pos: 10 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 2180
+ p1:x0=1  p1:x2=1  : 2823
+ p1:x0=0  p1:x2=0  : 4997
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 31521
+ p1:x0=0  p1:x2=1  : 63349
+ p1:x0=0  p1:x2=0  : 5130
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 685525
+ p1:x0=0  p1:x2=0  : 50512
+ p1:x0=1  p1:x2=1  : 263963
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 385340
+ p1:x0=0  p1:x2=0  : 115091
+ p1:x0=1  p1:x2=1  : 499569
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2675
+ p1:x0=0  p1:x2=1  : 7316
+ p1:x0=0  p1:x2=0  : 9
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5013
+ p1:x0=1  p1:x2=1  : 4938
+ p1:x0=0  p1:x2=1  : 42
+ p1:x0=1  p1:x2=0  : 7 *
+Observation MP+pos: 7 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3163
+ p1:x0=0  p1:x2=1  : 1831
+ p1:x0=0  p1:x2=0  : 5006
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 32850
+ p1:x0=0  p1:x2=1  : 61621
+ p1:x0=0  p1:x2=0  : 5529
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 672988
+ p1:x0=1  p1:x2=1  : 273176
+ p1:x0=0  p1:x2=0  : 53836
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 500082
+ p1:x0=0  p1:x2=1  : 388377
+ p1:x0=0  p1:x2=0  : 111541
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2939
+ p1:x0=0  p1:x2=1  : 7056
+ p1:x0=0  p1:x2=0  : 5
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5006
+ p1:x0=1  p1:x2=1  : 4958
+ p1:x0=0  p1:x2=1  : 25
+ p1:x0=1  p1:x2=0  : 11 *
+Observation MP+pos: 11 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3502
+ p1:x0=0  p1:x2=0  : 5004
+ p1:x0=0  p1:x2=1  : 1494
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 63870
+ p1:x0=1  p1:x2=1  : 31047
+ p1:x0=0  p1:x2=0  : 5083
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 685529
+ p1:x0=0  p1:x2=0  : 42465
+ p1:x0=1  p1:x2=1  : 272006
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 506580
+ p1:x0=0  p1:x2=1  : 380378
+ p1:x0=0  p1:x2=0  : 113042
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3166
+ p1:x0=0  p1:x2=1  : 6829
+ p1:x0=0  p1:x2=0  : 5
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4985
+ p1:x0=1  p1:x2=0  : 3 *
+ p1:x0=0  p1:x2=0  : 5011
+ p1:x0=0  p1:x2=1  : 1
+Observation MP+pos: 3 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3698
+ p1:x0=0  p1:x2=1  : 1308
+ p1:x0=0  p1:x2=0  : 4994
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 34855
+ p1:x0=0  p1:x2=1  : 59127
+ p1:x0=0  p1:x2=0  : 6018
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 672198
+ p1:x0=0  p1:x2=0  : 44820
+ p1:x0=1  p1:x2=1  : 282982
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 375426
+ p1:x0=0  p1:x2=0  : 116800
+ p1:x0=1  p1:x2=1  : 507774
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7235
+ p1:x0=1  p1:x2=1  : 2758
+ p1:x0=0  p1:x2=0  : 7
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5011
+ p1:x0=1  p1:x2=1  : 4953
+ p1:x0=1  p1:x2=0  : 14 *
+ p1:x0=0  p1:x2=1  : 22
+Observation MP+pos: 14 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3769
+ p1:x0=0  p1:x2=1  : 1234
+ p1:x0=0  p1:x2=0  : 4997
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35901
+ p1:x0=0  p1:x2=1  : 57922
+ p1:x0=0  p1:x2=0  : 6177
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 657305
+ p1:x0=0  p1:x2=0  : 46839
+ p1:x0=1  p1:x2=1  : 295856
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 496579
+ p1:x0=0  p1:x2=1  : 373008
+ p1:x0=0  p1:x2=0  : 130413
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2512
+ p1:x0=0  p1:x2=1  : 7480
+ p1:x0=0  p1:x2=0  : 8
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 4999
+ p1:x0=1  p1:x2=1  : 4955
+ p1:x0=1  p1:x2=0  : 18 *
+ p1:x0=0  p1:x2=1  : 28
+Observation MP+pos: 18 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 4993
+ p1:x0=1  p1:x2=1  : 3823
+ p1:x0=0  p1:x2=1  : 1184
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35297
+ p1:x0=0  p1:x2=1  : 59214
+ p1:x0=0  p1:x2=0  : 5489
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 671078
+ p1:x0=1  p1:x2=1  : 283514
+ p1:x0=0  p1:x2=0  : 45408
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 501288
+ p1:x0=0  p1:x2=1  : 387527
+ p1:x0=0  p1:x2=0  : 111185
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3104
+ p1:x0=0  p1:x2=1  : 6887
+ p1:x0=0  p1:x2=0  : 9
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5011
+ p1:x0=1  p1:x2=1  : 4974
+ p1:x0=0  p1:x2=1  : 11
+ p1:x0=1  p1:x2=0  : 4 *
+Observation MP+pos: 4 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1413
+ p1:x0=1  p1:x2=1  : 3581
+ p1:x0=0  p1:x2=0  : 5006
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 60443
+ p1:x0=0  p1:x2=0  : 5907
+ p1:x0=1  p1:x2=1  : 33650
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 287116
+ p1:x0=0  p1:x2=0  : 59271
+ p1:x0=0  p1:x2=1  : 653613
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 513558
+ p1:x0=0  p1:x2=0  : 86736
+ p1:x0=0  p1:x2=1  : 399706
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3067
+ p1:x0=0  p1:x2=0  : 9
+ p1:x0=0  p1:x2=1  : 6924
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5012
+ p1:x0=1  p1:x2=0  : 10 *
+ p1:x0=1  p1:x2=1  : 4970
+ p1:x0=0  p1:x2=1  : 8
+Observation MP+pos: 10 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=0  : 5001
+ p1:x0=0  p1:x2=1  : 1257
+ p1:x0=1  p1:x2=1  : 3742
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 36088
+ p1:x0=0  p1:x2=1  : 59636
+ p1:x0=0  p1:x2=0  : 4276
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 639761
+ p1:x0=1  p1:x2=1  : 307833
+ p1:x0=0  p1:x2=0  : 52406
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 519127
+ p1:x0=0  p1:x2=1  : 366246
+ p1:x0=0  p1:x2=0  : 114627
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3149
+ p1:x0=0  p1:x2=1  : 6847
+ p1:x0=0  p1:x2=0  : 4
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5003
+ p1:x0=1  p1:x2=0  : 11 *
+ p1:x0=1  p1:x2=1  : 4963
+ p1:x0=0  p1:x2=1  : 23
+Observation MP+pos: 11 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3829
+ p1:x0=0  p1:x2=0  : 5000
+ p1:x0=0  p1:x2=1  : 1171
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 59779
+ p1:x0=1  p1:x2=1  : 35392
+ p1:x0=0  p1:x2=0  : 4829
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 658214
+ p1:x0=0  p1:x2=0  : 62924
+ p1:x0=1  p1:x2=1  : 278862
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 499881
+ p1:x0=0  p1:x2=1  : 375775
+ p1:x0=0  p1:x2=0  : 124344
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2839
+ p1:x0=0  p1:x2=1  : 7147
+ p1:x0=0  p1:x2=0  : 14
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4986
+ p1:x0=0  p1:x2=0  : 5010
+ p1:x0=1  p1:x2=0  : 2 *
+ p1:x0=0  p1:x2=1  : 2
+Observation MP+pos: 2 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3528
+ p1:x0=0  p1:x2=1  : 1477
+ p1:x0=0  p1:x2=0  : 4995
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35413
+ p1:x0=0  p1:x2=1  : 59563
+ p1:x0=0  p1:x2=0  : 5024
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 292181
+ p1:x0=0  p1:x2=0  : 55214
+ p1:x0=0  p1:x2=1  : 652605
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 507025
+ p1:x0=0  p1:x2=1  : 376905
+ p1:x0=0  p1:x2=0  : 116070
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2743
+ p1:x0=0  p1:x2=1  : 7248
+ p1:x0=0  p1:x2=0  : 9
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5023
+ p1:x0=1  p1:x2=1  : 4896
+ p1:x0=1  p1:x2=0  : 14 *
+ p1:x0=0  p1:x2=1  : 67
+Observation MP+pos: 14 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1774
+ p1:x0=1  p1:x2=1  : 3231
+ p1:x0=0  p1:x2=0  : 4995
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 63223
+ p1:x0=1  p1:x2=1  : 31622
+ p1:x0=0  p1:x2=0  : 5155
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 704325
+ p1:x0=0  p1:x2=0  : 52165
+ p1:x0=1  p1:x2=1  : 243510
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 396608
+ p1:x0=0  p1:x2=0  : 112936
+ p1:x0=1  p1:x2=1  : 490456
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7537
+ p1:x0=1  p1:x2=1  : 2448
+ p1:x0=0  p1:x2=0  : 15
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4962
+ p1:x0=0  p1:x2=0  : 5003
+ p1:x0=0  p1:x2=1  : 29
+ p1:x0=1  p1:x2=0  : 6 *
+Observation MP+pos: 6 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3737
+ p1:x0=0  p1:x2=1  : 1266
+ p1:x0=0  p1:x2=0  : 4997
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 36020
+ p1:x0=0  p1:x2=1  : 58561
+ p1:x0=0  p1:x2=0  : 5419
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 286645
+ p1:x0=0  p1:x2=1  : 657872
+ p1:x0=0  p1:x2=0  : 55483
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 505924
+ p1:x0=0  p1:x2=1  : 374848
+ p1:x0=0  p1:x2=0  : 119228
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 7000
+ p1:x0=1  p1:x2=1  : 2991
+ p1:x0=0  p1:x2=0  : 9
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5025
+ p1:x0=1  p1:x2=1  : 4937
+ p1:x0=1  p1:x2=0  : 17 *
+ p1:x0=0  p1:x2=1  : 21
+Observation MP+pos: 17 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3699
+ p1:x0=0  p1:x2=1  : 1306
+ p1:x0=0  p1:x2=0  : 4995
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 34669
+ p1:x0=0  p1:x2=1  : 59337
+ p1:x0=0  p1:x2=0  : 5994
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 657925
+ p1:x0=1  p1:x2=1  : 298343
+ p1:x0=0  p1:x2=0  : 43732
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 507555
+ p1:x0=0  p1:x2=1  : 369709
+ p1:x0=0  p1:x2=0  : 122736
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2988
+ p1:x0=0  p1:x2=1  : 7006
+ p1:x0=0  p1:x2=0  : 6
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=1  p1:x2=1  : 4989
+ p1:x0=0  p1:x2=0  : 5005
+ p1:x0=1  p1:x2=0  : 2 *
+ p1:x0=0  p1:x2=1  : 4
+Observation MP+pos: 2 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3404
+ p1:x0=0  p1:x2=0  : 4991
+ p1:x0=0  p1:x2=1  : 1605
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 34745
+ p1:x0=0  p1:x2=1  : 59464
+ p1:x0=0  p1:x2=0  : 5791
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 672761
+ p1:x0=0  p1:x2=0  : 37172
+ p1:x0=1  p1:x2=1  : 290067
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 506648
+ p1:x0=0  p1:x2=1  : 380874
+ p1:x0=0  p1:x2=0  : 112478
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 6874
+ p1:x0=1  p1:x2=1  : 3121
+ p1:x0=0  p1:x2=0  : 5
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5008
+ p1:x0=1  p1:x2=1  : 4941
+ p1:x0=1  p1:x2=0  : 10 *
+ p1:x0=0  p1:x2=1  : 41
+Observation MP+pos: 10 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3947
+ p1:x0=0  p1:x2=0  : 4991
+ p1:x0=0  p1:x2=1  : 1062
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35319
+ p1:x0=0  p1:x2=1  : 58954
+ p1:x0=0  p1:x2=0  : 5727
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 658426
+ p1:x0=0  p1:x2=0  : 57658
+ p1:x0=1  p1:x2=1  : 283916
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 502510
+ p1:x0=0  p1:x2=1  : 375044
+ p1:x0=0  p1:x2=0  : 122446
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=0  p1:x2=1  : 6925
+ p1:x0=1  p1:x2=1  : 3071
+ p1:x0=0  p1:x2=0  : 4
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5017
+ p1:x0=1  p1:x2=0  : 13 *
+ p1:x0=1  p1:x2=1  : 4853
+ p1:x0=0  p1:x2=1  : 117
+Observation MP+pos: 13 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3686
+ p1:x0=0  p1:x2=0  : 4993
+ p1:x0=0  p1:x2=1  : 1321
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 58333
+ p1:x0=0  p1:x2=0  : 6692
+ p1:x0=1  p1:x2=1  : 34975
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 660446
+ p1:x0=0  p1:x2=0  : 52191
+ p1:x0=1  p1:x2=1  : 287363
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 500607
+ p1:x0=0  p1:x2=0  : 114542
+ p1:x0=0  p1:x2=1  : 384851
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3173
+ p1:x0=0  p1:x2=1  : 6822
+ p1:x0=0  p1:x2=0  : 5
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5011
+ p1:x0=1  p1:x2=1  : 4979
+ p1:x0=1  p1:x2=0  : 3 *
+ p1:x0=0  p1:x2=1  : 7
+Observation MP+pos: 3 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3887
+ p1:x0=0  p1:x2=1  : 1118
+ p1:x0=0  p1:x2=0  : 4995
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=0  p1:x2=1  : 55892
+ p1:x0=1  p1:x2=1  : 38870
+ p1:x0=0  p1:x2=0  : 5238
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 636322
+ p1:x0=1  p1:x2=1  : 314953
+ p1:x0=0  p1:x2=0  : 48725
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 508443
+ p1:x0=0  p1:x2=1  : 376926
+ p1:x0=0  p1:x2=0  : 114631
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3197
+ p1:x0=0  p1:x2=1  : 6798
+ p1:x0=0  p1:x2=0  : 5
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5020
+ p1:x0=1  p1:x2=1  : 4886
+ p1:x0=1  p1:x2=0  : 12 *
+ p1:x0=0  p1:x2=1  : 82
+Observation MP+pos: 12 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3768
+ p1:x0=0  p1:x2=1  : 1235
+ p1:x0=0  p1:x2=0  : 4997
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35213
+ p1:x0=0  p1:x2=1  : 59041
+ p1:x0=0  p1:x2=0  : 5746
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 300589
+ p1:x0=0  p1:x2=0  : 46985
+ p1:x0=0  p1:x2=1  : 652426
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 504143
+ p1:x0=0  p1:x2=0  : 113042
+ p1:x0=0  p1:x2=1  : 382815
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3162
+ p1:x0=0  p1:x2=1  : 6815
+ p1:x0=0  p1:x2=0  : 23
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5010
+ p1:x0=1  p1:x2=1  : 4974
+ p1:x0=0  p1:x2=1  : 13
+ p1:x0=1  p1:x2=0  : 3 *
+Observation MP+pos: 3 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 4156
+ p1:x0=0  p1:x2=0  : 4996
+ p1:x0=0  p1:x2=1  : 848
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 38420
+ p1:x0=0  p1:x2=1  : 56469
+ p1:x0=0  p1:x2=0  : 5111
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 632805
+ p1:x0=1  p1:x2=1  : 315348
+ p1:x0=0  p1:x2=0  : 51847
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 503448
+ p1:x0=0  p1:x2=1  : 358573
+ p1:x0=0  p1:x2=0  : 137979
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3089
+ p1:x0=0  p1:x2=1  : 6904
+ p1:x0=0  p1:x2=0  : 7
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5008
+ p1:x0=1  p1:x2=1  : 4956
+ p1:x0=0  p1:x2=1  : 16
+ p1:x0=1  p1:x2=0  : 20 *
+Observation MP+pos: 20 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 4059
+ p1:x0=0  p1:x2=0  : 4996
+ p1:x0=0  p1:x2=1  : 945
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 38258
+ p1:x0=0  p1:x2=1  : 56578
+ p1:x0=0  p1:x2=0  : 5164
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 325392
+ p1:x0=0  p1:x2=0  : 51385
+ p1:x0=0  p1:x2=1  : 623223
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 502802
+ p1:x0=0  p1:x2=0  : 111921
+ p1:x0=0  p1:x2=1  : 385277
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2647
+ p1:x0=0  p1:x2=1  : 7343
+ p1:x0=0  p1:x2=0  : 10
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5016
+ p1:x0=1  p1:x2=0  : 25 *
+ p1:x0=1  p1:x2=1  : 4930
+ p1:x0=0  p1:x2=1  : 29
+Observation MP+pos: 25 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=1  p1:x2=1  : 3717
+ p1:x0=0  p1:x2=0  : 4999
+ p1:x0=0  p1:x2=1  : 1284
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 36143
+ p1:x0=0  p1:x2=1  : 59046
+ p1:x0=0  p1:x2=0  : 4811
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 659564
+ p1:x0=0  p1:x2=0  : 46102
+ p1:x0=1  p1:x2=1  : 294334
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 515716
+ p1:x0=0  p1:x2=1  : 367148
+ p1:x0=0  p1:x2=0  : 117136
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3146
+ p1:x0=0  p1:x2=1  : 6850
+ p1:x0=0  p1:x2=0  : 4
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5010
+ p1:x0=1  p1:x2=1  : 4884
+ p1:x0=0  p1:x2=1  : 89
+ p1:x0=1  p1:x2=0  : 17 *
+Observation MP+pos: 17 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1319
+ p1:x0=0  p1:x2=0  : 5003
+ p1:x0=1  p1:x2=1  : 3678
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 37662
+ p1:x0=0  p1:x2=1  : 57378
+ p1:x0=0  p1:x2=0  : 4960
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 635942
+ p1:x0=0  p1:x2=0  : 54596
+ p1:x0=1  p1:x2=1  : 309462
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 507587
+ p1:x0=0  p1:x2=1  : 377685
+ p1:x0=0  p1:x2=0  : 114728
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3004
+ p1:x0=0  p1:x2=1  : 6986
+ p1:x0=0  p1:x2=0  : 10
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5032
+ p1:x0=1  p1:x2=1  : 4866
+ p1:x0=0  p1:x2=1  : 94
+ p1:x0=1  p1:x2=0  : 8 *
+Observation MP+pos: 8 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1444
+ p1:x0=1  p1:x2=1  : 3566
+ p1:x0=0  p1:x2=0  : 4990
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 35889
+ p1:x0=0  p1:x2=1  : 57728
+ p1:x0=0  p1:x2=0  : 6383
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 656921
+ p1:x0=1  p1:x2=1  : 280745
+ p1:x0=0  p1:x2=0  : 62334
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 496734
+ p1:x0=0  p1:x2=1  : 376344
+ p1:x0=0  p1:x2=0  : 126922
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 2880
+ p1:x0=0  p1:x2=1  : 7114
+ p1:x0=0  p1:x2=0  : 6
+Observation MP+dmb+svc-eret: 0 (of 10000)
+====== MP+pos ======
+Results:
+ p1:x0=0  p1:x2=0  : 5005
+ p1:x0=1  p1:x2=1  : 4944
+ p1:x0=1  p1:x2=0  : 11 *
+ p1:x0=0  p1:x2=1  : 40
+Observation MP+pos: 11 (of 10000)
+====== MP+dmbs ======
+Results:
+ p1:x0=0  p1:x2=1  : 1327
+ p1:x0=1  p1:x2=1  : 3667
+ p1:x0=0  p1:x2=0  : 5006
+Observation MP+dmbs: 0 (of 10000)
+====== MP+dmb+svc ======
+Results:
+ p1:x0=1  p1:x2=1  : 34539
+ p1:x0=0  p1:x2=1  : 60129
+ p1:x0=0  p1:x2=0  : 5332
+Observation MP+dmb+svc: 0 (of 100000)
+====== MP+dmb+svc0 ======
+Results:
+ p1:x0=0  p1:x2=1  : 677511
+ p1:x0=1  p1:x2=1  : 277000
+ p1:x0=0  p1:x2=0  : 45489
+Observation MP+dmb+svc0: 0 (of 1000000)
+====== MP+dmb+eret0 ======
+Results:
+ p1:x0=1  p1:x2=1  : 495087
+ p1:x0=0  p1:x2=0  : 112336
+ p1:x0=0  p1:x2=1  : 392577
+Observation MP+dmb+eret0: 0 (of 1000000)
+====== MP+dmb+svc-eret ======
+Results:
+ p1:x0=1  p1:x2=1  : 3142
+ p1:x0=0  p1:x2=1  : 6847
+ p1:x0=0  p1:x2=0  : 11
+Observation MP+dmb+svc-eret: 0 (of 10000)
