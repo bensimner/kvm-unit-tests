@@ -55,7 +55,7 @@ void end_of_run(test_ctx_t* ctx, int i);
 
 
 /* random numbers */
-uint64_t SEED;
+volatile uint64_t SEED;
 
 uint64_t read_clk(void);
 void rand_seed(uint64_t seed);

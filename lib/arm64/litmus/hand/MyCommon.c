@@ -209,18 +209,24 @@ void rand_seed(uint64_t seed) {
 }
 
 uint64_t read_clk(void) {
-  return 42;  /* TODO: read from some actual randomish source */
+  uint64_t clk;
+  asm volatile (
+    "mrs %[clk], pmccntr_el0\n"
+  : [clk] "=r" (clk)
+  );
+  return clk;
 }
 
 uint64_t randn(void) {
-  uint64_t st = SEED;
-  for (int i = 1; i < 64; i++) {
-    int x = (st >> (i-1)) & 0x1;
-    int y = (st >> (i+1)) & 0x1;
-    int z = x ^ y;
-    int mask = z << i;
-    SEED = SEED | mask;
+  uint64_t st = 1;
+
+  for (int i = 0; i < 64; i++) {
+    if (i % 7 == 0 || i % 13 == 0) {
+      int x = (SEED >> i) & 0x1;
+      st = st ^ x;
+    }
   }
+  SEED = (SEED << 1) + st;
   return SEED;
 }
 
