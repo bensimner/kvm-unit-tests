@@ -15,6 +15,43 @@
 #define dmb()  asm volatile("dmb sy")
 #define eret()  asm volatile("eret")
 
+/* test data */
+typedef struct {
+    uint64_t counter;
+    uint64_t values[];
+} test_result_t;
+
+typedef struct {
+    int allocated;
+    int limit;
+    test_result_t** lut;
+    test_result_t* results[];
+} test_hist_t;
+
+typedef struct {
+  uint64_t** heap_vars;         /* set of heap variables: x, y, z etc */
+  size_t no_heap_vars;
+  uint64_t** out_regs;          /* set of output register values: P1:x1,  P2:x3 etc */
+  size_t no_out_regs;
+  uint64_t volatile* start_barriers;
+  uint64_t volatile* end_barriers;
+  uint64_t volatile* final_barrier;
+  uint64_t* shuffled_ixs;
+  uint64_t no_runs;
+  char* test_name;
+  test_hist_t* hist;
+} test_ctx_t;
+
+
+void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_heap_vars, int no_out_regs, int no_runs);
+
+/* print the collected results out */
+void print_results(test_hist_t* results, test_ctx_t* ctx, char** out_reg_names, int* interesting_results);
+
+/* call at the start and end of each run on Thread 0 */
+void start_of_run(test_ctx_t* ctx, int i);
+void end_of_run(test_ctx_t* ctx, int i);
+
 
 /* random numbers */
 uint64_t SEED;
@@ -80,6 +117,7 @@ static const char* vec_names[16] = {
 
 static const char* ec_names[0x26] = {
   [0x15] = "EC_SVC64",
+  [0x18] = "EC_MRS_TRAP",
   [0x20] = "EC_IABT_EL0",
   [0x21] = "EC_IABT_EL1",
   [0x22] = "EC_PC_ALIGN",

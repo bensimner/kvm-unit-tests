@@ -9,39 +9,25 @@
 #define T 1000000            /* number of runs */
 #define NAME "MP+dmb+svc0"   /* litmus test name */
 
-typedef struct {
-  uint64_t* x;
-  uint64_t* y;
-  uint64_t volatile* barriers;
-  uint64_t* out_p1_x0;
-  uint64_t* out_p1_x2;
-  uint64_t volatile* final_barrier;
-  uint64_t* shuffled;
-} test_ctx_t;
+#define X 0
+#define Y 1
 
-static void prefetch(test_ctx_t* ctx) {
-  for (int j = 0; j < T; j++) {
-    int i = ctx->shuffled[j];
-    if (randn() % 2 && ctx->x[i] != 0) {
-      printf("Fail!  initial state wasn't 0\n");
-    }
-    if (randn() % 2 && ctx->y[i] != 0) {
-      printf("Fail!  initial state wasn't 0\n");
-    }
-  }
-}
+#define out_p1_x0 0
+#define out_p1_x2 1
 
 static void P0(void* a) {
   test_ctx_t* ctx = (test_ctx_t* )a;
-  uint64_t volatile* x = ctx->x;
-  uint64_t volatile* y = ctx->y;
-  uint64_t volatile* bars = ctx->barriers;
+  uint64_t* x = ctx->heap_vars[X];
+  uint64_t* y = ctx->heap_vars[Y];
+  uint64_t* start_bars = ctx->start_barriers;
+  uint64_t* end_bars = ctx->end_barriers;
 
-  prefetch(ctx);
-  for (uint64_t j = 0; j < T; j++) {
-    uint64_t i = ctx->shuffled[j];
+  for (int j = 0; j < T; j++) {
+    int i = ctx->shuffled_ixs[j];
 
-    bwait(0, i % 2, &bars[i]);
+    start_of_run(ctx, i);
+    bwait(0, i % 2, &start_bars[i]);
+
     asm volatile (
       "mov x0, #1\n\t"
       "str x0, [%[x1]]\n\t"
@@ -52,21 +38,26 @@ static void P0(void* a) {
     : [x1] "r" (&x[i]), [x3] "r" (&y[i])
     : "cc", "memory", "x0", "x2"
     );
+
+    bwait(0, i % 2, &end_bars[i]);
+    end_of_run(ctx, i);
   }
 }
 
 static void P1(void* a) {
   test_ctx_t* ctx = (test_ctx_t* )a;
-  uint64_t* bars = ctx->barriers;
 
-  uint64_t* y = ctx->y;
-  uint64_t* x0 = ctx->out_p1_x0;
+  uint64_t* start_bars = ctx->start_barriers;
+  uint64_t* end_bars = ctx->end_barriers;
 
-  for (uint64_t j = 0; j < T; j++) {
-    uint64_t i = ctx->shuffled[j];
+  uint64_t* y = ctx->heap_vars[Y];
+  uint64_t* x0 = ctx->out_regs[out_p1_x0];
 
-    bwait(1, i % 2, &bars[i]);
-    uint64_t iout;
+  for (int j = 0; j < T; j++) {
+    int i = ctx->shuffled_ixs[j];
+    start_of_run(ctx, i);
+    bwait(1, i % 2, &start_bars[i]);
+
     asm volatile (
       "ldr %[x0], [%[x1]]\n\t"
 
@@ -74,12 +65,13 @@ static void P1(void* a) {
       "mov x0, %[i]\n\t"    /* which iteration */
       "mov x1, %[ctx]\n\t"  /* pointer to test_ctx_t object */
       "svc #0\n\t"
-    : [x0] "=r" (x0[i]), [iout] "=r" (iout)
+    : [x0] "=r" (x0[i])
     : [x1] "r" (&y[i]), [i] "r" (i), [ctx] "r" (ctx)
     : "cc", "memory", 
       "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
     );
 
+    bwait(1, i % 2, &end_bars[i]);
     if (i % T/10 == 0) {
       printf("%s", ".\n");
     }
@@ -94,8 +86,8 @@ static void* svc_handler(uint64_t esr, regvals_t* regs) {
     case 0: {
       uint64_t i = regs->x0;
       test_ctx_t *ctx = regs->x1;
-      uint64_t volatile* x2 = ctx->out_p1_x2;
-      uint64_t volatile* x = ctx->x;
+      uint64_t* x2 = ctx->out_regs[out_p1_x2];
+      uint64_t* x = ctx->heap_vars[X];
       asm volatile (
         "ldr %[x2], [%[x3]]\n"
         : [x2] "=r" (x2[i])
@@ -117,9 +109,10 @@ static void* svc_handler(uint64_t esr, regvals_t* regs) {
         /* write back to SPSR */
         "msr spsr_el1, x18\n"
 
-        /* set EL0 SP */
-        "mov x18, sp\n"
-        "msr sp_el0, x18\n"
+        /* /1* set EL0 SP *1/ */
+        /* "mov x18, sp\n" */
+        /* "add x18,x18,#288\n" */
+        /* "msr sp_el0, x18\n" */
 
         /* "msr vbar_el1, x0\n" */
         "isb\n"
@@ -172,8 +165,21 @@ static void go_cpus(void* a) {
 
   /* setup exceptions */
   uint64_t* old_table = set_vector_table(&el1_exception_vector_table);
-  set_handler(VEC_EL1H_SYNC, EC_SVC64, svc_handler);
+  set_handler(VEC_EL1T_SYNC, EC_SVC64, svc_handler);
   set_handler(VEC_EL0_SYNC_64, EC_SVC64, svc_handler);
+
+  /* before we drop to EL0, ensure both EL0 and EL1 stack pointers
+   * agree, and then ensure that execution at both EL1 and EL0 use SP_EL0
+   */
+  asm volatile (
+    "mov x18, sp\n"
+    "msr sp_el0, x18\n"
+    "mov x18, #0\n"
+    "msr spsel, x18\n"
+  :
+  :
+  : "x18"
+  );
 
   /* drop to EL0 */
   asm volatile (
@@ -189,7 +195,8 @@ static void go_cpus(void* a) {
       "mov %[el], x0\n" 
   : [el] "=r" (cel)
   :
-  : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
+  : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7",  /* dont touch parameter registers */
+    "memory"
   );
   printf("CPU%d, CurrentEL = %d\n", cpu, cel >> 2);
 
@@ -202,12 +209,15 @@ static void go_cpus(void* a) {
       break;
   }
 
+  printf("CPU%d, Finished, Restoring to EL1\n", cpu);
+
   /* restore EL1 */
   asm volatile (
     "svc #2\n\t"
   :
   :
-  : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
+  : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7",  /* dont touch parameter registers */
+    "memory"
   );
 
   /* restore old vtable now tests are over */
@@ -217,75 +227,30 @@ static void go_cpus(void* a) {
 }
 
 void MyMP_dmb_svc0(void) {
-  uint64_t* x = malloc(sizeof(uint64_t)*T);
-  uint64_t* y = malloc(sizeof(uint64_t)*T);
-  uint64_t* x0 = malloc(sizeof(uint64_t)*T);
-  uint64_t* x2 = malloc(sizeof(uint64_t)*T);
-  uint64_t* bars = malloc(sizeof(uint64_t)*T);
-  uint64_t* shuffled = malloc(sizeof(uint64_t)*T);
-  uint64_t final_barrier = 0;
+  test_ctx_t ctx;
+  init_test_ctx(&ctx, NAME, 2, 2, T);
 
   printf("====== %s ======\n", NAME);
 
-  /* zero the memory */
-  for (int i = 0; i < T; i++) {
-    x[i] = 0;
-    y[i] = 0;
-    x0[i] = 0;
-    x2[i] = 0;
-    bars[i] = 0;
-    shuffled[i] = i;
-  }
-
-  test_ctx_t ctx;
-  ctx.x = x;
-  ctx.y = y;
-  ctx.barriers = bars;
-  ctx.out_p1_x0 = x0;
-  ctx.out_p1_x2 = x2;
-  ctx.final_barrier = &final_barrier;
-  ctx.shuffled = shuffled;
-
-  /* shuffle shuffled */
-  rand_seed(read_clk());
-  shuffle(shuffled, T);
-
-  /* get pointer to start of aligned section */
   printf("New EL1 Exception Vector @ %p\n", &el1_exception_vector_table);
-
-  dsb();
 
   /* run test */
   printf("%s\n", "Running Tests ...");
   on_cpus(go_cpus, &ctx);
 
   /* collect results */
-  printf("%s\n", "Collecting Results ...");
-  uint64_t outs[2][2] = {{0}};
-  uint64_t skipped_results = 0;
+  printf("%s\n", "Ran Tests.");
 
-  for (int i = 0; i < T; i++) {
-    if (x0[i] > 2 || x2[i] > 2) {
-      skipped_results++;
-      continue;
-    }
+  /* collect results */
+  const char* reg_names[] = {
+    "p1:x0",
+    "p1:x2",
+  };
+  const int relaxed_result[] = {
+    /* p1:x0 =*/ 1,
+    /* p1:x2 =*/ 0,
+  };
 
-    outs[x0[i]][x2[i]]++;
-  }
-
-  /* print output */
-  for (int i = 0; i < 2; i++) {
-    for (int j = 0; j < 2; j++) {
-      if (outs[i][j] != 0 || (i < 2 && j < 2)) {
-        if (i == 1 && j == 0 && outs[i][j] > 0)  /* the relaxed outcome ! */
-          printf("*> x0=%d, x2=%d  -> %d\n", i, j, outs[i][j]);
-        else
-          printf(" > x0=%d, x2=%d  -> %d\n", i, j, outs[i][j]);
-      }
-    }
-  }
-
-  printf("Observation %s: %d\n", NAME, outs[1][0]);
-  if (skipped_results)
-    printf("(warning: %d results skipped for being out-of-range)\n", skipped_results);
+  printf("%s\n", "Printing Results...");
+  print_results(ctx.hist, &ctx, reg_names, relaxed_result);
 }
