@@ -61,7 +61,7 @@ fi
 M+=",accel=$ACCEL"
 command="$qemu -nodefaults $M -cpu $processor $chr_testdev $pci_testdev"
 #command+=" -S -s"
-command+=" -monitor tcp:127.0.0.1:5555,server,nowait"
+#command+=" -monitor tcp:127.0.0.1:5555,server,nowait"
 command+=" -display none -serial stdio -kernel"
 command="$(timeout_cmd) $command"
 
