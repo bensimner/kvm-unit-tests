@@ -126,4 +126,5 @@ void MyMP_dmb_svc_eret(void) {
 
   printf("%s\n", "Printing Results...");
   print_results(ctx.hist, &ctx, reg_names, relaxed_result);
+  free_test_ctx(&ctx);
 }

@@ -54,7 +54,6 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_heap_vars, int no_ou
     lut[t] = NULL;
   }
 
-
   ctx->heap_vars = heap_vars;
   ctx->no_heap_vars = no_heap_vars;
   ctx->out_regs = out_regs;
@@ -66,6 +65,34 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_heap_vars, int no_ou
   ctx->no_runs = no_runs;
   ctx->hist = hist;
   ctx->test_name = test_name;
+}
+
+void free_test_ctx(test_ctx_t* ctx) {
+
+  test_hist_t* hist = ctx->hist;
+  for (int t = 0; t < 100; t++) {
+    free(hist->results[t]);
+  }
+  free(hist->lut);
+  free(hist);
+
+  for (int r = 0; r < ctx->no_out_regs; r++) {
+    free(ctx->out_regs[r]);
+  }
+
+  for (int v = 0; v < ctx->no_heap_vars; v++) {
+    free(ctx->heap_vars[v]);
+  }
+
+  free(ctx->shuffled_ixs);
+  free(ctx->final_barrier);
+  free(ctx->end_barriers);
+  free(ctx->start_barriers);
+  free(ctx->out_regs);
+  free(ctx->heap_vars);
+
+  /* we allocate ctx's on stack */
+  /* free(ctx); */
 }
 
 static int matches(test_result_t* result, test_ctx_t* ctx, int run)  {

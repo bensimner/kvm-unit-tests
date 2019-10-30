@@ -44,6 +44,7 @@ typedef struct {
 
 
 void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_heap_vars, int no_out_regs, int no_runs);
+void free_test_ctx(test_ctx_t* ctx);
 
 /* print the collected results out */
 void print_results(test_hist_t* results, test_ctx_t* ctx, char** out_reg_names, int* interesting_results);
