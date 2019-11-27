@@ -40,8 +40,10 @@ cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+svc.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+svc0.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+eret0.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+svc-eret.o
+cflatobjs += lib/arm64/litmus/hand/MyMMU1.o
 cflatobjs += lib/arm64/litmus/hand/MyCommon.o
 cflatobjs += lib/arm64/litmus/hand/MyVectorTable.o
+cflatobjs += lib/arm64/litmus/hand/MyVMM.o
 
 OBJDIRS += lib/arm64
 OBJDIRS += lib/arm64/litmus/herd/

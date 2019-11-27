@@ -11,6 +11,7 @@ extern int MyMP_dmb_svc(void);
 extern int MyMP_dmb_eret0(void);
 extern int MyMP_dmb_svc0(void);
 extern int MyMP_dmb_svc_eret(void);
+extern int MyMMU1(void);
 
 int main(int argc, char **argv)
 {
@@ -18,12 +19,13 @@ int main(int argc, char **argv)
   /* MP_dmbs(argc, argv); */
   /* MP_dmb_svc(argc, argv); */
   /* MP_dmb_svc_eret(argc, argv); */
-  MyMP_pos();
-  MyMP_dmbs();
-  MyMP_dmb_svc();
-  MyMP_dmb_svc0();
-  MyMP_dmb_eret0();
-  MyMP_dmb_svc_eret();
+  /* MyMP_pos(); */
+  /* MyMP_dmbs(); */
+  /* MyMP_dmb_svc(); */
+  /* MyMP_dmb_svc0(); */
+  /* MyMP_dmb_eret0(); */
+  /* MyMP_dmb_svc_eret(); */
+  MyMMU1();
   return report_summary();
 }
 
