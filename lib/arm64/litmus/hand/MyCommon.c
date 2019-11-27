@@ -5,26 +5,54 @@
 
 #include <MyCommon.h>
 
+
+/* static allocator */
+// at end of each test free_all()
+// there is no use-after-free check.
+static char* page_buf[4096];
+static char* free_start = &page_buf;
+static char* free_end = &page_buf + sizeof(page_buf);
+
+static uint64_t alignup(uint64_t x, uint64_t to) {
+  return (x + to - 1) & ~(to - 1);
+}
+
+static char* static_malloc(size_t sz) {
+  if (free_start + sz > free_end) {
+    printf("! static_malloc: no free pages\n");
+    abort();
+  }
+
+  char* start = (char*)alignup(free_start, sz);
+  free_start = start + sz;
+  memset(start, 0, sz);
+  return (char*)start;
+}
+
+static void free_all(void) {
+  free_start = &page_buf;
+}
+
 /* Test Data */
 
+
 void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_heap_vars, int no_out_regs, int no_runs) {
-  uint64_t** heap_vars = malloc(sizeof(uint64_t*)*no_heap_vars);
-  uint64_t** out_regs = malloc(sizeof(uint64_t*)*no_out_regs);
-  uint64_t* bars = malloc(sizeof(uint64_t)*no_runs);
-  uint64_t* end_bars = malloc(sizeof(uint64_t)*no_runs);
-  uint64_t* final_barrier = malloc(sizeof(uint64_t));
-  uint64_t* shuffled = malloc(sizeof(uint64_t)*no_runs);
+  uint64_t** heap_vars = static_malloc(sizeof(uint64_t*)*no_heap_vars);
+  uint64_t** out_regs = static_malloc(sizeof(uint64_t*)*no_out_regs);
+  uint64_t* bars = static_malloc(sizeof(uint64_t)*no_runs);
+  uint64_t* end_bars = static_malloc(sizeof(uint64_t)*no_runs);
+  uint64_t* final_barrier = static_malloc(sizeof(uint64_t));
+  uint64_t* shuffled = static_malloc(sizeof(uint64_t)*no_runs);
 
   for (int v = 0; v < no_heap_vars; v++) {
-      uint64_t* heap_var = malloc(sizeof(uint64_t)*no_runs);
+      uint64_t* heap_var = static_malloc(sizeof(uint64_t)*no_runs);
       heap_vars[v] = heap_var;
   }
 
   for (int r = 0; r < no_out_regs; r++) {
-      uint64_t* out_reg = malloc(sizeof(uint64_t)*no_runs);
+      uint64_t* out_reg = static_malloc(sizeof(uint64_t)*no_runs);
       out_regs[r] = out_reg;
   }
-
 
   for (int i = 0; i < no_runs; i++) {
     /* one time init so column major doesnt matter */
@@ -44,14 +72,14 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_heap_vars, int no_ou
   rand_seed(read_clk());
   shuffle(shuffled, no_runs);
 
-  test_hist_t* hist = malloc(sizeof(test_hist_t)+sizeof(test_result_t)*100);
+  test_hist_t* hist = static_malloc(sizeof(test_hist_t)+sizeof(test_result_t)*100);
   hist->allocated = 0;
   hist->limit = 100;
-  test_result_t** lut = malloc(sizeof(test_result_t*)*100);
+  test_result_t** lut = static_malloc(sizeof(test_result_t*)*100);
   hist->lut = lut;
 
   for (int t = 0; t < 100; t++) {
-    test_result_t* new_res = malloc(sizeof(test_result_t)+sizeof(uint64_t)*no_out_regs);
+    test_result_t* new_res = static_malloc(sizeof(test_result_t)+sizeof(uint64_t)*no_out_regs);
     hist->results[t] = new_res;
     lut[t] = NULL;
   }
@@ -70,31 +98,7 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_heap_vars, int no_ou
 }
 
 void free_test_ctx(test_ctx_t* ctx) {
-
-  test_hist_t* hist = ctx->hist;
-  for (int t = 0; t < 100; t++) {
-    free(hist->results[t]);
-  }
-  free(hist->lut);
-  free(hist);
-
-  for (int r = 0; r < ctx->no_out_regs; r++) {
-    free(ctx->out_regs[r]);
-  }
-
-  for (int v = 0; v < ctx->no_heap_vars; v++) {
-    free(ctx->heap_vars[v]);
-  }
-
-  free(ctx->shuffled_ixs);
-  free(ctx->final_barrier);
-  free(ctx->end_barriers);
-  free(ctx->start_barriers);
-  free(ctx->out_regs);
-  free(ctx->heap_vars);
-
-  /* we allocate ctx's on stack */
-  /* free(ctx); */
+  free_all();
 }
 
 static int matches(test_result_t* result, test_ctx_t* ctx, int run)  {
