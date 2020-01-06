@@ -7,6 +7,7 @@
 
 #define T 10000           /* number of runs */
 #define NAME "MP+dmbs"    /* litmus test name */
+#define N_THREADS 2       /* number of hardware threads in test */
 
 #define X 0
 #define Y 1
@@ -23,9 +24,7 @@ static void P0(void* a) {
 
   for (int j = 0; j < T; j++) {
     int i = ctx->shuffled_ixs[j];
-
-    start_of_run(ctx, i);
-    bwait(0, i % 2, &start_bars[i], 2);
+    start_of_run(ctx, 0, i);
 
     asm volatile (
       "mov x0, #1\n\t"
@@ -38,8 +37,7 @@ static void P0(void* a) {
     : "cc", "memory", "x0", "x2"
     );
 
-    bwait(0, i % 2, &end_bars[i], 2);
-    end_of_run(ctx, i);
+    end_of_run(ctx, 0, i);
   }
 }
 
@@ -55,30 +53,25 @@ static void P1(void* a) {
 
   for (int j = 0; j < T; j++) {
     int i = ctx->shuffled_ixs[j];
-    start_of_run(ctx, i);
-    bwait(1, i % 2, &start_bars[i], 2);
-    uint64_t iout;
+    start_of_run(ctx, 1, i);
+
     asm volatile (
       "ldr %[x0], [%[x1]]\n\t"
       "dmb sy\n\t"
       "ldr %[x2], [%[x3]]\n\t"
-    : [x0] "=r" (x0[i]), [x2] "=r" (x2[i])
+    : [x0] "=&r" (x0[i]), [x2] "=&r" (x2[i])
     : [x1] "r" (&y[i]), [x3] "r" (&x[i])
     : "cc", "memory"
     );
 
-    bwait(1, i % 2, &end_bars[i], 2);
-    if (i % T/10 == 0) {
-      trace("%s", ".\n");
-    }
+    end_of_run(ctx, 1, i);
   }
 }
 
 static void go_cpus(void* a) {
   test_ctx_t* ctx = (test_ctx_t* )a;
-
   int cpu = smp_processor_id();
-  trace("CPU%d: on\n", cpu);
+  start_of_thread(ctx, cpu);
 
   switch (cpu) {
     case 1:
@@ -89,20 +82,16 @@ static void go_cpus(void* a) {
       break;
   }
 
-  bwait(cpu, 0, ctx->final_barrier, N_CPUS);
+  end_of_thread(ctx, cpu);
 }
 
 void MyMP_dmbs(void) {
   test_ctx_t ctx;
-  init_test_ctx(&ctx, NAME, 2, 2, T);
-
-  trace("====== %s ======\n", NAME);
+  start_of_test(&ctx, NAME, N_THREADS, 2, 2, T);
 
   /* run test */
   trace("%s\n", "Running Tests ...");
   on_cpus(go_cpus, &ctx);
-
-  trace("%s\n", "Ran Tests.");
 
   /* collect results */
   const char* reg_names[] = {
@@ -114,7 +103,5 @@ void MyMP_dmbs(void) {
     /* p1:x2 =*/ 0,
   };
 
-  trace("%s\n", "Printing Results...");
-  print_results(ctx.hist, &ctx, reg_names, relaxed_result);
-  free_test_ctx(&ctx);
+  end_of_test(&ctx, reg_names, relaxed_result);
 }

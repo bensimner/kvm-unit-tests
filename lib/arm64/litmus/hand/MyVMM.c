@@ -1,5 +1,6 @@
 #include <libcflat.h>
 
+#include "MyCommon.h"
 #include "MyVMM.h"
 
 #define BIT(x, i) ((x >> i) & 0x1)
@@ -7,6 +8,14 @@
 #define IS_ALIGNED(v, bits) ((v & ((1UL << bits) - 1)) == 0)
 #define ALIGN_TO(v, bits) (v & ~((1UL << bits) - 1))
 #define ALIGN_UP(v, bits) ((v + ((1UL << bits) - 1)) & ~((1UL << bits) - 1))
+
+static int LOCK = 0; // to ensure the "smart" functions are atomic
+
+static void ptable_set_or_ensure_block_or_page_4k(uint64_t* root_ptable,
+                                                  uint64_t vaddr, uint64_t pa,
+                                                  uint64_t prot,
+                                                  uint64_t desired_level,
+                                                  int ensure);
 
 uint64_t translate64k(uint64_t* root, uint64_t vaddr) {
     uint64_t bot = 0;
@@ -87,18 +96,33 @@ uint64_t translate4k(uint64_t* root, uint64_t vaddr) {
     return pa;
 }
 
-void ensure_pte(uint64_t* root, uint64_t vaddr) {
+static void ensure_pte(uint64_t* root, uint64_t vaddr) {
     ptable_set_or_ensure_block_or_page_4k(root, vaddr, 0, 0, 3, 1);
 }
 
-uint64_t pte4k(uint64_t* root, uint64_t vaddr) {
+uint64_t ref_pte4k(uint64_t* root, uint64_t vaddr) {
+    ensure_pte(root, vaddr);
+
+    uint64_t* lvl1 = (uint64_t*)(root[BIT_SLICE(vaddr, 39, 48)] & ~((1UL << 12) - 1));
+    uint64_t* lvl2 = (uint64_t*)(lvl1[BIT_SLICE(vaddr, 30, 38)] & ~((1UL << 12) - 1));
+    uint64_t* lvl3 = (uint64_t*)(lvl2[BIT_SLICE(vaddr, 21, 29)] & ~((1UL << 12) - 1));
+    uint64_t* pte = &lvl3[BIT_SLICE(vaddr, 12, 20)];
+
+    return pte;
+}
+
+uint64_t ref_pte64k(uint64_t* root, uint64_t vaddr) {
     /* assuming vaddr is already mapped by a level 3 table entry */
 
-    uint64_t* lvl1 = root[BIT_SLICE(vaddr, 39, 48)];
-    uint64_t* lvl2 = lvl1[BIT_SLICE(vaddr, 30, 38)];
-    uint64_t* lvl3 = lvl2[BIT_SLICE(vaddr, 21, 29)];
-    uint64_t* pte = &lvl3[BIT_SLICE(vaddr, 12, 20)];
-    return pte;
+    uint64_t* lvl3 = (uint64_t*)(root[BIT_SLICE(vaddr, 29, 41)] & ~((1UL << 12) - 1));
+    uint64_t* pte = &lvl3[BIT_SLICE(vaddr, 16, 28)];
+    return pte;   
+}
+
+uint64_t make_pte4k(uint64_t paddr) {
+    uint64_t pa = paddr ^ (paddr & 0xfff);
+    uint64_t prot = 0x44;
+    return pa | prot | (1 << 10) | (3 << 8) | 0x2 | 0x1;
 }
 
 // alloc
@@ -124,6 +148,7 @@ uint64_t* alloc_page_aligned(void) {
 void free_aligned_pages(void) { free_pages_start = &page_buf; }
 
 // 4k pages
+// non-atomic update to pagetable!
 static void ptable_set_or_ensure_block_or_page_4k(uint64_t* root_ptable,
                                                   uint64_t vaddr, uint64_t pa,
                                                   uint64_t prot,
@@ -271,11 +296,15 @@ void ptable_set_range_4k(uint64_t* root, uint64_t va_start, uint64_t va_end,
         abort();
     }
 
+    lock(&LOCK);
+
     uint64_t va = va_start; /* see above: must be aligned */
     uint64_t pa = pa_start;
     for (; va < va_end; va += (1UL << bot), pa += (1UL << bot)) {
         ptable_set_block_or_page_4k(root, va, pa, prot, level);
     }
+
+    unlock(&LOCK);
 }
 
 void ptable_set_block_or_page_4k(uint64_t* root_ptable, uint64_t vaddr,
@@ -300,6 +329,8 @@ void ptable_set_range_4k_smart(uint64_t* root, uint64_t va_start,
         printf("! error: ptable_set_range_4k_smart: got unaligned va_end\n");
         abort();
     }
+
+    lock(&LOCK);
 
     uint64_t va = va_start; /* see above: must be aligned on a page */
     uint64_t pa = pa_start;
@@ -330,9 +361,143 @@ void ptable_set_range_4k_smart(uint64_t* root, uint64_t va_start,
     for (; va < va_end; va += (1UL << level3), pa += (1UL << level3))
         ptable_set_block_or_page_4k(
             root, va, pa, prot, 3);  // allocate whatever remains as 4k pages.
+
+    unlock(&LOCK);
 }
 
 void ptable_set_idrange_4k_smart(uint64_t* root, uint64_t va_start,
                                  uint64_t va_end, uint64_t prot) {
+    //trace("[ptable_set_idrange_4k_smart] %p -> %p\n", va_start, va_end);
     ptable_set_range_4k_smart(root, va_start, va_end, va_start, prot);
+}
+
+
+
+
+/* test page table management */
+
+#define BIT(x, i) ((x >> i) & 0x1)
+#define BIT_SLICE(x, i, j) ((x >> i) & ((1 << (1 + j - i)) - 1))
+#define IS_ALIGNED(v, bits) ((v & ((1UL << bits) - 1)) == 0)
+#define ALIGN_TO(v, bits) (v & ~((1UL << bits) - 1))
+
+extern unsigned long etext; /* end of .text section (see flat.lds) */
+uint64_t* alloc_new_idmap_4k(void) {
+    uint64_t* root_ptable = alloc_page_aligned();
+    uint64_t code_end = (uint64_t)&etext;
+
+    /* set ranges according to kvm-unit-tests/lib/arm/mmu.c */
+    uint64_t phys_offs = (1UL << 30);
+    uint64_t phys_end  = (3UL << 30);
+
+    /* first 3 are I/O regions mapped by QEMU */
+    ptable_set_idrange_4k_smart(root_ptable, 0x00000000UL, 0x40000000UL, 0x44);
+    ptable_set_idrange_4k_smart(root_ptable, 0x4000000000UL, 0x4020000000UL,
+                                0x44);
+    ptable_set_idrange_4k_smart(root_ptable, 0x8000000000UL, 0x10000000000UL,
+                                0x44);
+
+    ptable_set_idrange_4k_smart(root_ptable, phys_offs, code_end,
+                                0xd0);  // code
+    ptable_set_idrange_4k_smart(root_ptable, code_end, phys_end,
+                                0x50);  // stack(?) = 0x50
+
+    // vmalloc.c  will also alloc some pages for allocating thread stack space.
+    // have to ensure the space between (3UL << 30) and (4UL << 30) are mapped.
+    // .. this happens dynamically inside set_new_id_translation for each core.
+
+    return root_ptable;
+}
+
+void set_new_ttable(uint64_t ttbr, uint64_t tcr) {
+    asm volatile (
+        /* turn off MMU */
+        "mrs x18, SCTLR_EL1\n"
+        "mov x19, #0\n"
+        "bfi x18, x19, #0, #1\n"
+        "bfi x18, x19, #19, #1\n"
+        "msr SCTLR_EL1, x18\n"
+        "dsb ish\n"
+        "isb\n"
+
+        /* set TCR/TTBR to new pagetable */
+        "msr TCR_EL1, %[tcr]\n"
+        "msr TTBR0_EL1, %[ttbr]\n"
+        "dsb ish\n"
+        "isb\n"
+
+        /* flush any TLBs */
+        "tlbi vmalle1is\n"
+        "dsb ish\n"
+        "isb\n"
+
+        /* turn MMU back on */
+        "mrs x18, SCTLR_EL1\n"
+        "orr x18, x18, #1\n"
+        "msr SCTLR_EL1, x18\n"
+        "dsb ish\n"
+        "isb\n"
+    :
+    : [ttbr] "r" (ttbr), [tcr] "r" (tcr)
+    : "x18", "x19", "memory"
+    );
+}
+
+void set_new_id_translation(uint64_t* pgtable) {
+    /* Each thread has some dynamically allocated stack space inside of KVM unit
+     * tests this space is non-identiy mapped and so we must read the SP and
+     * translate it via the original 64K mappings to figure out where to map to
+     * in the new mappings.
+     */
+    uint64_t old_ttbr, sp;
+    asm volatile("mov %[sp], SP\nmrs %[ttbr], TTBR0_EL1"
+                 : [sp] "=r"(sp), [ttbr] "=r"(old_ttbr));
+    uint64_t pa = translate64k(old_ttbr, sp);
+    sp = ALIGN_TO(sp, 16);
+    pa = ALIGN_TO(pa, 16);
+
+    // thread-local so no need for TLBI
+    //trace("[ptable_set_range_4k_smart] STACK @ %p -> %p\n", sp, sp + (1UL << 16));
+    ptable_set_range_4k_smart(pgtable, sp, sp + (1UL << 16), pa, 0x50);
+    dsb();
+ 
+    /* now set the new TTBR and TCR */
+    uint64_t ttbr = (uint64_t)pgtable;
+    uint64_t tcr =
+        (1L << 39) | /* HA, hardware access flag */
+        (1L << 37) | /* TBI, top byte ignored. */
+        (5L << 32) | /* IPS, 48-bit (I)PA. */
+        (0 << 14) |  /* TG0, granule size, 4K. */
+        (3 << 12) |  /* SH0, inner shareable. */
+        (1 << 10) |  /* ORGN0, normal mem, WB RA WA Cacheable. */
+        (1 << 8) |   /* IRGN0, normal mem, WB RA WA Cacheable. */
+        (16 << 0) |  /* T0SZ, input address is 48 bits => VA[47:12] are used for
+                        translation starting at level 0. */
+        0;
+
+    set_new_ttable(ttbr, tcr);
+}
+
+void restore_old_id_translation(uint64_t ttbr, uint64_t tcr) {
+    set_new_ttable(ttbr, tcr);
+}
+
+
+uint64_t read_tcr(void) {
+    uint64_t r;
+    asm volatile ("mrs %[r], tcr_el1\n" : [r] "=r" (r));
+    return r;
+}
+
+uint64_t read_ttbr(void) {
+    uint64_t r;
+    asm volatile ("mrs %[r], ttbr0_el1\n" : [r] "=r" (r));
+    return r;
+}
+
+void flush_tlb(void) {
+    dsb(); // wait for memory actions to complete
+    asm volatile ("tlbi vmalle1is\n" ::: "memory"); // clear TLB
+    dsb(); // wait for TLB invalidate to complete
+    isb(); // synchronize this hardware thread's translations.
 }

@@ -25,28 +25,18 @@ endef
 cstart.o = $(TEST_DIR)/cstart64.o
 cflatobjs += lib/arm64/processor.o
 cflatobjs += lib/arm64/spinlock.o
-cflatobjs += lib/arm64/litmus/herd/outs.o
-cflatobjs += lib/arm64/litmus/herd/utils.o
-cflatobjs += lib/arm64/litmus/herd/litmus_rand.o
-cflatobjs += lib/arm64/litmus/herd/affinity.o
-cflatobjs += lib/arm64/litmus/herd/run.o
-cflatobjs += lib/arm64/litmus/herd/MP.o
-cflatobjs += lib/arm64/litmus/herd/MP+dmb+svc.o
-cflatobjs += lib/arm64/litmus/herd/MP+dmb+svc-eret.o
-cflatobjs += lib/arm64/litmus/herd/MP+dmbs.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+pos.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmbs.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+svc.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+1svc1.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+eret0.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+svc-eret.o
-cflatobjs += lib/arm64/litmus/hand/MyMMU1.o
 cflatobjs += lib/arm64/litmus/hand/MyCommon.o
 cflatobjs += lib/arm64/litmus/hand/MyVectorTable.o
 cflatobjs += lib/arm64/litmus/hand/MyVMM.o
+cflatobjs += lib/arm64/litmus/hand/MyMMU1.o
 
 OBJDIRS += lib/arm64
-OBJDIRS += lib/arm64/litmus/herd/
 OBJDIRS += lib/arm64/litmus/hand/
 
 # arm64 specific tests

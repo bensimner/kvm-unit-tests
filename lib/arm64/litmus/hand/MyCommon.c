@@ -4,14 +4,28 @@
 #include <asm/smp.h>
 
 #include <MyCommon.h>
+#include <MyVMM.h>
 
 
-/* static allocator */
-// at end of each test free_all()
-// there is no use-after-free check.
-static char* page_buf[4096];
-static char* free_start = &page_buf;
-static char* free_end = &page_buf + sizeof(page_buf);
+/* static allocator
+ *
+ * Statically allocate the 64MB region:
+ *  0x42610000 ->
+ *  0x46610000
+ *    (8192 4k pages)
+ *
+ * Note:  kvm-unit-tests's vmalloc "malloc" implementation may allocate pages in this region, too.
+ * So don't use both!
+ *
+ *
+ * The test context (e.g. heap variables, output registers, test barriers and results histogram)
+ * is stored in this region.
+ *
+ * At the end of each test a call to free_all() will begin re-allocating this space anew.
+ */
+static char* page_buf = 0x42610000;
+static char* free_start = 0x42610000;
+static char* free_end = 0x46610000;
 
 static uint64_t alignup(uint64_t x, uint64_t to) {
   return (x + to - 1) & ~(to - 1);
@@ -23,6 +37,7 @@ static char* static_malloc(size_t sz) {
     abort();
   }
 
+  // if sz is large then we lose lots of free space here ...
   char* start = (char*)alignup(free_start, sz);
   free_start = start + sz;
   memset(start, 0, sz);
@@ -30,13 +45,13 @@ static char* static_malloc(size_t sz) {
 }
 
 static void free_all(void) {
-  free_start = &page_buf;
+  free_start = page_buf;
 }
 
 /* Test Data */
 
 
-void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_heap_vars, int no_out_regs, int no_runs) {
+void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_threads, int no_heap_vars, int no_out_regs, int no_runs) {
   uint64_t** heap_vars = static_malloc(sizeof(uint64_t*)*no_heap_vars);
   uint64_t** out_regs = static_malloc(sizeof(uint64_t*)*no_out_regs);
   uint64_t* bars = static_malloc(sizeof(uint64_t)*no_runs);
@@ -45,7 +60,8 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_heap_vars, int no_ou
   uint64_t* shuffled = static_malloc(sizeof(uint64_t)*no_runs);
 
   for (int v = 0; v < no_heap_vars; v++) {
-      uint64_t* heap_var = static_malloc(sizeof(uint64_t)*no_runs);
+      // ensure each heap var allloc'd into its own page...
+      uint64_t* heap_var = static_malloc(alignup(sizeof(uint64_t)*no_runs, 4096UL));
       heap_vars[v] = heap_var;
   }
 
@@ -84,6 +100,7 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_heap_vars, int no_ou
     lut[t] = NULL;
   }
 
+  ctx->no_threads = no_threads;
   ctx->heap_vars = heap_vars;
   ctx->no_heap_vars = no_heap_vars;
   ctx->out_regs = out_regs;
@@ -95,6 +112,8 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_heap_vars, int no_ou
   ctx->no_runs = no_runs;
   ctx->hist = hist;
   ctx->test_name = test_name;
+  ctx->ptable = NULL;
+  ctx->n_run = 0;
 }
 
 void free_test_ctx(test_ctx_t* ctx) {
@@ -169,20 +188,100 @@ static void add_results(test_hist_t* res, test_ctx_t* ctx, int run) {
 void prefetch(test_ctx_t* ctx, int i) {
   for (int v = 0; v < ctx->no_heap_vars; v++) {
     if (randn() % 2 && ctx->heap_vars[v][i] != 0) {
-      printf("! fatal initial state for heap var %d on run %d was %d not 0\n", v, i, ctx->heap_vars[v][i]);
+      printf("! fatal: initial state for heap var %d on run %d was %d not 0\n", v, i, ctx->heap_vars[v][i]);
       abort();
     }
   }
 }
 
-void start_of_run(test_ctx_t* ctx, int i) {
-  prefetch(ctx, i);
+static void resetsp(void) {
+  /* check and reset to SP_EL0 */
+  uint64_t currentsp;
+  asm volatile (
+    "mrs %[currentsp], SPSel\n"
+    : [currentsp] "=r" (currentsp)
+  );
+
+  if (currentsp == 0b1) {  /* if not already using SP_EL0 */
+    asm volatile (
+      "mov x18, sp\n"
+      "msr spsel, x18\n"
+      "dsb nsh\n"
+      "isb\n"
+      "mov sp, x18\n"
+    :
+    :
+    : "x18"
+    );
+  }
 }
 
-void end_of_run(test_ctx_t* ctx, int i) {
-  test_hist_t* res = ctx->hist;
-  add_results(res, ctx, i);
+void start_of_run(test_ctx_t* ctx, int thread, int i) {
+  prefetch(ctx, i);
+  bwait(thread, i % ctx->no_threads, &ctx->start_barriers[i], ctx->no_threads); 
+  drop_to_el0();
 }
+
+void end_of_run(test_ctx_t* ctx, int thread, int i) {
+  raise_to_el1();
+  bwait(thread, i % ctx->no_threads, &ctx->end_barriers[i], ctx->no_threads);
+
+  /* only 1 thread should collect the results, else they will be duplicated */
+  if (thread == 0) {
+    uint64_t r = ctx->n_run++;
+
+    test_hist_t* res = ctx->hist;
+    add_results(res, ctx, i);
+
+    /* progress indicator */
+    uint64_t step = (ctx->no_runs/10);
+    if (r % step == 0) {
+      trace("[%d/%d]\n", r, ctx->no_runs);
+    } else if (r == ctx->no_runs - 1) {
+      trace("[%d/%d]\n", r+1, ctx->no_runs);
+    }
+  }
+}
+
+static uint64_t _ttbrs[N_CPUS];
+static uint64_t _tcrs[N_CPUS];
+static uint64_t _vbars[N_CPUS];
+void start_of_thread(test_ctx_t* ctx, int cpu) {
+  _ttbrs[cpu] = read_ttbr();
+  _tcrs[cpu] = read_tcr();
+  set_new_id_translation(ctx->ptable);
+  _vbars[cpu] = set_vector_table(&el1_exception_vector_table);
+
+  /* before can drop to EL0, ensure EL0 has a valid mapped stack space
+  */
+  resetsp();
+
+  trace("CPU%d: on\n", cpu);
+}
+
+void end_of_thread(test_ctx_t* ctx, int cpu) {
+  trace("CPU%d: wait to idle\n", cpu);
+  set_vector_table(_vbars[cpu]);
+  restore_old_id_translation(_ttbrs[cpu], _tcrs[cpu]);
+  bwait(cpu, 0, ctx->final_barrier, N_CPUS);
+  trace("CPU%d: ->idle\n", cpu);
+}
+
+
+void start_of_test(test_ctx_t* ctx, const char* name, int no_threads, int no_heap_vars, int no_regs, int no_runs) {
+  trace("====== %s ======\n", name);
+  init_test_ctx(ctx, name, no_threads, no_heap_vars, no_regs, no_runs);
+  ctx->ptable = alloc_new_idmap_4k();
+}
+
+void end_of_test(test_ctx_t* ctx, char** out_reg_names, int* interesting_result) {
+  trace("%s\n", "Printing Results...");
+  print_results(ctx->hist, ctx, out_reg_names, interesting_result);
+  free_test_ctx(ctx);
+  free_aligned_pages();
+  trace("Finished test %s\n", ctx->test_name);
+}
+
 
 void print_results(test_hist_t* res, test_ctx_t* ctx, char** out_reg_names, int* interesting_results) {
   printf("Test %s:\n", ctx->test_name);
@@ -247,19 +346,23 @@ void shuffle(uint64_t* arr, int n) {
 
 
 /* Exception Vectors */
-
+static int _EXC_PRINT_LOCK = 0;
 void* default_handler(uint64_t vec, uint64_t esr) {
     uint64_t ec = esr >> 26;
     uint64_t far;
     asm volatile ("mrs %[far], FAR_EL1\n" : [far] "=r" (far));
     uint64_t elr;
     asm volatile ("mrs %[elr], ELR_EL1\n" : [elr] "=r" (elr));
-    printf("%s\n", "Unhandled Exception:");
-    printf("  Vector: 0x%x (%s)\n", vec, vec_names[vec]);
-    printf("  EC: 0x%x (%s)\n", ec, ec_names[ec]);
-    printf("ESR_EL1: 0x%06x\n", esr);
-    printf("FAR_EL1: 0x%016lx\n", far);
-    printf("ELR_EL1: 0x%016lx\n", elr);
+    uint64_t cpu = smp_processor_id();
+    lock(&_EXC_PRINT_LOCK);
+    printf("Unhandled Exception (CPU%d): \n", cpu);
+    printf("  [Vector: 0x%x (%s)]\n", vec, vec_names[vec]);
+    printf("  [EC: 0x%x (%s)]\n", ec, ec_names[ec]);
+    printf("  ESR_EL1: 0x%06x\n", esr);
+    printf("  FAR_EL1: 0x%016lx\n", far);
+    printf("  ELR_EL1: 0x%016lx\n", elr);
+    printf("  \n");
+    unlock(&_EXC_PRINT_LOCK);
     abort();
 
 /* unreachable */
@@ -276,20 +379,120 @@ void reset_handler(uint64_t vec, uint64_t ec) {
   table[cpu][vec][ec] = NULL;
 }
 
+void drop_to_el0(void) {
+  asm volatile (
+    "svc #10\n\t"
+  :
+  :
+  : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
+  );
+}
+
+void raise_to_el1(void) {
+  asm volatile (
+    "svc #11\n\t"
+  :
+  :
+  : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
+  );
+}
+
+static void* default_svc_drop_el0(uint64_t vec, uint64_t esr, regvals_t* regs) {
+  asm volatile (
+    "mrs x18, spsr_el1\n"
+
+    /* zero SPSR_EL1[0:3] */
+    "lsr x18, x18, #4\n"
+    "lsl x18, x18, #4\n"
+
+    /* write back to SPSR */
+    "msr spsr_el1, x18\n"
+    "dsb nsh\n"
+    "isb\n"
+  :
+  :
+  : "memory", "x18"
+  );
+
+  return NULL;
+}
+
+static void* default_svc_raise_el1(uint64_t vec, uint64_t esr, regvals_t* regs) {
+  /* raise to EL1h */
+  asm volatile (
+    "mrs x18, spsr_el1\n"
+
+    /* zero SPSR_EL1[0:3] */
+    "lsr x18, x18, #4\n"
+    "lsl x18, x18, #4\n"
+    
+    /* add targetEL and writeback */
+    "add x18, x18, #4\n"  /* EL1 */
+    "add x18, x18, #0\n"  /* h */
+    "msr spsr_el1, x18\n"
+    "dsb nsh\n"
+    "isb\n"
+  :
+  :
+  : "memory", "x18"
+  );
+
+  return NULL;
+}
+
+static void* default_svc_read_currentel(uint64_t vec, uint64_t esr, regvals_t* regs) {
+  /* read CurrentEL via SPSPR */
+  uint64_t cel;
+  asm volatile (
+    "mrs %[cel], SPSR_EL1\n"
+    "and %[cel], %[cel], #12\n"
+  : [cel] "=r" (cel)
+  );
+  return cel;
+}
+
+static void* default_svc_handler(uint64_t vec, uint64_t esr, regvals_t* regs) {
+  uint64_t imm = esr & 0xffffff;
+  int cpu = smp_processor_id();
+  if (table_svc[cpu][imm] == NULL)
+    if (imm == 10)
+      return default_svc_drop_el0(vec, esr, regs);
+    else if (imm == 11)
+      return default_svc_raise_el1(vec, esr, regs);
+    else if (imm == 12)
+      return default_svc_read_currentel(vec, esr, regs);
+    else
+      return default_handler(vec, esr);
+  else
+    return table_svc[cpu][imm](esr, regs);
+}
+
 void* handle_exception(uint64_t vec, uint64_t esr, regvals_t* regs) {
   uint64_t ec = esr >> 26;
   int cpu = smp_processor_id();
   exception_vector_fn* fn = table[cpu][vec][ec];
   if (fn) {
     return fn(esr, regs);
+  } else if (ec == 0x15) {
+    return default_svc_handler(vec, esr, regs);
   } else {
     return default_handler(vec, esr);
   }
 }
 
+void set_svc_handler(uint64_t svc_no, exception_vector_fn* fn) {
+  int cpu = smp_processor_id();
+  table_svc[cpu][svc_no] = fn;
+}
+
+void reset_svc_handler(uint64_t svc_no) {
+    int cpu = smp_processor_id();
+  table_svc[cpu][svc_no] = NULL;
+}
+
 /* Synchronisation */
 
-void bwait(int cpu, int i, uint64_t volatile* barrier, int sz) {
+void bwait(int cpu, int i, uint64_t* barrier, int sz) {
   asm volatile (
     "0:\n"
     "ldxr x0, [%[bar]]\n"
@@ -301,17 +504,40 @@ void bwait(int cpu, int i, uint64_t volatile* barrier, int sz) {
   : "x0", "x1", "memory"
   );
 
+  dsb();
+
   if (i == cpu) {
-    while (*barrier != sz);
+    while (*barrier != sz) wfe();
     *barrier = 0;
     dmb();
   } else {
-    while (*barrier != 0);
+    while (*barrier != 0) wfe();
   }
+}
+
+void lock(volatile int* lock) {
+  asm volatile (
+    "0:\n"
+    "ldxr x0, [%[lock]]\n"
+    "cbnz x0, 0b\n"
+    "mov x0, #1\n"
+    "stxr w1, x0, [%[lock]]\n"
+    "cbnz w1, 0b\n"
+  :
+  : [lock] "r" (lock)
+  : "x0", "x1", "memory"
+  );
+
+  dsb();
+}
+
+void unlock(volatile int* lock) {
+  *lock = 0;
 }
 
 
 /* Tracing */
+uint64_t _TRACE_LOCK = 0;
 void trace(char* fmt, ...) {
 #if TRACE
   char out[1000];
@@ -319,6 +545,8 @@ void trace(char* fmt, ...) {
   va_start(args, fmt);
   vsnprintf(out, 1000, fmt, args);
   va_end(args);
+  lock(&_TRACE_LOCK);
   printf("[trace] %s", out);
+  unlock(&_TRACE_LOCK);
 #endif
 }

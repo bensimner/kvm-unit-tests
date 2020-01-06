@@ -7,6 +7,7 @@
 
 #define T 100000           /* number of runs */
 #define NAME "MP+dmb+svc"  /* litmus test name */
+#define N_THREADS 2        /* number of hardware threads */
 
 #define X 0
 #define Y 1
@@ -23,9 +24,7 @@ static void P0(void* a) {
 
   for (int j = 0; j < T; j++) {
     int i = ctx->shuffled_ixs[j];
-
-    start_of_run(ctx, i);
-    bwait(0, i % 2, &start_bars[i], 2);
+    start_of_run(ctx, 0, i);
 
     asm volatile (
       "mov x0, #1\n\t"
@@ -38,41 +37,7 @@ static void P0(void* a) {
     : "cc", "memory", "x0", "x2"
     );
 
-    bwait(0, i % 2, &end_bars[i], 2);
-    end_of_run(ctx, i);
-  }
-}
-
-static void P1(void* a) {
-  test_ctx_t* ctx = (test_ctx_t* )a;
-  uint64_t* start_bars = ctx->start_barriers;
-  uint64_t* end_bars = ctx->end_barriers;
-
-  uint64_t* y = ctx->heap_vars[Y];
-  uint64_t* x0 = ctx->out_regs[out_p1_x0];
-
-  for (int j = 0; j < T; j++) {
-    int i = ctx->shuffled_ixs[j];
-    start_of_run(ctx, i);
-    bwait(1, i % 2, &start_bars[i], 2);
-
-    asm volatile (
-      "ldr %[x0], [%[x1]]\n\t"
-
-      /* arguments passed to SVC through x0,x1,x2 */
-      "mov x0, %[i]\n\t"    /* which iteration */
-      "mov x1, %[ctx]\n\t"  /* pointer to test_ctx_t object */
-      "svc #0\n\t"
-    : [x0] "=&r" (x0[i])
-    : [x1] "r" (&y[i]), [i] "r" (i), [ctx] "r" (ctx)
-    : "cc", "memory",
-      "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
-    );
-
-    bwait(1, i % 2, &end_bars[i], 2);
-    if (i % T/10 == 0) {
-      trace("%s", ".\n");
-    }
+    end_of_run(ctx, 0, i);
   }
 }
 
@@ -90,15 +55,42 @@ static void svc_handler(uint64_t esr, regvals_t* regs) {
   );
 }
 
+static void P1(void* a) {
+  test_ctx_t* ctx = (test_ctx_t* )a;
+  uint64_t* start_bars = ctx->start_barriers;
+  uint64_t* end_bars = ctx->end_barriers;
+
+  uint64_t* y = ctx->heap_vars[Y];
+  uint64_t* x0 = ctx->out_regs[out_p1_x0];
+
+  for (int j = 0; j < T; j++) {
+    int i = ctx->shuffled_ixs[j];
+    start_of_run(ctx, 1, i);
+    set_svc_handler(0, svc_handler);
+
+    asm volatile (
+      "ldr %[x0], [%[x1]]\n\t"
+
+      /* arguments passed to SVC through x0,x1,x2 */
+      "mov x0, %[i]\n\t"    /* which iteration */
+      "mov x1, %[ctx]\n\t"  /* pointer to test_ctx_t object */
+      "svc #0\n\t"
+    : [x0] "=&r" (x0[i])
+    : [x1] "r" (&y[i]), [i] "r" (i), [ctx] "r" (ctx)
+    : "cc", "memory",
+      "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
+    );
+
+    end_of_run(ctx, 1, i);
+  }
+}
+
 static void go_cpus(void* a) {
   test_ctx_t* ctx = (test_ctx_t* )a;
 
   int cpu = smp_processor_id();
   trace("CPU%d: on\n", cpu);
-
-  /* setup exceptions */
-  uint64_t* old_table = set_vector_table(&el1_exception_vector_table);
-  set_handler(VEC_EL1H_SYNC, EC_SVC64, svc_handler);
+  start_of_thread(ctx, cpu);
 
   switch (cpu) {
     case 1:
@@ -110,25 +102,16 @@ static void go_cpus(void* a) {
   }
 
   /* restore old vtable now tests are over */
-  set_vector_table(old_table);
-
-  bwait(cpu, 0, ctx->final_barrier, N_CPUS);
+  end_of_thread(ctx, cpu);
 }
 
 void MyMP_dmb_svc(void) {
   test_ctx_t ctx;
-  init_test_ctx(&ctx, NAME, 2, 2, T);
-
-  trace("====== %s ======\n", NAME);
-
-  trace("New EL1 Exception Vector @ %p\n", &el1_exception_vector_table);
-
+  start_of_test(&ctx, NAME, N_THREADS, 2, 2, T);
+  
   /* run test */
   trace("%s\n", "Running Tests ...");
   on_cpus(go_cpus, &ctx);
-
-  /* collect results */
-  trace("%s\n", "Ran Tests.");
 
   /* collect results */
   const char* reg_names[] = {
@@ -140,7 +123,5 @@ void MyMP_dmb_svc(void) {
     /* p1:x2 =*/ 0,
   };
 
-  trace("%s\n", "Printing Results...");
-  print_results(ctx.hist, &ctx, reg_names, relaxed_result);
-  free_test_ctx(&ctx);
+  end_of_test(&ctx, reg_names, relaxed_result);
 }

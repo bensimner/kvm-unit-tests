@@ -8,8 +8,7 @@
 
 #define T 1000000            /* number of runs */
 #define NAME "MP+dmb+eret0"  /* litmus test name */
-
-#define NR_THREADS
+#define N_THREADS 2          /* number of hardware threads in test */
 
 #define X 0
 #define Y 1
@@ -26,9 +25,7 @@ static void P0(void* a) {
 
   for (int j = 0; j < T; j++) {
     int i = ctx->shuffled_ixs[j];
-
-    start_of_run(ctx, i);
-    bwait(0, i % 2, &start_bars[i], 2);
+    start_of_run(ctx, 0, i);
 
     asm volatile (
       "mov x0, #1\n\t"
@@ -41,9 +38,22 @@ static void P0(void* a) {
     : "cc", "memory", "x0", "x2"
     );
 
-    bwait(0, i % 2, &end_bars[i], 2);
-    end_of_run(ctx, i);
+    end_of_run(ctx, 0, i);
   }
+}
+
+static void* svc_handler(uint64_t esr, regvals_t* regs) {
+  uint64_t i = regs->x0;
+  test_ctx_t *ctx = regs->x1;
+  uint64_t* y = ctx->heap_vars[Y];
+  uint64_t* x0 = ctx->out_regs[out_p1_x0];
+  asm volatile (
+    "ldr %[x0], [%[x1]]\n"
+    : [x0] "=r" (x0[i])
+    : [x1] "r" (&y[i])
+    : "memory"
+  );
+  return NULL;
 }
 
 static void P1(void* a) {
@@ -57,8 +67,8 @@ static void P1(void* a) {
 
   for (int j = 0; j < T; j++) {
     int i = ctx->shuffled_ixs[j];
-    start_of_run(ctx, i);
-    bwait(1, i % 2, &start_bars[i], 2);
+    start_of_run(ctx, 1, i);
+    set_svc_handler(0, svc_handler);
 
     asm volatile (
       /* arguments passed to SVC through x0..x7 */
@@ -73,134 +83,15 @@ static void P1(void* a) {
       "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
     );
 
-    bwait(1, i % 2, &end_bars[i], 2);
-    if (i % T/10 == 0) {
-      trace("%s", ".\n");
-    }
+    end_of_run(ctx, 1, i);
   }
 }
-
-static void* svc_handler(uint64_t esr, regvals_t* regs) {
-  /* invariant: only called within an SVC */
-  uint64_t iss = esr & 0xffffff;
-
-  switch (iss) {
-    case 0: {
-      uint64_t i = regs->x0;
-      test_ctx_t *ctx = regs->x1;
-      uint64_t* y = ctx->heap_vars[Y];
-      uint64_t* x0 = ctx->out_regs[out_p1_x0];
-      asm volatile (
-        "ldr %[x0], [%[x1]]\n"
-        : [x0] "=r" (x0[i])
-        : [x1] "r" (&y[i])
-        : "memory"
-      );
-      break;
-    }
-    case 1: {
-      /* drop to EL0 */
-      uint64_t old_table = regs->x0;
-      asm volatile (
-        "mrs x18, spsr_el1\n"
-
-        /* zero SPSR_EL1[0:3] */
-        "lsr x18, x18, #4\n"
-        "lsl x18, x18, #4\n"
-
-        /* write back to SPSR */
-        "msr spsr_el1, x18\n"
-
-        /* /1* set EL0 SP *1/ */
-        /* "mov x18, sp\n" */
-        /* "add x18,x18,#288\n" */
-        /* "msr sp_el0, x18\n" */
-
-        /* "msr vbar_el1, x0\n" */
-        "isb\n"
-      :
-      : [v] "r" (old_table)
-      : "x18"
-      );
-      break;
-    }
-    case 2: {
-      /* raise to EL1 */
-      asm volatile (
-        "mrs x18, spsr_el1\n"
-
-        /* zero SPSR_EL1[0:3] */
-        "lsr x18, x18, #4\n"
-        "lsl x18, x18, #4\n"
-        
-        /* add targetEL and writeback */
-        "add x18, x18, #5\n"
-        "msr spsr_el1, x18\n"
-        "isb\n"
-      :
-      :
-      : "x18"
-      );
-      break;
-    }
-    /* read CurrentEL via SPSR */
-    case 3: {
-      uint64_t cel;
-      asm volatile (
-        "mrs %[cel], SPSR_EL1\n"
-        "and %[cel], %[cel], #12\n"
-      : [cel] "=r" (cel)
-      );
-      return cel;
-    }
-  }
-
-  return NULL;
-}
-
 
 static void go_cpus(void* a) {
   test_ctx_t* ctx = (test_ctx_t* )a;
 
   int cpu = smp_processor_id();
-  trace("CPU%d: on\n", cpu);
-
-  /* setup exceptions */
-  uint64_t* old_table = set_vector_table(&el1_exception_vector_table);
-  set_handler(VEC_EL1T_SYNC, EC_SVC64, svc_handler);
-  set_handler(VEC_EL0_SYNC_64, EC_SVC64, svc_handler);
-
-  /* before we drop to EL0, ensure both EL0 and EL1 stack pointers
-   * agree, and then ensure that execution at both EL1 and EL0 use SP_EL0
-   */
-  asm volatile (
-    "mov x18, sp\n"
-    "msr sp_el0, x18\n"
-    "mov x18, #0\n"
-    "msr spsel, x18\n"
-  :
-  :
-  : "x18"
-  );
-
-  /* drop to EL0 */
-  asm volatile (
-    "svc #1\n\t"
-  :
-  :
-  : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
-  );
-
-  uint64_t cel;
-  asm volatile (
-      "svc #3\n" /* read CurrentEL */
-      "mov %[el], x0\n" 
-  : [el] "=r" (cel)
-  :
-  : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7",  /* dont touch parameter registers */
-    "memory"
-  );
-  trace("CPU%d, CurrentEL = %d\n", cpu, cel >> 2);
+  start_of_thread(ctx, cpu);
 
   switch (cpu) {
     case 1:
@@ -211,37 +102,16 @@ static void go_cpus(void* a) {
       break;
   }
 
-  trace("CPU%d, Finished, Restoring to EL1\n", cpu);
-
-  /* restore EL1 */
-  asm volatile (
-    "svc #2\n\t"
-  :
-  :
-  : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7",  /* dont touch parameter registers */
-    "memory"
-  );
-
-  /* restore old vtable now tests are over */
-  set_vector_table(old_table);
-
-  bwait(cpu, 0, ctx->final_barrier, N_CPUS);
+  end_of_thread(ctx, cpu);
 }
 
 void MyMP_dmb_eret0(void) {
   test_ctx_t ctx;
-  init_test_ctx(&ctx, NAME, 2, 2, T);
-
-  trace("====== %s ======\n", NAME);
-
-  trace("New EL1 Exception Vector @ %p\n", &el1_exception_vector_table);
+  start_of_test(&ctx, NAME, N_THREADS, 2, 2, T);
 
   /* run test */
   trace("%s\n", "Running Tests ...");
   on_cpus(go_cpus, &ctx);
-
-  /* collect results */
-  trace("%s\n", "Ran Tests.");
 
   /* collect results */
   const char* reg_names[] = {
@@ -253,7 +123,5 @@ void MyMP_dmb_eret0(void) {
     /* p1:x2 =*/ 0,
   };
 
-  trace("%s\n", "Printing Results...");
-  print_results(ctx.hist, &ctx, reg_names, relaxed_result);
-  free_test_ctx(&ctx);
+  end_of_test(&ctx, reg_names, relaxed_result);
 }

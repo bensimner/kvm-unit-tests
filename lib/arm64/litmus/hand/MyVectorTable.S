@@ -1,4 +1,8 @@
 .macro save_all_registers
+    msr spsel,  #0  /* use SP_EL0 always */
+    dsb nsh
+    isb
+
     stp x0,     x1,     [sp, #-288]!
     stp x2,     x3,     [sp, #16]
     stp x4,     x5,     [sp, #32]
@@ -75,7 +79,7 @@
     bl handle_exception
 
     /* dont restore x0..x7 for sync exceptions */
-    restore_other_registers
+    restore_all_registers
     eret
 .endm
 
