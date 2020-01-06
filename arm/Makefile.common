@@ -22,7 +22,7 @@ AUXFLAGS ?= 0x0
 
 CFLAGS += -std=gnu99
 CFLAGS += -ffreestanding
-CFLAGS += -O2
+CFLAGS += -O0
 CFLAGS += -I $(SRCDIR)/lib -I $(SRCDIR)/lib/libfdt -I lib
 
 # We want to keep intermediate files
