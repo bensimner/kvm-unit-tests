@@ -114,6 +114,7 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_threads, int no_heap
   ctx->test_name = test_name;
   ctx->ptable = NULL;
   ctx->n_run = 0;
+  ctx->privileged_harness = 0;
 }
 
 void free_test_ctx(test_ctx_t* ctx) {
@@ -167,6 +168,7 @@ static void add_results(test_hist_t* res, test_ctx_t* ctx, int run) {
   /* if not found, insert it */
   if (missing) {
     if (res->allocated >= res->limit) {
+      raise_to_el1();  /* can only abort at EL1 */
       printf("! fatal:  overallocated results\n");
       printf("this probably means the test had too many outcomes\n");
       abort();
@@ -188,6 +190,7 @@ static void add_results(test_hist_t* res, test_ctx_t* ctx, int run) {
 void prefetch(test_ctx_t* ctx, int i) {
   for (int v = 0; v < ctx->no_heap_vars; v++) {
     if (randn() % 2 && ctx->heap_vars[v][i] != 0) {
+      raise_to_el1();  /* can abort only at EL1 */
       printf("! fatal: initial state for heap var %d on run %d was %d not 0\n", v, i, ctx->heap_vars[v][i]);
       abort();
     }
@@ -219,11 +222,14 @@ static void resetsp(void) {
 void start_of_run(test_ctx_t* ctx, int thread, int i) {
   prefetch(ctx, i);
   bwait(thread, i % ctx->no_threads, &ctx->start_barriers[i], ctx->no_threads); 
-  drop_to_el0();
+  if (ctx->n_run == 0 || ctx->privileged_harness)
+    drop_to_el0();
 }
 
 void end_of_run(test_ctx_t* ctx, int thread, int i) {
-  raise_to_el1();
+  if (ctx->n_run == ctx->no_runs - 1 || ctx->privileged_harness)
+    raise_to_el1();
+
   bwait(thread, i % ctx->no_threads, &ctx->end_barriers[i], ctx->no_threads);
 
   /* only 1 thread should collect the results, else they will be duplicated */

@@ -43,6 +43,7 @@ typedef struct {
   test_hist_t* hist;
   uint64_t* ptable;
   uint64_t n_run;
+  uint64_t privileged_harness;  /* require harness to run at EL1 between runs ? */
 } test_ctx_t;
 
 

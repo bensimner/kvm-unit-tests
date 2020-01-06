@@ -87,6 +87,7 @@ static void go_cpus(void* a) {
 void MyMMU1(void) {
     test_ctx_t ctx;
     start_of_test(&ctx, NAME, N_THREADS, 2, 1, T);
+    ctx.privileged_harness = 1;
 
     /* run test */
     trace("%s\n", "Running Tests ...");
