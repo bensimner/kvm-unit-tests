@@ -179,6 +179,5 @@ void lock(volatile int* lock);
 void unlock(volatile int* lock);
 
 /* Tracing */
-#define TRACE 0
 void trace(char* fmt, ...);
 #endif

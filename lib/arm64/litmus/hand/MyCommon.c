@@ -545,7 +545,7 @@ void unlock(volatile int* lock) {
 /* Tracing */
 uint64_t _TRACE_LOCK = 0;
 void trace(char* fmt, ...) {
-#if TRACE
+#ifdef TRACE
   char out[1000];
   va_list args;
   va_start(args, fmt);
