@@ -5,7 +5,7 @@
 
 #include "MyCommon.h"
 
-#define T 100000           /* number of runs */
+#define T 10000            /* number of runs */
 #define NAME "MP+dmb+svc"  /* litmus test name */
 #define N_THREADS 2        /* number of hardware threads */
 
