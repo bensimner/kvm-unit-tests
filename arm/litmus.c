@@ -1,5 +1,7 @@
 #include <libcflat.h>
 
+#include "MyCommon.h"
+
 extern int MyMP_pos(void);
 extern int MyMP_dmbs(void);
 extern int MyMP_dmb_svc(void);
@@ -10,6 +12,8 @@ extern int MyMMU1(void);
 
 int main(int argc, char **argv)
 {
+  NUMBER_OF_RUNS = 10000;
+
   MyMP_pos();
   MyMP_dmbs();
   MyMP_dmb_svc();

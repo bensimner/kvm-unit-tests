@@ -7,13 +7,16 @@
 #define N_CPUS 4
 
 #include <stdint.h>
-
 #include <libcflat.h>
 
 #define isb()  asm volatile("isb")
 #define dsb()  asm volatile("dsb sy")
 #define dmb()  asm volatile("dmb sy")
 #define eret()  asm volatile("eret")
+
+
+/* configuration */
+uint64_t NUMBER_OF_RUNS;
 
 /* test data */
 typedef struct {
@@ -28,8 +31,13 @@ typedef struct {
     test_result_t* results[];
 } test_hist_t;
 
-typedef struct {
+/* Each thread is a functon that takes pointers to a slice of heap variables and output registers */
+typedef struct test_ctx test_ctx_t;
+typedef void th_f(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t** out_regs);
+
+typedef struct test_ctx {
   uint64_t no_threads;
+  th_f** thread_fns;             /* pointer to each thread function */
   uint64_t** heap_vars;         /* set of heap variables: x, y, z etc */
   size_t no_heap_vars;
   uint64_t** out_regs;          /* set of output register values: P1:x1,  P2:x3 etc */
@@ -44,10 +52,10 @@ typedef struct {
   uint64_t* ptable;
   uint64_t n_run;
   uint64_t privileged_harness;  /* require harness to run at EL1 between runs ? */
-} test_ctx_t;
+};
 
 
-void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_threads, int no_heap_vars, int no_out_regs, int no_runs);
+void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_threads, th_f** funcs, int no_heap_vars, int no_out_regs, int no_runs);
 void free_test_ctx(test_ctx_t* ctx);
 
 /* print the collected results out */
@@ -62,9 +70,11 @@ void start_of_thread(test_ctx_t* ctx, int cpu);
 void end_of_thread(test_ctx_t* ctx, int cpu);
 
 /* call at the beginning and end of each test */
-void start_of_test(test_ctx_t* ctx, const char* name, int no_threads, int no_heap_vars, int no_regs, int no_runs);
+void start_of_test(test_ctx_t* ctx, const char* name, int no_threads, th_f** funcs, int no_heap_vars, int no_regs, int no_runs);
 void end_of_test(test_ctx_t* ctx, char** out_reg_names, int* interesting_result);
 
+/* entry point for tests */
+void run_test(const char* name, int no_threads, th_f** funcs, int no_heap_vars, char** heap_var_names, int no_regs, char** reg_names, uint64_t* interesting_result);
 
 /* random numbers */
 volatile uint64_t SEED;
@@ -153,7 +163,6 @@ typedef struct {
  */
 
 void* default_handler(uint64_t vec, uint64_t esr);
-
 typedef void* exception_vector_fn(uint64_t esr, regvals_t* regs);
 
 exception_vector_fn* table[N_CPUS][4][64];

@@ -1,52 +1,31 @@
 #include <stdint.h>
 
-#include <libcflat.h>
-#include <asm/smp.h>
-
 #include "MyCommon.h"
 
-#define T 10000            /* number of runs */
-#define NAME "MP+dmb+svc"  /* litmus test name */
-#define N_THREADS 2        /* number of hardware threads */
+static void P0(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t** out_regs) {
+  uint64_t* x = heap_vars[0];
+  uint64_t* y = heap_vars[1];
+  uint64_t* x0 = out_regs[0];
+  uint64_t* x2 = out_regs[1];
 
-#define X 0
-#define Y 1
-
-#define out_p1_x0 0
-#define out_p1_x2 1
-
-static void P0(void* a) {
-  test_ctx_t* ctx = (test_ctx_t* )a;
-  uint64_t* x = ctx->heap_vars[X];
-  uint64_t* y = ctx->heap_vars[Y];
-  uint64_t* start_bars = ctx->start_barriers;
-  uint64_t* end_bars = ctx->end_barriers;
-
-  for (int j = 0; j < T; j++) {
-    int i = ctx->shuffled_ixs[j];
-    start_of_run(ctx, 0, i);
-
-    asm volatile (
-      "mov x0, #1\n\t"
-      "str x0, [%[x1]]\n\t"
-      "dmb sy\n\t"
-      "mov x2, #1\n\t"
-      "str x2, [%[x3]]\n\t"
-    :
-    : [x1] "r" (&x[i]), [x3] "r" (&y[i])
-    : "cc", "memory", "x0", "x2"
-    );
-
-    end_of_run(ctx, 0, i);
-  }
+  asm volatile (
+    "mov x0, #1\n\t"
+    "str x0, [%[x1]]\n\t"
+    "dmb sy\n\t"
+    "mov x2, #1\n\t"
+    "str x2, [%[x3]]\n\t"
+  :
+  : [x1] "r" (x), [x3] "r" (y)
+  : "cc", "memory", "x0", "x2"
+  );
 }
 
 static void svc_handler(uint64_t esr, regvals_t* regs) {
   /* invariant: only called within an SVC */
   uint64_t i = regs->x0;
   test_ctx_t *ctx = regs->x1;
-  uint64_t* x2 = ctx->out_regs[out_p1_x2];
-  uint64_t* x = ctx->heap_vars[X];
+  uint64_t* x2 = ctx->out_regs[1];
+  uint64_t* x = ctx->heap_vars[0];
   asm volatile (
     "ldr %[x2], [%[x3]]\n"
     : [x2] "=&r" (x2[i])
@@ -55,73 +34,37 @@ static void svc_handler(uint64_t esr, regvals_t* regs) {
   );
 }
 
-static void P1(void* a) {
-  test_ctx_t* ctx = (test_ctx_t* )a;
-  uint64_t* start_bars = ctx->start_barriers;
-  uint64_t* end_bars = ctx->end_barriers;
 
-  uint64_t* y = ctx->heap_vars[Y];
-  uint64_t* x0 = ctx->out_regs[out_p1_x0];
+static void P1(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t** out_regs) {
+  uint64_t* x = heap_vars[0];
+  uint64_t* y = heap_vars[1];
+  uint64_t* x0 = out_regs[0];
+  uint64_t* x2 = out_regs[1];
 
-  for (int j = 0; j < T; j++) {
-    int i = ctx->shuffled_ixs[j];
-    start_of_run(ctx, 1, i);
-    set_svc_handler(0, svc_handler);
+  set_svc_handler(0, svc_handler);
 
-    asm volatile (
-      "ldr %[x0], [%[x1]]\n\t"
+  asm volatile (
+    "ldr %[x0], [%[x1]]\n\t"
 
-      /* arguments passed to SVC through x0,x1,x2 */
-      "mov x0, %[i]\n\t"    /* which iteration */
-      "mov x1, %[ctx]\n\t"  /* pointer to test_ctx_t object */
-      "svc #0\n\t"
-    : [x0] "=&r" (x0[i])
-    : [x1] "r" (&y[i]), [i] "r" (i), [ctx] "r" (ctx)
-    : "cc", "memory",
-      "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
-    );
-
-    end_of_run(ctx, 1, i);
-  }
-}
-
-static void go_cpus(void* a) {
-  test_ctx_t* ctx = (test_ctx_t* )a;
-
-  int cpu = smp_processor_id();
-  trace("CPU%d: on\n", cpu);
-  start_of_thread(ctx, cpu);
-
-  switch (cpu) {
-    case 1:
-      P0(a);
-      break;
-    case 2:
-      P1(a);
-      break;
-  }
-
-  /* restore old vtable now tests are over */
-  end_of_thread(ctx, cpu);
+    /* arguments passed to SVC through x0,x1,x2 */
+    "mov x0, %[i]\n\t"    /* which iteration */
+    "mov x1, %[ctx]\n\t"  /* pointer to test_ctx_t object */
+    "svc #0\n\t"
+  : [x0] "=&r" (*x0)
+  : [x1] "r" (y), [i] "r" (i), [ctx] "r" (ctx)
+  : "cc", "memory",
+    "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
+  );
 }
 
 void MyMP_dmb_svc(void) {
-  test_ctx_t ctx;
-  start_of_test(&ctx, NAME, N_THREADS, 2, 2, T);
-  
-  /* run test */
-  trace("%s\n", "Running Tests ...");
-  on_cpus(go_cpus, &ctx);
-
-  /* collect results */
-  const char* reg_names[] = {
-    "p1:x0",
-    "p1:x2",
-  };
-  const int relaxed_result[] = {
-    /* p1:x0 =*/ 1,
-    /* p1:x2 =*/ 0,
-  };
-
-  end_of_test(&ctx, reg_names, relaxed_result);
+  run_test(
+    "MP+dmb+svc",
+    2, (th_f*[]){P0,P1}, 
+    2, (char*[]){"x", "y"}, 
+    2, (char*[]){"p1:x0", "p1:x2"}, 
+    (uint64_t[]){
+      /* p1:x0 =*/ 1,
+      /* p1:x2 =*/ 0,
+    });
 }

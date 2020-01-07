@@ -6,6 +6,75 @@
 #include <MyCommon.h>
 #include <MyVMM.h>
 
+static void go_cpus(void* a);
+static void run_thread(test_ctx_t* ctx, int cpu);
+
+/* entry point */
+void run_test(const char* name, int no_threads, th_f** funcs, int no_heap_vars, char** heap_var_names, int no_regs, char** reg_names, uint64_t* relaxed_result) {
+
+  /* create test context obj */
+  test_ctx_t ctx;
+  start_of_test(&ctx, name, no_threads, funcs, no_heap_vars, no_regs, NUMBER_OF_RUNS);
+
+
+  /* run it */
+  trace("%s\n", "Running Tests ...");
+  on_cpus(go_cpus, &ctx);
+
+  /* clean up and display results */
+  end_of_test(&ctx, reg_names, relaxed_result);
+}
+
+static void go_cpus(void* a) {
+  test_ctx_t* ctx = (test_ctx_t* )a;
+  int cpu = smp_processor_id();
+  start_of_thread(ctx, cpu);
+
+  if (cpu < ctx->no_threads) {
+    run_thread(ctx, cpu);
+  }
+
+  end_of_thread(ctx, cpu);
+}
+
+static uint64_t PA(test_ctx_t* ctx, uint64_t va) {
+  /* return the PA associated with the given va in a particular iteration */
+  return translate4k(ctx->ptable, va);
+}
+
+static uint64_t PTE(test_ctx_t* ctx, uint64_t va) {
+  /* return the VA at which the PTE lives for the given va in a particular
+    * iteration */
+  return ref_pte4k(ctx->ptable, va);
+}
+
+static void run_thread(test_ctx_t* ctx, int cpu) {
+  th_f* func = ctx->thread_fns[cpu];
+  uint64_t* start_bars = ctx->start_barriers;
+  uint64_t* end_bars = ctx->end_barriers;
+
+  for (int j = 0; j < ctx->no_runs; j++) {
+    int i = ctx->shuffled_ixs[j];
+    start_of_run(ctx, cpu, i);
+    uint64_t heaps[ctx->no_heap_vars];
+    uint64_t ptes[ctx->no_heap_vars];
+    uint64_t pas[ctx->no_heap_vars];  /* TODO: BS: wire up PAs */
+    uint64_t regs[ctx->no_out_regs];
+
+    for (int v = 0; v < ctx->no_heap_vars; v++) {
+      uint64_t* p = &ctx->heap_vars[v][i];
+      heaps[v] = p;
+      ptes[v] = PTE(ctx, p);
+      pas[v] = PA(ctx, p);
+    }
+    for (int r = 0; r < ctx->no_out_regs; r++)
+      regs[r] = &ctx->out_regs[r][i];
+
+    func(ctx, i, heaps, ptes, regs);  /* TODO: BS: add PTE pointers */
+    end_of_run(ctx, cpu, i);
+  }
+}
+
 
 /* static allocator
  *
@@ -51,7 +120,7 @@ static void free_all(void) {
 /* Test Data */
 
 
-void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_threads, int no_heap_vars, int no_out_regs, int no_runs) {
+void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_threads, th_f** funcs, int no_heap_vars, int no_out_regs, int no_runs) {
   uint64_t** heap_vars = static_malloc(sizeof(uint64_t*)*no_heap_vars);
   uint64_t** out_regs = static_malloc(sizeof(uint64_t*)*no_out_regs);
   uint64_t* bars = static_malloc(sizeof(uint64_t)*no_runs);
@@ -102,6 +171,7 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_threads, int no_heap
 
   ctx->no_threads = no_threads;
   ctx->heap_vars = heap_vars;
+  ctx->thread_fns = funcs;
   ctx->no_heap_vars = no_heap_vars;
   ctx->out_regs = out_regs;
   ctx->no_out_regs = no_out_regs;
@@ -273,10 +343,9 @@ void end_of_thread(test_ctx_t* ctx, int cpu) {
   trace("CPU%d: ->idle\n", cpu);
 }
 
-
-void start_of_test(test_ctx_t* ctx, const char* name, int no_threads, int no_heap_vars, int no_regs, int no_runs) {
+void start_of_test(test_ctx_t* ctx, const char* name, int no_threads,  th_f** funcs, int no_heap_vars, int no_regs, int no_runs) {
   trace("====== %s ======\n", name);
-  init_test_ctx(ctx, name, no_threads, no_heap_vars, no_regs, no_runs);
+  init_test_ctx(ctx, name, no_threads, funcs, no_heap_vars, no_regs, no_runs);
   ctx->ptable = alloc_new_idmap_4k();
 }
 
@@ -287,7 +356,6 @@ void end_of_test(test_ctx_t* ctx, char** out_reg_names, int* interesting_result)
   free_aligned_pages();
   trace("Finished test %s\n", ctx->test_name);
 }
-
 
 void print_results(test_hist_t* res, test_ctx_t* ctx, char** out_reg_names, int* interesting_results) {
   printf("Test %s:\n", ctx->test_name);

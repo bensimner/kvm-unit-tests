@@ -14,6 +14,7 @@ CFLAGS += -DFORCE_AFFINITY
 CFLAGS += -DASS
 CFLAGS += -D_GNU_SOURCE
 CFLAGS += -pthread
+CFLAGS += -DTRACE
 
 define arch_elf_check =
 	$(if $(shell ! $(OBJDUMP) -R $(1) >&/dev/null && echo "nok"),
@@ -25,15 +26,15 @@ endef
 cstart.o = $(TEST_DIR)/cstart64.o
 cflatobjs += lib/arm64/processor.o
 cflatobjs += lib/arm64/spinlock.o
+cflatobjs += lib/arm64/litmus/hand/MyCommon.o
+cflatobjs += lib/arm64/litmus/hand/MyVectorTable.o
+cflatobjs += lib/arm64/litmus/hand/MyVMM.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+pos.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmbs.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+svc.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+1svc1.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+eret0.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+svc-eret.o
-cflatobjs += lib/arm64/litmus/hand/MyCommon.o
-cflatobjs += lib/arm64/litmus/hand/MyVectorTable.o
-cflatobjs += lib/arm64/litmus/hand/MyVMM.o
 cflatobjs += lib/arm64/litmus/hand/MyMMU1.o
 
 OBJDIRS += lib/arm64
