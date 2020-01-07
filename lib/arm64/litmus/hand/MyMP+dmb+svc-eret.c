@@ -65,7 +65,7 @@ static void P1(void* a) {
       "ldr %[x0], [%[x1]]\n\t"
       "svc #0\n\t"
       "ldr %[x2], [%[x3]]\n\t"
-    : [x0] "=r" (x0[i]), [x2] "=r" (x2[i])
+    : [x0] "=&r" (x0[i]), [x2] "=&r" (x2[i])
     : [x1] "r" (&y[i]), [x3] "r" (&x[i])
     : "cc", "memory",
       "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */

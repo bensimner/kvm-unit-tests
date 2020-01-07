@@ -56,7 +56,7 @@ static void P0(void* a) {
             "ldr %[x5], [%[x6]]\n\t"
             : [x5] "=&r" (x2[i])
             : [x1] "r" (PTE(ctx, &x[i])), [x2] "r" (PTE(ctx, &y[i])), [x4] "r" (&x[i]), [x6] "r" (&y[i])
-            : "cc", "memory", "x0", "x2");
+            : "cc", "memory", "x0", "x2", "x3");
         
         end_of_run(ctx, 0, i);
         *(uint64_t*)PTE(ctx, &x[i]) = old_pte_x;
