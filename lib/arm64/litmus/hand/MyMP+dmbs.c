@@ -12,6 +12,7 @@ static void P0(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, ui
   asm volatile (
     "mov x0, #1\n\t"
     "str x0, [%[x1]]\n\t"
+    "dmb sy\n\t"
     "mov x2, #1\n\t"
     "str x2, [%[x3]]\n\t"
   :
