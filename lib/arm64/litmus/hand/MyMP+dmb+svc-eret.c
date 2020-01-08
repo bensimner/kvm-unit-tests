@@ -1,5 +1,6 @@
 #include <stdint.h>
 
+#include "MyLitmusTests.h"
 #include "MyCommon.h"
 
 static void P0(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t** out_regs) {

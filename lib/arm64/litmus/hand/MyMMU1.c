@@ -1,19 +1,21 @@
 #include <stdint.h>
 
+#include "MyLitmusTests.h"
 #include "MyCommon.h"
 
 
 /* test payload */
 
 static void P0(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t** out_regs) {
+  raise_to_el1(ctx);  /* MMU1 runs at EL1 */
+
   uint64_t* x = heap_vars[0];
   uint64_t* y = heap_vars[1];
 
   uint64_t* xpte = ptes[0];
   uint64_t* ypte = ptes[1];
 
-  uint64_t* x0 = out_regs[0];
-  uint64_t* x2 = out_regs[1];
+  uint64_t* x2 = out_regs[0];
 
   asm volatile(
     "ldr x0, [%[x1]]\n"
@@ -34,7 +36,7 @@ static void P0(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, ui
 void MyMMU1(void) {
   run_test(
     "MMU1",
-    1, (th_f*[]){P0}, 
+    1, (th_f*[]){P0,}, 
     2, (char*[]){"x", "y"}, 
     1, (char*[]){"x2"}, 
     (uint64_t[]){

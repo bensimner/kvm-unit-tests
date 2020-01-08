@@ -1,14 +1,7 @@
 #include <libcflat.h>
 
+#include "MyLitmusTests.h"
 #include "MyCommon.h"
-
-extern int MyMP_pos(void);
-extern int MyMP_dmbs(void);
-extern int MyMP_dmb_svc(void);
-extern int MyMP_dmb_eret0(void);
-extern int MyMP_dmb_1svc1(void);
-extern int MyMP_dmb_svc_eret(void);
-extern int MyMMU1(void);
 
 int main(int argc, char **argv)
 {

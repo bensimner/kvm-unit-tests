@@ -1,5 +1,6 @@
 #include <stdint.h>
 
+#include "MyLitmusTests.h"
 #include "MyCommon.h"
 
 static void P0(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t** out_regs) {
@@ -22,14 +23,13 @@ static void P0(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, ui
 
 static void svc_handler(uint64_t esr, regvals_t* regs) {
   /* invariant: only called within an SVC */
-  uint64_t i = regs->x0;
-  test_ctx_t *ctx = regs->x1;
-  uint64_t* x2 = ctx->out_regs[1];
-  uint64_t* x = ctx->heap_vars[0];
+  uint64_t* x = regs->x0;
+  uint64_t* x2 = regs->x1;
+
   asm volatile (
     "ldr %[x2], [%[x3]]\n"
-    : [x2] "=&r" (x2[i])
-    : [x3] "r" (&x[i])
+    : [x2] "=&r" (*x2)
+    : [x3] "r" (x)
     : "memory"
   );
 }
@@ -44,14 +44,14 @@ static void P1(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, ui
   set_svc_handler(0, svc_handler);
 
   asm volatile (
-    "ldr %[x0], [%[x1]]\n\t"
+    /* arguments passed to SVC through x0,x1..x7 */
+    "mov x0, %[x2]\n\t"    /* pointer to x */
+    "mov x1, %[x3]\n\t"    /* pointer to out reg x2  */
 
-    /* arguments passed to SVC through x0,x1,x2 */
-    "mov x0, %[i]\n\t"    /* which iteration */
-    "mov x1, %[ctx]\n\t"  /* pointer to test_ctx_t object */
+    "ldr %[x0], [%[x1]]\n\t"
     "svc #0\n\t"
   : [x0] "=&r" (*x0)
-  : [x1] "r" (y), [i] "r" (i), [ctx] "r" (ctx)
+  : [x1] "r" (y), [x2] "r" (x), [x3] "r" (x2)
   : "cc", "memory",
     "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
   );

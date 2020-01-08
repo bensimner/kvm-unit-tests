@@ -1,12 +1,11 @@
 #include <stdint.h>
 
+#include "MyLitmusTests.h"
 #include "MyCommon.h"
 
 static void P0(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t** out_regs) {
   uint64_t* x = heap_vars[0];
   uint64_t* y = heap_vars[1];
-  uint64_t* x0 = out_regs[0];
-  uint64_t* x2 = out_regs[1];
 
   asm volatile (
     "mov x0, #1\n\t"
@@ -38,8 +37,8 @@ void MyMP_pos(void) {
   run_test(
     "MP+pos",
     2, (th_f*[]){P0,P1}, 
-    2, (char*[]){"x", "y"}, 
-    2, (char*[]){"p1:x0", "p1:x2"}, 
+    2, (const char*[]){"x", "y"}, 
+    2, (const char*[]){"p1:x0", "p1:x2"}, 
     (uint64_t[]){
       /* p1:x0 =*/ 1,
       /* p1:x2 =*/ 0,

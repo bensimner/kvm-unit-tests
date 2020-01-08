@@ -35,7 +35,7 @@ typedef struct {
 typedef struct test_ctx test_ctx_t;
 typedef void th_f(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t** out_regs);
 
-typedef struct test_ctx {
+struct test_ctx {
   uint64_t no_threads;
   th_f** thread_fns;             /* pointer to each thread function */
   uint64_t** heap_vars;         /* set of heap variables: x, y, z etc */
@@ -50,7 +50,8 @@ typedef struct test_ctx {
   char* test_name;
   test_hist_t* hist;
   uint64_t* ptable;
-  uint64_t n_run;
+  uint64_t current_run;
+  uint64_t current_EL;
   uint64_t privileged_harness;  /* require harness to run at EL1 between runs ? */
 };
 
@@ -74,7 +75,7 @@ void start_of_test(test_ctx_t* ctx, const char* name, int no_threads, th_f** fun
 void end_of_test(test_ctx_t* ctx, char** out_reg_names, int* interesting_result);
 
 /* entry point for tests */
-void run_test(const char* name, int no_threads, th_f** funcs, int no_heap_vars, char** heap_var_names, int no_regs, char** reg_names, uint64_t* interesting_result);
+void run_test(const char* name, int no_threads, th_f** funcs, int no_heap_vars, const char** heap_var_names, int no_regs, const char** reg_names, uint64_t* interesting_result);
 
 /* random numbers */
 volatile uint64_t SEED;
@@ -175,8 +176,8 @@ void* handle_exception(uint64_t vec, uint64_t esr, regvals_t* regs);
 void set_svc_handler(uint64_t svc_no, exception_vector_fn* fn);
 void reset_svc_handler(uint64_t svc_no);
 
-void drop_to_el0(void);
-void raise_to_el1(void);
+void drop_to_el0(test_ctx_t* ctx);
+void raise_to_el1(test_ctx_t* ctx);
 
 extern uint64_t set_vector_table(uint64_t);
 extern void tnop(void);

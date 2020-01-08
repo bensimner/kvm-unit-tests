@@ -10,7 +10,7 @@ static void go_cpus(void* a);
 static void run_thread(test_ctx_t* ctx, int cpu);
 
 /* entry point */
-void run_test(const char* name, int no_threads, th_f** funcs, int no_heap_vars, char** heap_var_names, int no_regs, char** reg_names, uint64_t* relaxed_result) {
+void run_test(const char* name, int no_threads, th_f** funcs, int no_heap_vars, const char** heap_var_names, int no_regs, const char** reg_names, uint64_t* relaxed_result) {
 
   /* create test context obj */
   test_ctx_t ctx;
@@ -48,6 +48,28 @@ static uint64_t PTE(test_ctx_t* ctx, uint64_t va) {
   return ref_pte4k(ctx->ptable, va);
 }
 
+/* detect a change in the pagetable and if so, fix it */
+static void _check_ptes(test_ctx_t* ctx, size_t n, uint64_t** ptes, uint64_t* original) {
+  int reset = 0;
+
+  for (int i = 0; i < n; i++) {
+      if (*ptes[i] != original[i]) {
+        *ptes[i] = original[i];
+        reset = 1;
+      }
+  }
+
+  if (reset) {
+    if (ctx->current_EL == 0) {
+      raise_to_el1(ctx);
+      flush_tlb();  
+      drop_to_el0(ctx);
+    } else {
+      flush_tlb();
+    }
+  }
+}
+
 static void run_thread(test_ctx_t* ctx, int cpu) {
   th_f* func = ctx->thread_fns[cpu];
   uint64_t* start_bars = ctx->start_barriers;
@@ -56,15 +78,18 @@ static void run_thread(test_ctx_t* ctx, int cpu) {
   for (int j = 0; j < ctx->no_runs; j++) {
     int i = ctx->shuffled_ixs[j];
     start_of_run(ctx, cpu, i);
-    uint64_t heaps[ctx->no_heap_vars];
-    uint64_t ptes[ctx->no_heap_vars];
-    uint64_t pas[ctx->no_heap_vars];  /* TODO: BS: wire up PAs */
-    uint64_t regs[ctx->no_out_regs];
+    uint64_t* heaps[ctx->no_heap_vars];
+    uint64_t* ptes[ctx->no_heap_vars];
+    uint64_t* pas[ctx->no_heap_vars];  /* TODO: BS: wire up PAs */
+    uint64_t* regs[ctx->no_out_regs];
+
+    uint64_t saved_ptes[ctx->no_heap_vars];
 
     for (int v = 0; v < ctx->no_heap_vars; v++) {
       uint64_t* p = &ctx->heap_vars[v][i];
       heaps[v] = p;
       ptes[v] = PTE(ctx, p);
+      saved_ptes[v] = *ptes[v];
       pas[v] = PA(ctx, p);
     }
     for (int r = 0; r < ctx->no_out_regs; r++)
@@ -72,8 +97,10 @@ static void run_thread(test_ctx_t* ctx, int cpu) {
 
     func(ctx, i, heaps, ptes, regs);  /* TODO: BS: add PTE pointers */
     end_of_run(ctx, cpu, i);
+    _check_ptes(ctx, ctx->no_heap_vars, ptes, saved_ptes);
   }
 }
+
 
 
 /* static allocator
@@ -183,7 +210,7 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_threads, th_f** func
   ctx->hist = hist;
   ctx->test_name = test_name;
   ctx->ptable = NULL;
-  ctx->n_run = 0;
+  ctx->current_run = 0;
   ctx->privileged_harness = 0;
 }
 
@@ -238,7 +265,7 @@ static void add_results(test_hist_t* res, test_ctx_t* ctx, int run) {
   /* if not found, insert it */
   if (missing) {
     if (res->allocated >= res->limit) {
-      raise_to_el1();  /* can only abort at EL1 */
+      raise_to_el1(ctx);  /* can only abort at EL1 */
       printf("! fatal:  overallocated results\n");
       printf("this probably means the test had too many outcomes\n");
       abort();
@@ -260,7 +287,7 @@ static void add_results(test_hist_t* res, test_ctx_t* ctx, int run) {
 void prefetch(test_ctx_t* ctx, int i) {
   for (int v = 0; v < ctx->no_heap_vars; v++) {
     if (randn() % 2 && ctx->heap_vars[v][i] != 0) {
-      raise_to_el1();  /* can abort only at EL1 */
+      raise_to_el1(ctx);  /* can abort only at EL1 */
       printf("! fatal: initial state for heap var %d on run %d was %d not 0\n", v, i, ctx->heap_vars[v][i]);
       abort();
     }
@@ -292,19 +319,19 @@ static void resetsp(void) {
 void start_of_run(test_ctx_t* ctx, int thread, int i) {
   prefetch(ctx, i);
   bwait(thread, i % ctx->no_threads, &ctx->start_barriers[i], ctx->no_threads); 
-  if (ctx->n_run == 0 || ctx->privileged_harness)
-    drop_to_el0();
+  if (ctx->current_run == 0 || ctx->privileged_harness)
+    drop_to_el0(ctx);
 }
 
 void end_of_run(test_ctx_t* ctx, int thread, int i) {
-  if (ctx->n_run == ctx->no_runs - 1 || ctx->privileged_harness)
-    raise_to_el1();
+  if (ctx->current_run == ctx->no_runs - 1 || ctx->privileged_harness)
+    raise_to_el1(ctx);
 
   bwait(thread, i % ctx->no_threads, &ctx->end_barriers[i], ctx->no_threads);
 
   /* only 1 thread should collect the results, else they will be duplicated */
   if (thread == 0) {
-    uint64_t r = ctx->n_run++;
+    uint64_t r = ctx->current_run++;
 
     test_hist_t* res = ctx->hist;
     add_results(res, ctx, i);
@@ -453,22 +480,24 @@ void reset_handler(uint64_t vec, uint64_t ec) {
   table[cpu][vec][ec] = NULL;
 }
 
-void drop_to_el0(void) {
+void drop_to_el0(test_ctx_t* ctx) {
   asm volatile (
     "svc #10\n\t"
   :
   :
   : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
   );
+  ctx->current_EL = 0;
 }
 
-void raise_to_el1(void) {
+void raise_to_el1(test_ctx_t* ctx) {
   asm volatile (
     "svc #11\n\t"
   :
   :
   : "x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7"  /* dont touch parameter registers */
   );
+  ctx->current_EL = 1;
 }
 
 static void* default_svc_drop_el0(uint64_t vec, uint64_t esr, regvals_t* regs) {
