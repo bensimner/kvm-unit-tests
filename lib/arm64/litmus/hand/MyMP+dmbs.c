@@ -3,7 +3,7 @@
 #include "MyLitmusTests.h"
 #include "MyCommon.h"
 
-static void P0(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t** out_regs) {
+static void P0(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t* pas, uint64_t** out_regs) {
   uint64_t* x = heap_vars[0];
   uint64_t* y = heap_vars[1];
   uint64_t* x0 = out_regs[0];
@@ -21,7 +21,7 @@ static void P0(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, ui
   );
 }
 
-static void P1(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t** out_regs) {
+static void P1(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t* pas, uint64_t** out_regs) {
   uint64_t* x = heap_vars[0];
   uint64_t* y = heap_vars[1];
   uint64_t* x0 = out_regs[0];
@@ -43,8 +43,11 @@ void MyMP_dmbs(void) {
     2, (th_f*[]){P0,P1}, 
     2, (char*[]){"x", "y"}, 
     2, (char*[]){"p1:x0", "p1:x2"}, 
-    (uint64_t[]){
-      /* p1:x0 =*/ 1,
-      /* p1:x2 =*/ 0,
+    (test_config_t){
+      .interesting_result =
+        (uint64_t[]){
+          /* p1:x0 =*/ 1,
+          /* p1:x2 =*/ 0,
+        },
     });
 }

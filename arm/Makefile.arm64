@@ -36,6 +36,15 @@ cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+1svc1.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+eret0.o
 cflatobjs += lib/arm64/litmus/hand/MyMP+dmb+svc-eret.o
 cflatobjs += lib/arm64/litmus/hand/MyMMU1.o
+cflatobjs += lib/arm64/litmus/hand/MyMP.AT+dmbs.o
+cflatobjs += lib/arm64/litmus/hand/MyMP.AT+dsbs.o
+cflatobjs += lib/arm64/litmus/hand/MyMP.AT+tlbi+dmb.o
+cflatobjs += lib/arm64/litmus/hand/MyMP.AT+tlbi+dsb.o
+cflatobjs += lib/arm64/litmus/hand/MyMP.AT+tlbi+dsb-isb.o
+cflatobjs += lib/arm64/litmus/hand/MyMP.AT.INV+dmbs.o
+cflatobjs += lib/arm64/litmus/hand/MyMP.AT.INV+dmbst+dmbld.o
+cflatobjs += lib/arm64/litmus/hand/MyMP.AT.INV+dsbs.o
+cflatobjs += lib/arm64/litmus/hand/MyMP.AT.INV+dsb+dsb-isb.o
 
 OBJDIRS += lib/arm64
 OBJDIRS += lib/arm64/litmus/hand/

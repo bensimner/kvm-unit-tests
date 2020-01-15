@@ -6,7 +6,7 @@
 
 /* test payload */
 
-static void P0(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t** out_regs) {
+static void P0(test_ctx_t* ctx, int i, uint64_t** heap_vars, uint64_t** ptes, uint64_t* pas, uint64_t** out_regs) {
   raise_to_el1(ctx);  /* MMU1 runs at EL1 */
 
   uint64_t* x = heap_vars[0];
@@ -39,8 +39,11 @@ void MyMMU1(void) {
     1, (th_f*[]){P0,}, 
     2, (char*[]){"x", "y"}, 
     1, (char*[]){"x2"}, 
-    (uint64_t[]){
-    /* x2 =*/ 0,
+    (test_config_t){
+      .interesting_result =
+        (uint64_t[]){
+          /* x2 =*/ 0,
+        },
     }
   );
 }

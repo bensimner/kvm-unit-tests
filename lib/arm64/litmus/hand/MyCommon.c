@@ -9,20 +9,98 @@
 static void go_cpus(void* a);
 static void run_thread(test_ctx_t* ctx, int cpu);
 
-/* entry point */
-void run_test(const char* name, int no_threads, th_f** funcs, int no_heap_vars, const char** heap_var_names, int no_regs, const char** reg_names, uint64_t* relaxed_result) {
+static uint64_t PA(test_ctx_t* ctx, uint64_t va) {
+  /* return the PA associated with the given va in a particular iteration */
+  return translate4k(ctx->ptable, va);
+}
 
+static uint64_t PTE(test_ctx_t* ctx, uint64_t va) {
+  /* return the VA at which the PTE lives for the given va in a particular
+    * iteration */
+  return ref_pte4k(ctx->ptable, va);
+}
+
+
+/* entry point */
+void run_test(const char* name, int no_threads, th_f** funcs, int no_heap_vars, const char** heap_var_names, int no_regs, const char** reg_names, test_config_t cfg) {
   /* create test context obj */
   test_ctx_t ctx;
+  
   start_of_test(&ctx, name, no_threads, funcs, no_heap_vars, no_regs, NUMBER_OF_RUNS);
+  ctx.start_els = cfg.thread_ELs;
+  ctx.heap_var_names = heap_var_names;
+  ctx.out_reg_names = reg_names;
 
+  for (int i = 0; i < cfg.no_init_states; i++) {
+    init_varstate_t var = cfg.init_states[i];
+    const char* name = var.varname;
+    switch (var.type) {
+      case (TYPE_HEAP):
+        set_init_heap(&ctx, name, var.value);
+        break;
+      case (TYPE_PTE):
+        set_init_pte(&ctx, name, var.value);
+        break;
+    }
+  }
 
   /* run it */
   trace("%s\n", "Running Tests ...");
   on_cpus(go_cpus, &ctx);
 
   /* clean up and display results */
-  end_of_test(&ctx, reg_names, relaxed_result);
+  end_of_test(&ctx, reg_names, cfg.interesting_result);
+}
+
+int scmp(const char* a, const char* b) {
+  size_t i = 0;
+  while (1) {
+    char ac = a[i];
+    char bc = b[i];
+
+    if (ac != bc)
+      return 0;
+    
+    if (ac == '\0' && bc == '\0')
+      break;
+    
+    if (ac == '\0' || bc == '\0')
+      return 0;
+
+    i += 1;
+  }
+  return 1;
+}
+
+size_t idx_from_varname(test_ctx_t* ctx, const char* varname) {
+  for (int i = 0; i < ctx->no_heap_vars; i++) {
+    if (scmp(ctx->heap_var_names[i], varname)) {
+      return i;
+    }
+  }
+
+  printf("! err: no such variable \"%s\".\n", varname);
+  abort();
+}
+
+void set_init_pte(test_ctx_t* ctx, const char* varname, uint64_t desc) {
+  size_t idx = idx_from_varname(ctx, varname);
+
+  for (uint64_t i = 0; i < ctx->no_runs; i += 4096/sizeof(uint64_t)) {
+    uint64_t va = (uint64_t)&ctx->heap_vars[idx][i];
+    uint64_t* pte = (uint64_t*)PTE(ctx, va);
+    *pte = desc;  /* assuming 1 page per heap var */
+  }
+
+  /* no need to flush, assume this call happens before setting new pgtable */
+}
+
+void set_init_heap(test_ctx_t* ctx, const char* varname, uint64_t value) {
+  size_t idx = idx_from_varname(ctx, varname);
+  uint64_t va = (uint64_t)&ctx->heap_vars[idx][0];
+  for (int i = 0; i < ctx->no_runs; i++) {
+    ctx->heap_vars[idx][i] = value;
+  }
 }
 
 static void go_cpus(void* a) {
@@ -37,17 +115,6 @@ static void go_cpus(void* a) {
   end_of_thread(ctx, cpu);
 }
 
-static uint64_t PA(test_ctx_t* ctx, uint64_t va) {
-  /* return the PA associated with the given va in a particular iteration */
-  return translate4k(ctx->ptable, va);
-}
-
-static uint64_t PTE(test_ctx_t* ctx, uint64_t va) {
-  /* return the VA at which the PTE lives for the given va in a particular
-    * iteration */
-  return ref_pte4k(ctx->ptable, va);
-}
-
 /* detect a change in the pagetable and if so, fix it */
 static void _check_ptes(test_ctx_t* ctx, size_t n, uint64_t** ptes, uint64_t* original) {
   int reset = 0;
@@ -55,19 +122,12 @@ static void _check_ptes(test_ctx_t* ctx, size_t n, uint64_t** ptes, uint64_t* or
   for (int i = 0; i < n; i++) {
       if (*ptes[i] != original[i]) {
         *ptes[i] = original[i];
-        reset = 1;
+        dsb();
+        asm volatile ("tlbi vae1, %[va]" :: [va] "r" (ptes[i]));
       }
   }
 
-  if (reset) {
-    if (ctx->current_EL == 0) {
-      raise_to_el1(ctx);
-      flush_tlb();  
-      drop_to_el0(ctx);
-    } else {
-      flush_tlb();
-    }
-  }
+  dsb();
 }
 
 static void run_thread(test_ctx_t* ctx, int cpu) {
@@ -77,12 +137,10 @@ static void run_thread(test_ctx_t* ctx, int cpu) {
 
   for (int j = 0; j < ctx->no_runs; j++) {
     int i = ctx->shuffled_ixs[j];
-    start_of_run(ctx, cpu, i);
     uint64_t* heaps[ctx->no_heap_vars];
     uint64_t* ptes[ctx->no_heap_vars];
-    uint64_t* pas[ctx->no_heap_vars];  /* TODO: BS: wire up PAs */
+    uint64_t* pas[ctx->no_heap_vars];
     uint64_t* regs[ctx->no_out_regs];
-
     uint64_t saved_ptes[ctx->no_heap_vars];
 
     for (int v = 0; v < ctx->no_heap_vars; v++) {
@@ -92,12 +150,15 @@ static void run_thread(test_ctx_t* ctx, int cpu) {
       saved_ptes[v] = *ptes[v];
       pas[v] = PA(ctx, p);
     }
-    for (int r = 0; r < ctx->no_out_regs; r++)
+    for (int r = 0; r < ctx->no_out_regs; r++) {
       regs[r] = &ctx->out_regs[r][i];
+    }
+    start_of_run(ctx, cpu, i);
 
-    func(ctx, i, heaps, ptes, regs);  /* TODO: BS: add PTE pointers */
+    func(ctx, i, heaps, ptes, pas, regs);  /* TODO: BS: add PTE pointers */
     end_of_run(ctx, cpu, i);
     _check_ptes(ctx, ctx->no_heap_vars, ptes, saved_ptes);
+    bwait(cpu, i % ctx->no_threads, &ctx->cleanup_barriers[i], ctx->no_threads);
   }
 }
 
@@ -152,6 +213,7 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_threads, th_f** func
   uint64_t** out_regs = static_malloc(sizeof(uint64_t*)*no_out_regs);
   uint64_t* bars = static_malloc(sizeof(uint64_t)*no_runs);
   uint64_t* end_bars = static_malloc(sizeof(uint64_t)*no_runs);
+  uint64_t* clean_bars = static_malloc(sizeof(uint64_t)*no_runs);
   uint64_t* final_barrier = static_malloc(sizeof(uint64_t));
   uint64_t* shuffled = static_malloc(sizeof(uint64_t)*no_runs);
 
@@ -176,6 +238,7 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_threads, th_f** func
 
     bars[i] = 0;
     end_bars[i] = 0;
+    clean_bars[i] = 0;
     shuffled[i] = i;
   }
   *final_barrier = 0;
@@ -204,6 +267,7 @@ void init_test_ctx(test_ctx_t* ctx, char* test_name, int no_threads, th_f** func
   ctx->no_out_regs = no_out_regs;
   ctx->start_barriers = bars;
   ctx->end_barriers = end_bars;
+  ctx->cleanup_barriers = clean_bars;
   ctx->final_barrier = final_barrier;
   ctx->shuffled_ixs = shuffled;
   ctx->no_runs = no_runs;
@@ -317,14 +381,15 @@ static void resetsp(void) {
 }
 
 void start_of_run(test_ctx_t* ctx, int thread, int i) {
-  prefetch(ctx, i);
-  bwait(thread, i % ctx->no_threads, &ctx->start_barriers[i], ctx->no_threads); 
-  if (ctx->current_run == 0 || ctx->privileged_harness)
+  /* do not prefetch anymore .. not safe! */
+  /* prefetch(ctx, i); */
+  bwait(thread, i % ctx->no_threads, &ctx->start_barriers[i], ctx->no_threads);
+  if (ctx->start_els[thread] == 0)
     drop_to_el0(ctx);
 }
 
 void end_of_run(test_ctx_t* ctx, int thread, int i) {
-  if (ctx->current_run == ctx->no_runs - 1 || ctx->privileged_harness)
+  if (ctx->start_els[thread] == 0)
     raise_to_el1(ctx);
 
   bwait(thread, i % ctx->no_threads, &ctx->end_barriers[i], ctx->no_threads);
@@ -376,7 +441,7 @@ void start_of_test(test_ctx_t* ctx, const char* name, int no_threads,  th_f** fu
   ctx->ptable = alloc_new_idmap_4k();
 }
 
-void end_of_test(test_ctx_t* ctx, char** out_reg_names, int* interesting_result) {
+void end_of_test(test_ctx_t* ctx, char** out_reg_names, uint64_t* interesting_result) {
   trace("%s\n", "Printing Results...");
   print_results(ctx->hist, ctx, out_reg_names, interesting_result);
   free_test_ctx(ctx);
@@ -384,16 +449,18 @@ void end_of_test(test_ctx_t* ctx, char** out_reg_names, int* interesting_result)
   trace("Finished test %s\n", ctx->test_name);
 }
 
-void print_results(test_hist_t* res, test_ctx_t* ctx, char** out_reg_names, int* interesting_results) {
+void print_results(test_hist_t* res, test_ctx_t* ctx, char** out_reg_names, uint64_t* interesting_results) {
+  printf("\n");
   printf("Test %s:\n", ctx->test_name);
   int marked = 0;
   for (int r = 0; r < res->allocated; r++) {
-    int was_interesting = 1;
+    int was_interesting = (interesting_results == NULL) ? 0 : 1;
     for (int reg = 0; reg < ctx->no_out_regs; reg++) {
       printf(" %s=%d ", out_reg_names[reg], res->results[r]->values[reg]);
 
-      if (res->results[r]->values[reg] != interesting_results[reg])
-        was_interesting = 0;
+      if (interesting_results != NULL)
+        if (res->results[r]->values[reg] != interesting_results[reg])
+          was_interesting = 0;
     }
 
     if (was_interesting) {
@@ -443,8 +510,6 @@ void shuffle(uint64_t* arr, int n) {
     arr[y] = temp;
   }
 }
-
-
 
 /* Exception Vectors */
 static int _EXC_PRINT_LOCK = 0;
@@ -570,6 +635,17 @@ static void* default_svc_handler(uint64_t vec, uint64_t esr, regvals_t* regs) {
     return table_svc[cpu][imm](esr, regs);
 }
 
+static void* default_pgfault_handler(uint64_t vec, uint64_t esr, regvals_t* regs) {
+  uint64_t far;
+  asm volatile ("mrs %[far], FAR_EL1\n" : [far] "=r" (far));
+  int cpu = smp_processor_id();
+  uint64_t imm = far % 127;
+  if (table_pgfault[cpu][imm] == NULL)
+      return default_handler(vec, esr);
+  else
+    return table_pgfault[cpu][imm](esr, regs);
+}
+
 void* handle_exception(uint64_t vec, uint64_t esr, regvals_t* regs) {
   uint64_t ec = esr >> 26;
   int cpu = smp_processor_id();
@@ -578,6 +654,8 @@ void* handle_exception(uint64_t vec, uint64_t esr, regvals_t* regs) {
     return fn(esr, regs);
   } else if (ec == 0x15) {
     return default_svc_handler(vec, esr, regs);
+  } else if (ec | 1 == 0x23) {
+    return default_pgfault_handler(vec, esr, regs);
   } else {
     return default_handler(vec, esr);
   }
@@ -589,8 +667,25 @@ void set_svc_handler(uint64_t svc_no, exception_vector_fn* fn) {
 }
 
 void reset_svc_handler(uint64_t svc_no) {
-    int cpu = smp_processor_id();
+  int cpu = smp_processor_id();
   table_svc[cpu][svc_no] = NULL;
+}
+
+void set_pgfault_handler(uint64_t va, exception_vector_fn* fn) {
+  int cpu = smp_processor_id();
+  int idx = va % 127;
+  if (table_pgfault[cpu][idx] != NULL) {
+    printf("! err: cannot set pagefault handler for same address twice.\n");
+    abort();
+  }
+
+  table_pgfault[cpu][idx] = fn;
+  dsb();
+}
+
+void reset_pgfault_handler(uint64_t va) {
+  int cpu = smp_processor_id();
+  table_pgfault[cpu][va % 127] = NULL;
 }
 
 /* Synchronisation */

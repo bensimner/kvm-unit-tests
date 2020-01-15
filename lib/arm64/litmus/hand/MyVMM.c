@@ -367,7 +367,6 @@ void ptable_set_range_4k_smart(uint64_t* root, uint64_t va_start,
 
 void ptable_set_idrange_4k_smart(uint64_t* root, uint64_t va_start,
                                  uint64_t va_end, uint64_t prot) {
-    //trace("[ptable_set_idrange_4k_smart] %p -> %p\n", va_start, va_end);
     ptable_set_range_4k_smart(root, va_start, va_end, va_start, prot);
 }
 
@@ -493,6 +492,12 @@ uint64_t read_ttbr(void) {
     uint64_t r;
     asm volatile ("mrs %[r], ttbr0_el1\n" : [r] "=r" (r));
     return r;
+}
+
+void vmm_flush_tlb_vaddr(uint64_t va) {
+    dsb();
+    asm volatile("tlbi vae1, %[va]\n" : : [va] "r" (va));
+    dsb();
 }
 
 void flush_tlb(void) {

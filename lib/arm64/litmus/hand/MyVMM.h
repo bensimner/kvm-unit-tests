@@ -40,6 +40,7 @@ void ptable_set_range_4k_smart(uint64_t* root, uint64_t va_start,
 void ptable_set_idrange_4k_smart(uint64_t* root, uint64_t va_start,
                                  uint64_t va_end, uint64_t prot);
 
+void vmm_flush_tlb_vaddr(uint64_t va);
 void flush_tlb(void);
 
 /* test pagetable management */

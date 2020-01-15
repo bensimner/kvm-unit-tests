@@ -14,6 +14,15 @@ int main(int argc, char **argv)
   MyMP_dmb_eret0();
   MyMP_dmb_svc_eret();
   MyMMU1();
+  MyMP_AT_dmbs();
+  MyMP_AT_dsbs();
+  MyMP_AT_tlbi_dmb();
+  MyMP_AT_tlbi_dsb();
+  MyMP_AT_tlbi_dsb_isb();
+  MyMP_AT_inv_dmbs();
+  MyMP_AT_inv_dsbs();
+  MyMP_AT_inv_dsb_dsb_isb();
+  MyMP_AT_inv_dmbst_dmbld();
 
   printf("<end of litmus tests>\n");
   return report_summary();
